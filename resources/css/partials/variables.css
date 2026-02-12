@@ -1,0 +1,15 @@
+/* Shared CSS variables for PRS panel layouts */
+:root {
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --sidebar-bg: #f9fafb;
+    --sidebar-border: #e5e7eb;
+    --sidebar-text: #6b7280;
+    --sidebar-text-dark: #111827;
+    --bg-main: #f3f4f6;
+    --card-white: #ffffff;
+    --danger: #ef4444;
+    --success: #047857;
+    --text-dark: #1e293b;
+    --text-muted: #6b7280;
+}

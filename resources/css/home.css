@@ -1,0 +1,272 @@
+/* Home / Sign-in page - standalone styles */
+:root {
+    --gov-blue: #003366;
+    --gov-blue-light: #004080;
+    --gov-red: #bf0a30;
+    --bg-main: #f1f5f9;
+    --text-dark: #1e293b;
+    --card-shadow: 0 4px 6px -1px rgba(0,51,102,.06), 0 10px 20px -5px rgba(0,51,102,.08);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background-color: var(--bg-main);
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 17.32V52.32L30 70 0 52.32V17.32L30 0z' fill='none' stroke='%23cbd5e1' stroke-width='0.5' opacity='0.5'/%3E%3C/svg%3E");
+    color: var(--text-dark);
+    display: flex;
+    flex-direction: column;
+}
+
+.gov-bar {
+    background: #1a1a1a;
+    color: #fff;
+    padding: 10px 24px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+}
+
+.gov-bar .ph-icon {
+    width: 24px;
+    height: 24px;
+    background: linear-gradient(180deg, var(--gov-red) 50%, var(--gov-blue) 50%);
+    border-radius: 2px;
+    flex-shrink: 0;
+}
+
+.gov-bar .sep {
+    width: 1px;
+    height: 14px;
+    background: rgba(255,255,255,0.5);
+    margin: 0 4px;
+}
+
+.branding {
+    background: #fff;
+    padding: 20px 32px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    border-bottom: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0,0,0,.04);
+}
+
+.branding .dict-logo {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--gov-blue);
+    letter-spacing: 0.3px;
+    flex-shrink: 0;
+}
+
+.branding .system-name {
+    flex: 1;
+}
+
+.branding .system-name h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gov-blue);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+}
+
+.branding .system-name p {
+    font-size: 0.875rem;
+    color: #64748b;
+    margin-top: 4px;
+    margin-left: 0;
+}
+
+.branding-lines {
+    height: 6px;
+    display: flex;
+    flex-direction: column;
+}
+
+.branding-lines .band-red {
+    height: 3px;
+    background: var(--gov-red);
+}
+
+.branding-lines .band-blue {
+    height: 3px;
+    background: var(--gov-blue);
+}
+
+.main-wrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px;
+}
+
+.signin-card {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: var(--card-shadow);
+    width: 100%;
+    max-width: 420px;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+}
+
+.signin-card .card-top-band {
+    height: 6px;
+    display: flex;
+}
+
+.signin-card .card-top-band .band-red {
+    flex: 1;
+    background: var(--gov-red);
+}
+
+.signin-card .card-top-band .band-blue {
+    flex: 1;
+    background: var(--gov-blue);
+}
+
+.signin-card .card-body {
+    padding: 36px 32px;
+    text-align: center;
+}
+
+.signin-card .building-icon {
+    width: 68px;
+    height: 68px;
+    margin: 0 auto 18px;
+    background: linear-gradient(135deg, #e0e7ff 0%, #f0f4ff 100%);
+    color: var(--gov-blue);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.signin-card .building-icon .material-icons {
+    font-size: 36px;
+}
+
+.signin-card h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+}
+
+.signin-card .welcome-text {
+    font-size: 14px;
+    color: #64748b;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+.signin-card .welcome-text strong {
+    color: var(--text-dark);
+}
+
+.btn-gmail {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 14px 20px;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #334155;
+    text-decoration: none;
+    transition: background .2s, box-shadow .2s, border-color .2s;
+}
+
+.btn-gmail:hover {
+    background: #f8fafc;
+    box-shadow: 0 2px 8px rgba(0,51,102,.08);
+    border-color: #cbd5e1;
+    color: var(--text-dark);
+}
+
+.btn-gmail:focus {
+    outline: 2px solid var(--gov-blue);
+    outline-offset: 2px;
+}
+
+.btn-gmail svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.signin-card .terms {
+    font-size: 12px;
+    color: #64748b;
+    margin-top: 18px;
+    line-height: 1.5;
+}
+
+.signin-card .terms a {
+    color: var(--gov-blue);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.signin-card .terms a:hover {
+    text-decoration: underline;
+}
+
+.alert-error {
+    background: #fef2f2;
+    color: #b91c1c;
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 14px;
+    margin-bottom: 18px;
+    border: 1px solid #fecaca;
+}
+
+.footer {
+    background: #fff;
+    padding: 20px 24px;
+    text-align: center;
+    border-top: 1px solid #e2e8f0;
+}
+
+.footer .copyright {
+    font-size: 12px;
+    color: #64748b;
+    margin-bottom: 8px;
+}
+
+.footer .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.footer .footer-links a {
+    font-size: 13px;
+    color: var(--gov-blue);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.footer .footer-links a:hover {
+    text-decoration: underline;
+}

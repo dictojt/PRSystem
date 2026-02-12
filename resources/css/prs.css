@@ -1,0 +1,30 @@
+/* PRS layout - Bootstrap override styles for prs.blade.php */
+:root {
+    --prs-primary: #2563eb;
+    --prs-sidebar: #1e293b;
+    --prs-card: #f8fafc;
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: #f1f5f9;
+}
+
+.navbar-prs {
+    background: var(--prs-sidebar) !important;
+}
+
+.card {
+    border: none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .08);
+}
+
+.btn-prs {
+    background: var(--prs-primary);
+    color: #fff;
+}
+
+.btn-prs:hover {
+    background: #1d4ed8;
+    color: #fff;
+}

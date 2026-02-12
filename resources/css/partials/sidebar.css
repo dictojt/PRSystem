@@ -1,0 +1,275 @@
+/* Sidebar component - shared by user-panel, super-admin, approver */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 280px;
+    min-width: 280px;
+    max-width: 280px;
+    background: var(--sidebar-bg);
+    color: var(--sidebar-text-dark);
+    padding: 16px 12px;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+    transition: width 0.25s ease, min-width 0.25s ease, max-width 0.25s ease;
+    z-index: 1000;
+    border-right: 1px solid var(--sidebar-border);
+}
+
+.sidebar.collapsed {
+    width: 72px;
+    min-width: 72px;
+    max-width: 72px;
+    padding: 12px 8px;
+    flex-shrink: 0;
+}
+
+.sidebar.collapsed .sidebar-label,
+.sidebar.collapsed .menu-top a .sidebar-label,
+.sidebar.collapsed .logout button .sidebar-label,
+.sidebar.collapsed .logout .logout-link .sidebar-label,
+.sidebar.collapsed .logout .logout-link-get .sidebar-label,
+.sidebar.collapsed .profile-card .profile-name,
+.sidebar.collapsed .profile-card .profile-email {
+    display: none !important;
+}
+
+.sidebar.collapsed .sidebar-header {
+    flex-direction: column-reverse;
+    gap: 6px;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+}
+
+.sidebar.collapsed .sidebar-header h2 {
+    justify-content: center;
+    margin-bottom: 0;
+}
+
+.sidebar.collapsed .profile-card {
+    justify-content: center;
+    padding: 10px;
+}
+
+.sidebar.collapsed .profile-avatar {
+    margin-right: 0;
+}
+
+.sidebar.collapsed .menu-top a,
+.sidebar.collapsed .logout button,
+.sidebar.collapsed .logout .logout-link,
+.sidebar.collapsed .logout .logout-link-get {
+    justify-content: center;
+    padding: 12px;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 4px 12px;
+    margin-bottom: 12px;
+    min-height: 48px;
+    flex-shrink: 0;
+    gap: 12px;
+}
+
+.sidebar-header h2 {
+    flex: 1;
+    min-width: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--sidebar-text-dark);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sidebar-header h2 .material-icons {
+    color: var(--primary);
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+.sidebar-toggle {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    min-height: 32px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
+    transition: transform 0.2s, background 0.2s;
+}
+
+.sidebar-toggle:hover {
+    transform: scale(1.05);
+    background: var(--primary-hover);
+}
+
+.sidebar-toggle .material-icons {
+    font-size: 18px;
+}
+
+.sidebar.collapsed .sidebar-toggle .material-icons {
+    transform: rotate(180deg);
+}
+
+.profile-card {
+    display: flex;
+    align-items: center;
+    padding: 12px 10px;
+    margin-bottom: 16px;
+    background: var(--card-white);
+    border-radius: 12px;
+    border: 1px solid var(--sidebar-border);
+    flex-shrink: 0;
+}
+
+.profile-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), #6366f1);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+.profile-info {
+    min-width: 0;
+}
+
+.profile-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--sidebar-text-dark);
+    margin-bottom: 2px;
+}
+
+.profile-email {
+    font-size: 12px;
+    color: var(--sidebar-text);
+}
+
+.menu-top {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.menu-top a {
+    background: transparent;
+    color: var(--sidebar-text);
+    padding: 10px 12px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    width: 100%;
+}
+
+.menu-top a:hover {
+    background: #e5e7eb;
+    color: var(--sidebar-text-dark);
+}
+
+.menu-top a.active {
+    background: #eff6ff;
+    color: var(--primary);
+}
+
+.menu-top a.active .material-icons {
+    color: var(--primary);
+}
+
+.menu-top a .material-icons {
+    flex-shrink: 0;
+    font-size: 20px;
+    color: var(--sidebar-text);
+}
+
+.logout {
+    padding-top: 16px;
+    border-top: 1px solid var(--sidebar-border);
+}
+
+.logout button,
+.logout .logout-link-get {
+    width: 100%;
+    background: transparent;
+    color: var(--danger);
+    border: none;
+    padding: 10px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: flex-start;
+    font-weight: 600;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.logout button:hover,
+.logout .logout-link-get:hover {
+    background: #fef2f2;
+    color: var(--danger);
+}
+
+.logout button .material-icons,
+.logout .logout-link-get .material-icons {
+    flex-shrink: 0;
+    font-size: 20px;
+}
+
+.logout-link {
+    width: 100%;
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: flex-start;
+    font-weight: 600;
+    font-size: 14px;
+    transition: 0.2s;
+    text-decoration: none;
+}
+
+.logout-link:hover {
+    background: var(--primary-hover);
+    color: white;
+}
+
+.logout-link .material-icons {
+    flex-shrink: 0;
+    font-size: 20px;
+}

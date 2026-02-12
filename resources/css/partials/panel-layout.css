@@ -1,0 +1,78 @@
+/* Main content area and common panel layout */
+.main {
+    position: relative;
+    z-index: 1;
+    margin-left: 280px;
+    width: calc(100% - 280px);
+    height: 100vh;
+    padding: 24px 32px 32px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    transition: margin-left 0.25s ease, width 0.25s ease;
+    background: var(--bg-main);
+}
+
+body.sidebar-collapsed .main {
+    margin-left: 72px;
+    width: calc(100% - 72px);
+}
+
+.breadcrumb {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+}
+
+.breadcrumb a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.guest-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 10px;
+    font-size: 14px;
+    color: #1e40af;
+}
+
+.guest-notice .material-icons {
+    flex-shrink: 0;
+    font-size: 22px;
+    margin-top: 1px;
+}
+
+.guest-notice a {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.guest-notice a:hover {
+    text-decoration: underline;
+}
+
+.header-section {
+    margin-bottom: 24px;
+}
+
+.header-section h1 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--text-dark);
+}
+
+.header-section p {
+    font-size: 14px;
+    color: var(--text-muted);
+}
