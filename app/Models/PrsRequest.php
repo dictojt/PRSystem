@@ -25,6 +25,8 @@ class PrsRequest extends Model
         'rejected_by_id',
         'rejected_at',
         'rejection_reason',
+        'approved_id',
+        'archived_at',
     ];
 
     protected function casts(): array
@@ -32,7 +34,24 @@ class PrsRequest extends Model
         return [
             'approved_at' => 'datetime',
             'rejected_at' => 'datetime',
+            'archived_at' => 'datetime',
         ];
+    }
+
+    /**
+     * Scope: exclude archived requests (default list view).
+     */
+    public function scopeNotArchived($query)
+    {
+        return $query->whereNull('archived_at');
+    }
+
+    /**
+     * Scope: only archived requests (Archived tab).
+     */
+    public function scopeArchived($query)
+    {
+        return $query->whereNotNull('archived_at');
     }
 
     public function user(): BelongsTo
@@ -74,5 +93,27 @@ class PrsRequest extends Model
         }
 
         return sprintf('REQ-%s-%s-%05d', $year, $month, $seq);
+    }
+
+    /**
+     * Generate unique 6-digit approved_id (used when status becomes Approved).
+     * Stored as string, e.g. "100000" .. "999999".
+     */
+    public static function generateApprovedId(): string
+    {
+        $maxAttempts = 100;
+        for ($i = 0; $i < $maxAttempts; $i++) {
+            $num = random_int(100000, 999999);
+            $candidate = (string) $num;
+            if (! static::where('approved_id', $candidate)->exists()) {
+                return $candidate;
+            }
+        }
+        $last = static::whereNotNull('approved_id')->orderByDesc('id')->value('approved_id');
+        $num = $last ? (int) $last + 1 : 100000;
+        if ($num > 999999) {
+            $num = 100000;
+        }
+        return str_pad((string) $num, 6, '0', STR_PAD_LEFT);
     }
 }

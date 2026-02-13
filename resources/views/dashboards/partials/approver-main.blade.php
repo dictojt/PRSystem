@@ -73,7 +73,7 @@
     <table class="data-table">
         <thead>
             <tr>
-                <th>Request ID</th>
+                <th>ID</th>
                 <th>Requestor</th>
                 <th>Item Details</th>
                 <th>Request Date</th>
@@ -89,7 +89,7 @@
         <tbody>
             @forelse(($listRequests ?? []) as $req)
             <tr>
-                <td>{{ $req['request_id'] ?? $req['id'] }}</td>
+                <td>{{ (($req['status'] ?? '') === 'Approved' && !empty($req['approved_id'] ?? null)) ? $req['approved_id'] : ($req['request_id'] ?? $req['id']) }}</td>
                 <td>{{ $req['requestor'] }}</td>
                 <td>{{ $req['item'] }}{{ isset($req['quantity']) && $req['quantity'] > 1 ? ' (Qty: ' . $req['quantity'] . ')' : '' }}</td>
                 <td>{{ $req['date'] }}</td>
@@ -112,10 +112,10 @@
                                 $approveRoute = request()->routeIs('approver.guest') ? 'approver.guest.approve' : 'approver.approve';
                                 $rejectRoute = request()->routeIs('approver.guest') ? 'approver.guest.reject' : 'approver.reject';
                             @endphp
-                            <form action="{{ route($approveRoute, ['id' => $req['id']]) }}?tab={{ urlencode($tab ?? '') }}" method="POST" class="form-inline" style="display:inline;">
+                            <form id="approve-form-{{ $req['id'] }}" action="{{ route($approveRoute, ['id' => $req['id']]) }}?tab={{ urlencode($tab ?? '') }}" method="POST" class="form-inline" style="display:inline;">
                                 @csrf
                                 <input type="hidden" name="tab" value="{{ $tab ?? '' }}">
-                                <button type="submit" class="btn-sm btn-approve">Approve</button>
+                                <button type="button" class="btn-sm btn-approve approve-trigger" data-form-id="approve-form-{{ $req['id'] }}" data-request-id="{{ $req['request_id'] ?? $req['id'] }}">Approve</button>
                             </form>
                             <button type="button" class="btn-sm btn-reject reject-trigger" data-reject-url="{{ route($rejectRoute, ['id' => $req['id']]) }}" data-tab="{{ $tab ?? '' }}" data-request-id="{{ $req['request_id'] ?? $req['id'] }}">Reject</button>
                         @endif
@@ -142,6 +142,22 @@
 <footer class="footer">
     <p class="copyright">© {{ date('Y') }} Product Request System - DICT</p>
 </footer>
+
+{{-- Approve confirmation modal (approver) --}}
+<div id="approveModal" class="approve-modal-wrap" role="dialog" aria-modal="true" aria-labelledby="approveModalTitle" aria-hidden="true">
+    <div class="approve-modal-backdrop" id="approveModalBackdrop"></div>
+    <div class="approve-modal-content" id="approveModalContent">
+        <div class="approve-modal-header">
+            <h2 id="approveModalTitle" class="approve-modal-title">Approve Request</h2>
+            <button type="button" class="approve-modal-close" id="approveModalClose" aria-label="Close">&times;</button>
+        </div>
+        <p id="approveModalMessage" class="approve-modal-desc">Approve this request? This will generate a 6-digit approved ID and mark the item as approved.</p>
+        <div class="approve-modal-actions">
+            <button type="button" id="approveModalCancel" class="btn-approve-cancel">Cancel</button>
+            <button type="button" id="approveModalConfirm" class="btn-approve-confirm">Approve</button>
+        </div>
+    </div>
+</div>
 
 <script>
 (function() {
@@ -187,6 +203,53 @@
 
     if (modal) modal.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') closeModal();
+    });
+
+    // Approve confirmation modal
+    var approveModal = document.getElementById('approveModal');
+    var approveBackdrop = document.getElementById('approveModalBackdrop');
+    var approveMessage = document.getElementById('approveModalMessage');
+    var approveCancel = document.getElementById('approveModalCancel');
+    var approveConfirm = document.getElementById('approveModalConfirm');
+    var approveClose = document.getElementById('approveModalClose');
+    var pendingApproveFormId = null;
+
+    function openApproveModal(formId, requestId) {
+        pendingApproveFormId = formId;
+        if (approveMessage) approveMessage.innerHTML = 'Approve request <strong>' + (requestId || '') + '</strong>? This will generate a 6-digit approved ID and mark the item as approved.';
+        if (approveModal) {
+            approveModal.classList.add('is-open');
+            approveModal.setAttribute('aria-hidden', 'false');
+        }
+    }
+
+    function closeApproveModal() {
+        pendingApproveFormId = null;
+        if (approveModal) {
+            approveModal.classList.remove('is-open');
+            approveModal.setAttribute('aria-hidden', 'true');
+        }
+    }
+
+    document.querySelectorAll('.approve-trigger').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var formId = btn.getAttribute('data-form-id');
+            var requestId = btn.getAttribute('data-request-id') || '';
+            if (formId) openApproveModal(formId, requestId);
+        });
+    });
+    if (approveConfirm) approveConfirm.addEventListener('click', function() {
+        if (pendingApproveFormId) {
+            var form = document.getElementById(pendingApproveFormId);
+            if (form) form.submit();
+        }
+        closeApproveModal();
+    });
+    if (approveCancel) approveCancel.addEventListener('click', closeApproveModal);
+    if (approveClose) approveClose.addEventListener('click', closeApproveModal);
+    if (approveBackdrop) approveBackdrop.addEventListener('click', closeApproveModal);
+    if (approveModal) approveModal.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeApproveModal();
     });
 })();
 </script>

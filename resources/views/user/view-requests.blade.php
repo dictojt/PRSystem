@@ -37,6 +37,9 @@
 .view-requests-page .status-dot-all { background: #94a3b8; }
 .view-requests-page .status-dot-pending { background: #f59e0b; }
 .view-requests-page .status-dot-completed { background: #10b981; }
+.view-requests-page .status-dot-rejected { background: #ef4444; }
+.view-requests-page .status-filter-option.selected { background: #eff6ff; color: #1d4ed8; }
+.view-requests-page .status-filter-menu a.status-filter-option { text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px; }
 .view-requests-page .status-filter-label {
     font-size: 12px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: .05em;
 }
@@ -63,25 +66,32 @@
             <span class="status-filter-label">Filter by status</span>
             <div class="status-filter-dropdown" id="status-filter-dropdown">
                 <button type="button" class="status-filter-trigger" id="status-filter-trigger" aria-haspopup="listbox" aria-expanded="false" aria-label="Filter by status">
-                    <span class="status-filter-value" id="status-filter-value">{{ ($filter ?? 'all') === 'all' ? 'All' : (($filter ?? 'all') === 'pending' ? 'Pending' : 'Completed') }}</span>
+                    @php
+                        $f = $filter ?? 'all';
+                        $filterLabel = $f === 'all' ? 'All' : ($f === 'pending' ? 'Pending' : ($f === 'approved' ? 'Approved' : 'Rejected'));
+                    @endphp
+                    <span class="status-filter-value" id="status-filter-value">{{ $filterLabel }}</span>
                     <span class="status-filter-chevron" aria-hidden="true"></span>
                 </button>
                 <div class="status-filter-menu" id="status-filter-menu" role="listbox" aria-hidden="true">
-                    <div class="status-filter-option" role="option" data-value="all" tabindex="0" {{ ($filter ?? 'all') === 'all' ? 'aria-selected="true"' : '' }}>
+                    <a href="{{ route('user.requests.view', ['status' => 'all']) }}" class="status-filter-option {{ ($filter ?? 'all') === 'all' ? 'selected' : '' }}">
                         <span class="status-filter-option-dot status-dot-all"></span>
                         <span>All</span>
-                    </div>
-                    <div class="status-filter-option" role="option" data-value="pending" tabindex="0" {{ ($filter ?? 'all') === 'pending' ? 'aria-selected="true"' : '' }}>
+                    </a>
+                    <a href="{{ route('user.requests.view', ['status' => 'pending']) }}" class="status-filter-option {{ ($filter ?? 'all') === 'pending' ? 'selected' : '' }}">
                         <span class="status-filter-option-dot status-dot-pending"></span>
                         <span>Pending</span>
-                    </div>
-                    <div class="status-filter-option" role="option" data-value="completed" tabindex="0" {{ ($filter ?? 'all') === 'completed' ? 'aria-selected="true"' : '' }}>
+                    </a>
+                    <a href="{{ route('user.requests.view', ['status' => 'approved']) }}" class="status-filter-option {{ ($filter ?? 'all') === 'approved' ? 'selected' : '' }}">
                         <span class="status-filter-option-dot status-dot-completed"></span>
-                        <span>Completed</span>
-                    </div>
+                        <span>Approved</span>
+                    </a>
+                    <a href="{{ route('user.requests.view', ['status' => 'rejected']) }}" class="status-filter-option {{ ($filter ?? 'all') === 'rejected' ? 'selected' : '' }}">
+                        <span class="status-filter-option-dot status-dot-rejected"></span>
+                        <span>Rejected</span>
+                    </a>
                 </div>
             </div>
-            <input type="hidden" id="status-filter" value="{{ $filter ?? 'all' }}">
         </div>
     </div>
     @if(count($requests) > 0)
@@ -89,7 +99,7 @@
         <table class="data-table" id="requests-table">
             <thead>
                 <tr>
-                    <th>Request ID</th>
+                    <th>ID</th>
                     <th>Item</th>
                     <th>Description</th>
                     <th>Qty</th>
@@ -100,11 +110,8 @@
             </thead>
             <tbody>
                 @foreach($requests as $req)
-                @php
-                    $filterGroup = in_array($req['status'], ['Pending', 'Processing', 'In Review']) ? 'pending' : 'completed';
-                @endphp
-                <tr data-filter="{{ $filterGroup }}">
-                    <td><strong>{{ $req['request_id'] }}</strong></td>
+                <tr>
+                    <td><strong>{{ ($req['status'] ?? '') === 'Approved' && !empty($req['approved_id'] ?? null) ? $req['approved_id'] : $req['request_id'] }}</strong></td>
                     <td>{{ $req['item_name'] }}</td>
                     <td class="description-cell">
                         @if(!empty($req['description'] ?? null))
@@ -150,11 +157,10 @@
             </tbody>
         </table>
     </div>
-    <p id="filter-no-results" class="filter-no-results" style="display: none; color: #6b7280; padding: 24px; margin: 0;">No <span id="filter-no-results-label">pending</span> requests.</p>
     @else
     <p style="color: #6b7280; padding: 24px; margin: 0;">
         @if(($filter ?? 'all') !== 'all')
-            No {{ $filter === 'pending' ? 'pending' : 'completed' }} requests.
+            No {{ $filter === 'pending' ? 'pending' : ($filter === 'approved' ? 'approved' : 'rejected') }} requests.
         @else
             You have not submitted any requests yet. <a href="{{ route('user.requests.create') }}">Create a request</a> to get started.
         @endif
@@ -168,42 +174,11 @@
 @push('scripts')
 <script>
 (function() {
-    var hiddenInput = document.getElementById('status-filter');
     var trigger = document.getElementById('status-filter-trigger');
-    var valueDisplay = document.getElementById('status-filter-value');
     var menu = document.getElementById('status-filter-menu');
     var dropdown = document.getElementById('status-filter-dropdown');
     var table = document.getElementById('requests-table');
-    var noResults = document.getElementById('filter-no-results');
-    var noResultsLabel = document.getElementById('filter-no-results-label');
-    if (!hiddenInput || !table) return;
-    var rows = table.querySelectorAll('tbody tr[data-filter]');
-    var labels = { all: 'All', pending: 'Pending', completed: 'Completed' };
-
-    function filterRows() {
-        var value = hiddenInput.value;
-        var visible = 0;
-        rows.forEach(function(row) {
-            var show = value === 'all' || row.getAttribute('data-filter') === value;
-            row.style.display = show ? '' : 'none';
-            if (show) visible++;
-        });
-        if (noResults) {
-            noResults.style.display = (value !== 'all' && visible === 0) ? 'block' : 'none';
-            if (noResultsLabel) noResultsLabel.textContent = value === 'pending' ? 'pending' : 'completed';
-        }
-    }
-
-    function setValue(value) {
-        hiddenInput.value = value;
-        if (valueDisplay) valueDisplay.textContent = labels[value] || value;
-        filterRows();
-        menu.setAttribute('aria-hidden', 'true');
-        if (trigger) trigger.setAttribute('aria-expanded', 'false');
-        dropdown.classList.remove('is-open');
-        var opts = menu.querySelectorAll('.status-filter-option');
-        opts.forEach(function(o) { o.setAttribute('aria-selected', o.getAttribute('data-value') === value ? 'true' : 'false'); });
-    }
+    if (!table) return;
 
     if (trigger && menu) {
         trigger.addEventListener('click', function(e) {
@@ -212,21 +187,14 @@
             menu.setAttribute('aria-hidden', !open);
             trigger.setAttribute('aria-expanded', open);
         });
-        menu.querySelectorAll('.status-filter-option').forEach(function(opt) {
-            opt.addEventListener('click', function() { setValue(opt.getAttribute('data-value')); });
-            opt.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setValue(opt.getAttribute('data-value')); }
-            });
+        document.addEventListener('click', function() {
+            if (dropdown && dropdown.classList.contains('is-open')) {
+                dropdown.classList.remove('is-open');
+                menu.setAttribute('aria-hidden', 'true');
+                trigger.setAttribute('aria-expanded', 'false');
+            }
         });
     }
-    document.addEventListener('click', function() {
-        if (dropdown && dropdown.classList.contains('is-open')) {
-            dropdown.classList.remove('is-open');
-            menu.setAttribute('aria-hidden', 'true');
-            if (trigger) trigger.setAttribute('aria-expanded', 'false');
-        }
-    });
-    filterRows();
 
     // Long description: "View full" / "Show less" toggle
     table.querySelectorAll('.description-toggle-link').forEach(function(btn) {

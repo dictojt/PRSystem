@@ -23,7 +23,9 @@ class AuthController extends Controller
             return redirect()->route('home')->with('error', 'Google sign-in is not configured. In .env add your GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET (from Google Cloud Console), save the file, then run in terminal: php artisan config:clear');
         }
 
-        return Socialite::driver('google')->redirect();
+        // Use current request URL for callback so when accessed via ngrok/tunnel, Google redirects back to the same host (not localhost)
+        $callbackUrl = route('auth.google.callback');
+        return Socialite::driver('google')->redirectUrl($callbackUrl)->redirect();
     }
 
     /**
@@ -31,13 +33,19 @@ class AuthController extends Controller
      */
     public function handleGoogleCallback()
     {
+        $callbackUrl = route('auth.google.callback');
         try {
-            $googleUser = Socialite::driver('google')->user();
+            // Use same callback URL as the redirect (current request origin) so token exchange matches when using ngrok
+            $googleUser = Socialite::driver('google')->redirectUrl($callbackUrl)->user();
         } catch (\Laravel\Socialite\Two\InvalidStateException $e) {
             Log::warning('Google OAuth InvalidStateException', ['message' => $e->getMessage()]);
             return redirect()->route('home')->with('error', 'Session expired or invalid. Please try signing in again.');
         } catch (\Exception $e) {
-            Log::error('Google OAuth error', ['message' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);
+            Log::error('Google OAuth error', [
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+                'callback_url' => $callbackUrl,
+            ]);
             return redirect()->route('home')->with('error', 'Unable to sign in with Google. Please try again.');
         }
 

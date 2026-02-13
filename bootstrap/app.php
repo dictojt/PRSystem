@@ -13,6 +13,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->redirectGuestsTo(fn () => route('home'));
         $middleware->validateCsrfTokens(except: ['logout']);
+        // Trust ngrok and other reverse proxies so Laravel sees correct scheme (HTTPS) and host
+        $middleware->trustProxies(at: '*');
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

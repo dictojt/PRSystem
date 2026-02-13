@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PrsRequest;
+use App\Models\RequestAction;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -89,14 +90,134 @@ class SuperAdminController extends Controller
 
     /**
      * All Requests - list all PRS requests
+     * Query: ?status=all|pending|approved|rejected|archived
      */
-    public function allRequests()
+    public function allRequests(Request $request)
     {
-        $requests = PrsRequest::with(['user', 'approvedBy', 'rejectedBy'])
-            ->orderByDesc('created_at')
-            ->paginate(15);
+        $filter = $request->query('status', 'all');
+        if (! in_array($filter, ['all', 'pending', 'approved', 'rejected', 'archived'], true)) {
+            $filter = 'all';
+        }
 
-        return view('superadmin.all-requests', compact('requests'));
+        if ($filter === 'archived') {
+            $requests = PrsRequest::with(['user', 'approvedBy', 'rejectedBy'])
+                ->archived()
+                ->orderByDesc('archived_at')
+                ->paginate(15)->withQueryString();
+        } else {
+            $query = PrsRequest::with(['user', 'approvedBy', 'rejectedBy'])
+                ->notArchived()
+                ->orderByDesc('created_at');
+
+            if ($filter !== 'all') {
+                $statusMap = ['pending' => 'Pending', 'approved' => 'Approved', 'rejected' => 'Rejected'];
+                $query->where('status', $statusMap[$filter]);
+            }
+
+            $requests = $query->paginate(15)->withQueryString();
+        }
+
+        return view('superadmin.all-requests', compact('requests', 'filter'));
+    }
+
+    /**
+     * Archive a request (superadmin only). Hidden from default lists; visible in Archived tab.
+     */
+    public function archiveRequest(int $id)
+    {
+        $this->ensureSuperadmin();
+        $prsRequest = PrsRequest::findOrFail($id);
+        $prsRequest->update(['archived_at' => now()]);
+        $statusParam = request('status', 'all');
+        return redirect()->route('superadmin.requests', ['status' => $statusParam])
+            ->with('message', 'Request archived. It will no longer appear in the main list.');
+    }
+
+    /**
+     * Approve a pending request (superadmin only). Generates approved_id and marks as Approved.
+     */
+    public function approveRequest(int $id)
+    {
+        $this->ensureSuperadmin();
+        $prsRequest = PrsRequest::findOrFail($id);
+
+        if ($prsRequest->status !== 'Pending') {
+            return redirect()->route('superadmin.requests', ['status' => request('status', 'all')])
+                ->with('error', "Request {$prsRequest->request_id} is no longer pending.");
+        }
+
+        $prsRequest->update([
+            'status' => 'Approved',
+            'approved_by_id' => auth()->id(),
+            'approved_at' => now(),
+            'approved_id' => PrsRequest::generateApprovedId(),
+        ]);
+
+        RequestAction::where('request_id', $prsRequest->id)->update(['status' => 'completed']);
+
+        $statusParam = request('status', 'all');
+        return redirect()->route('superadmin.requests', ['status' => $statusParam])
+            ->with('message', "Request {$prsRequest->request_id} approved. Approved ID: {$prsRequest->fresh()->approved_id}.");
+    }
+
+    /**
+     * Reject a pending request (superadmin only). Optional rejection reason.
+     */
+    public function rejectRequest(Request $request, int $id)
+    {
+        $this->ensureSuperadmin();
+        $request->validate([
+            'rejection_reason' => ['nullable', 'string', 'max:500'],
+        ]);
+        $prsRequest = PrsRequest::findOrFail($id);
+
+        if ($prsRequest->status !== 'Pending') {
+            return redirect()->route('superadmin.requests', ['status' => $request->input('status', 'all')])
+                ->with('error', "Request {$prsRequest->request_id} is no longer pending.");
+        }
+
+        $prsRequest->update([
+            'status' => 'Rejected',
+            'rejected_by_id' => auth()->id(),
+            'rejected_at' => now(),
+            'rejection_reason' => $request->input('rejection_reason'),
+        ]);
+
+        RequestAction::where('request_id', $prsRequest->id)->update(['status' => 'completed']);
+
+        $statusParam = $request->input('status', 'all');
+        return redirect()->route('superadmin.requests', ['status' => $statusParam])
+            ->with('message', "Request {$prsRequest->request_id} rejected.");
+    }
+
+    /**
+     * Update a request (edit item name, description, quantity). Superadmin only.
+     */
+    public function updateRequest(Request $request, int $id)
+    {
+        $this->ensureSuperadmin();
+        $validated = $request->validate([
+            'item_name' => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string', 'max:65535'],
+            'quantity' => ['required', 'integer', 'min:1', 'max:99999'],
+        ]);
+        $prsRequest = PrsRequest::findOrFail($id);
+        $prsRequest->update($validated);
+        $statusParam = $request->input('status', 'all');
+        return redirect()->route('superadmin.requests', ['status' => $statusParam])
+            ->with('message', 'Request updated successfully.');
+    }
+
+    /**
+     * Restore an archived request (superadmin only). Clears archived_at so it reappears in the main list.
+     */
+    public function restoreRequest(int $id)
+    {
+        $this->ensureSuperadmin();
+        $prsRequest = PrsRequest::findOrFail($id);
+        $prsRequest->update(['archived_at' => null]);
+        return redirect()->route('superadmin.requests', ['status' => 'archived'])
+            ->with('message', 'Request restored. It will appear in the main list again.');
     }
 
     /**

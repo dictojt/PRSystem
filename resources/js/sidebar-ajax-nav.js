@@ -106,7 +106,10 @@ export function initSidebarAjaxNav() {
       const href = link.href;
       if (!href) return;
       loadPartial(href).then((applied) => {
-        if (applied) history.pushState({ sidebarPartial: true }, '', href);
+        if (applied) {
+          history.pushState({ sidebarPartial: true }, '', href);
+          setActiveLink();
+        }
       });
     });
   });

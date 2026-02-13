@@ -155,6 +155,7 @@
     </style>
 </head>
 <body>
+    <!-- Reject modal -->
  
 <div id="rejectModal" class="reject-modal" role="dialog" aria-modal="true" aria-labelledby="rejectModalTitle" aria-hidden="true">
     <div class="reject-modal-backdrop" id="rejectModalBackdrop"></div>

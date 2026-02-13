@@ -88,24 +88,29 @@ class UserController extends Controller
 
     /**
      * View the user's requested items (list of their requests)
-     * Query: ?status=all|pending|completed
+     * Query: ?status=all|pending|approved|rejected
      */
     public function viewRequests(Request $request)
     {
         $userId = auth()->id();
         $requests = [];
         $filter = $request->query('status', 'all');
-        if (! in_array($filter, ['all', 'pending', 'completed'], true)) {
+        if (! in_array($filter, ['all', 'pending', 'approved', 'rejected'], true)) {
             $filter = 'all';
         }
 
         if ($userId) {
-            $query = PrsRequest::where('user_id', $userId);
+            $query = PrsRequest::where('user_id', $userId)->notArchived();
+            if ($filter !== 'all') {
+                $statusMap = ['pending' => 'Pending', 'approved' => 'Approved', 'rejected' => 'Rejected'];
+                $query->where('status', $statusMap[$filter]);
+            }
             $requests = $query
                 ->orderByDesc('created_at')
                 ->get()
                 ->map(fn ($r) => [
                     'request_id' => $r->request_id,
+                    'approved_id' => $r->approved_id,
                     'item_name' => $r->item_name,
                     'quantity' => $r->quantity ?? 1,
                     'description' => $r->description,

@@ -63,9 +63,15 @@ Route::middleware('auth')->group(function () {
     Route::post('/superadmin/admins/{user}/reactivate', [SuperAdminController::class, 'reactivate'])->name('superadmin.admins.reactivate');
     Route::get('/superadmin/approvers', [SuperAdminController::class, 'approvers'])->name('superadmin.approvers');
     Route::get('/superadmin/requests', [SuperAdminController::class, 'allRequests'])->name('superadmin.requests');
+    Route::put('/superadmin/requests/{id}', [SuperAdminController::class, 'updateRequest'])->name('superadmin.requests.update');
+    Route::post('/superadmin/requests/{id}/approve', [SuperAdminController::class, 'approveRequest'])->name('superadmin.requests.approve');
+    Route::post('/superadmin/requests/{id}/reject', [SuperAdminController::class, 'rejectRequest'])->name('superadmin.requests.reject');
+    Route::post('/superadmin/requests/{id}/archive', [SuperAdminController::class, 'archiveRequest'])->name('superadmin.requests.archive');
+    Route::post('/superadmin/requests/{id}/restore', [SuperAdminController::class, 'restoreRequest'])->name('superadmin.requests.restore');
     Route::get('/superadmin/reports', [SuperAdminController::class, 'reports'])->name('superadmin.reports');
     Route::get('/superadmin/settings', [SuperAdminController::class, 'settings'])->name('superadmin.settings');
     Route::match(['get', 'post'], '/approver', [DashboardController::class, 'approver'])->name('approver.dashboard');
     Route::post('/approver/approve/{id}', [DashboardController::class, 'approveRequest'])->name('approver.approve');
     Route::post('/approver/reject/{id}', [DashboardController::class, 'rejectRequest'])->name('approver.reject');
 });
+  

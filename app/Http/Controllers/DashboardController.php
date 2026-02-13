@@ -91,14 +91,15 @@ class DashboardController extends Controller
     public function approver()
     {
         $tab = request()->query('tab', '');
-        $pendingRequests = PrsRequest::where('status', 'Pending')->count();
-        $approvedToday = PrsRequest::where('status', 'Approved')
+        $pendingRequests = PrsRequest::notArchived()->where('status', 'Pending')->count();
+        $approvedToday = PrsRequest::notArchived()->where('status', 'Approved')
             ->whereDate('approved_at', today())
             ->count();
-        $completed = PrsRequest::whereIn('status', ['Approved', 'Rejected'])->count();
+        $completed = PrsRequest::notArchived()->whereIn('status', ['Approved', 'Rejected'])->count();
 
         if ($tab === 'pending') {
             $listRequests = PrsRequest::with('user')
+                ->notArchived()
                 ->where('status', 'Pending')
                 ->orderByDesc('created_at')
                 ->limit(50)
@@ -106,6 +107,7 @@ class DashboardController extends Controller
                 ->map(fn ($r) => [
                     'id' => $r->id,
                     'request_id' => $r->request_id,
+                    'approved_id' => $r->approved_id,
                     'requestor' => $r->user?->name ?? 'Unknown',
                     'item' => $r->item_name,
                     'quantity' => $r->quantity ?? 1,
@@ -115,6 +117,7 @@ class DashboardController extends Controller
                 ->toArray();
         } elseif ($tab === 'approved') {
             $listRequests = PrsRequest::with(['user', 'approvedBy', 'rejectedBy'])
+                ->notArchived()
                 ->whereIn('status', ['Approved', 'Rejected'])
                 ->orderByRaw('COALESCE(approved_at, rejected_at) DESC')
                 ->limit(50)
@@ -122,6 +125,7 @@ class DashboardController extends Controller
                 ->map(fn ($r) => [
                     'id' => $r->id,
                     'request_id' => $r->request_id,
+                    'approved_id' => $r->approved_id,
                     'requestor' => $r->user?->name ?? 'Unknown',
                     'item' => $r->item_name,
                     'quantity' => $r->quantity ?? 1,
@@ -133,6 +137,7 @@ class DashboardController extends Controller
                 ->toArray();
         } else {
             $listRequests = PrsRequest::with('user')
+                ->notArchived()
                 ->where('status', 'Pending')
                 ->orderByDesc('created_at')
                 ->limit(10)
@@ -140,6 +145,7 @@ class DashboardController extends Controller
                 ->map(fn ($r) => [
                     'id' => $r->id,
                     'request_id' => $r->request_id,
+                    'approved_id' => $r->approved_id,
                     'requestor' => $r->user?->name ?? 'Unknown',
                     'item' => $r->item_name,
                     'quantity' => $r->quantity ?? 1,
@@ -168,6 +174,7 @@ class DashboardController extends Controller
             'status' => 'Approved',
             'approved_by_id' => auth()->id(),
             'approved_at' => now(),
+            'approved_id' => PrsRequest::generateApprovedId(),
         ]);
 
         RequestAction::where('request_id', $prsRequest->id)->update(['status' => 'completed']);
