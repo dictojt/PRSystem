@@ -72,14 +72,24 @@
                     class="{{ request()->routeIs('superadmin.approvers') ? 'active' : '' }}" title="Approvers">
                     <span class="material-icons">verified_user</span><span class="sidebar-label">Approvers</span>
                 </a>
-                <a href="{{ route('superadmin.requests') }}"
-                    class="{{ request()->routeIs('superadmin.requests') ? 'active' : '' }}" title="All Requests">
-                    <span class="material-icons">inventory_2</span><span class="sidebar-label">All Requests</span>
-                </a>
-                <a href="{{ route('superadmin.reports') }}"
-                    class="{{ request()->routeIs('superadmin.reports') ? 'active' : '' }}" title="System Reports">
-                    <span class="material-icons">analytics</span><span class="sidebar-label">System Reports</span>
-                </a>
+                <div class="menu-item has-submenu" data-submenu="all-requests">
+                    <a href="{{ route('superadmin.requests') }}"
+                        class="{{ request()->routeIs('superadmin.requests') ? 'active' : '' }}" title="All Requests">
+                        <span class="material-icons">inventory_2</span><span class="sidebar-label">All Requests</span>
+                        <span class="material-icons sidebar-submenu-chevron">expand_more</span>
+                    </a>
+                    <div class="sidebar-submenu" id="sidebar-submenu-all-requests" aria-hidden="true">
+                        @php $reqStatus = request()->routeIs('superadmin.requests') ? request('status', 'all') : ''; @endphp
+                        <a href="{{ route('superadmin.requests', ['status' => 'all']) }}"
+                            class="{{ $reqStatus === 'all' ? 'active' : '' }}">All</a>
+                        <a href="{{ route('superadmin.requests', ['status' => 'pending']) }}"
+                            class="{{ $reqStatus === 'pending' ? 'active' : '' }}">Pending</a>
+                        <a href="{{ route('superadmin.requests', ['status' => 'approved']) }}"
+                            class="{{ $reqStatus === 'approved' ? 'active' : '' }}">Approved</a>
+                        <a href="{{ route('superadmin.requests', ['status' => 'rejected']) }}"
+                            class="{{ $reqStatus === 'rejected' ? 'active' : '' }}">Rejected</a>
+                    </div>
+                </div>
                 <a href="{{ route('superadmin.settings') }}"
                     class="{{ request()->routeIs('superadmin.settings') ? 'active' : '' }}" title="System Settings">
                     <span class="material-icons">settings</span><span class="sidebar-label">System Settings</span>

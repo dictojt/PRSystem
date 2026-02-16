@@ -68,7 +68,7 @@ class DashboardController extends Controller
     }
 
     /**
-     * Super Admin Dashboard
+     * Super Admin Dashboard (Overview with summary stats and charts)
      */
     public function superadmin()
     {
@@ -78,9 +78,22 @@ class DashboardController extends Controller
             ->whereMonth('approved_at', now()->month)
             ->whereYear('approved_at', now()->year)
             ->count();
+        $byStatus = PrsRequest::selectRaw('status, count(*) as total')
+            ->groupBy('status')
+            ->pluck('total', 'status');
+
+        // Requests per day for the last 7 days (for bar chart)
+        $requestsLast7Days = [];
+        for ($i = 6; $i >= 0; $i--) {
+            $date = now()->subDays($i);
+            $requestsLast7Days[] = [
+                'label' => $date->format('M j'),
+                'count' => PrsRequest::whereDate('created_at', $date)->count(),
+            ];
+        }
 
         return view('dashboards.superadmin', compact(
-            'totalAdmins', 'pendingApprovals', 'approvedRequests'
+            'totalAdmins', 'pendingApprovals', 'approvedRequests', 'byStatus', 'requestsLast7Days'
         ));
     }
 

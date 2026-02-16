@@ -7,6 +7,58 @@
 
 /* Super admin uses shared light sidebar (same as user panel) - no dark overrides */
 
+/* Sidebar: All Requests submenu (hover) */
+.panel-superadmin .sidebar .menu-top .menu-item.has-submenu {
+    position: relative;
+}
+.panel-superadmin .sidebar .menu-top .menu-item.has-submenu > a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.panel-superadmin .sidebar .menu-top .menu-item.has-submenu .sidebar-submenu-chevron {
+    margin-left: auto;
+    font-size: 18px;
+    color: var(--sidebar-text);
+    transition: transform 0.2s ease;
+}
+.panel-superadmin .sidebar .menu-top .menu-item.has-submenu:hover .sidebar-submenu-chevron {
+    transform: rotate(-180deg);
+}
+.panel-superadmin .sidebar .sidebar-submenu {
+    display: none;
+    flex-direction: column;
+    gap: 2px;
+    padding: 4px 0 4px 12px;
+    margin-left: 32px;
+    margin-top: 4px;
+    border-left: 2px solid var(--sidebar-border);
+}
+.panel-superadmin .sidebar .menu-item.has-submenu:hover .sidebar-submenu {
+    display: flex;
+}
+.panel-superadmin .sidebar .sidebar-submenu a {
+    padding: 8px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--sidebar-text);
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.2s, color 0.2s;
+}
+.panel-superadmin .sidebar .sidebar-submenu a:hover {
+    background: #e5e7eb;
+    color: var(--sidebar-text-dark);
+}
+.panel-superadmin .sidebar .sidebar-submenu a.active {
+    background: #eff6ff;
+    color: var(--primary);
+}
+.panel-superadmin .sidebar.collapsed .menu-item.has-submenu .sidebar-submenu,
+.panel-superadmin .sidebar.collapsed .menu-item.has-submenu .sidebar-submenu-chevron {
+    display: none !important;
+}
+
 /* Main content polish - super admin (clean like user View Request) */
 .panel-superadmin .main {
     background: #f8fafc;
@@ -151,6 +203,92 @@
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 16px;
     margin-bottom: 24px;
+}
+
+/* Dashboard overview layout */
+.dashboard-summary {
+    margin-bottom: 28px;
+}
+
+.dashboard-summary .home-cards {
+    margin-bottom: 20px;
+}
+
+.dashboard-quick-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.dashboard-quick-links .quick-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 18px;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    color: #334155;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.dashboard-quick-links .quick-link:hover {
+    border-color: var(--primary, #2563eb);
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
+    color: var(--primary, #2563eb);
+}
+
+.dashboard-quick-links .quick-link .material-icons {
+    font-size: 20px;
+    opacity: 0.9;
+}
+
+.dashboard-charts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.chart-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    padding: 20px 24px;
+}
+
+.chart-card .card-title-bar {
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.chart-wrap {
+    position: relative;
+    min-height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chart-wrap canvas {
+    max-width: 100%;
+}
+
+.chart-legend {
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.dashboard-table {
+    margin-top: 0;
 }
 
 .card-title-bar {

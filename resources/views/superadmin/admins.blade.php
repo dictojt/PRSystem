@@ -3,7 +3,7 @@
 @section('content')
     <div class="header-section">
         <h1>Admin Management</h1>
-        <p>System administrators and approvers.</p>
+        <p>All system users — administrators, approvers, and requesters.</p>
     </div>
 
     @if(session('error'))
@@ -17,7 +17,7 @@
         @if(auth()->user()->role === 'superadmin')
             <div class="table-card" style="margin-bottom: 24px;">
                 <div class="card-title-bar">
-                    <span>Admins & Approvers</span>
+                    <span>All Users</span>
                     <button type="button" class="btn-primary" onclick="openAddUserModal()">
                         <span class="material-icons" style="font-size: 10px; vertical-align: middle;">person_add</span> Add User
                     </button>
@@ -39,7 +39,7 @@
                                 <td>{{ $admin->name }}</td>
                                 <td>{{ $admin->email }}</td>
                                 <td><span
-                                        class="badge {{ $admin->role === 'superadmin' ? 'badge-approved' : 'badge-pending' }}">{{ ucfirst($admin->role ?? 'user') }}</span>
+                                        class="badge {{ $admin->role === 'superadmin' ? 'badge-approved' : ($admin->role === 'approver' ? 'badge-pending' : '') }}">{{ ucfirst($admin->role ?? 'user') }}</span>
                                 </td>
                                 <td>
                                     @if(isset($admin->is_active) && $admin->is_active === false)
@@ -78,7 +78,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" style="text-align: center; padding: 40px; color: #94a3b8;">No admins found.</td>
+                                <td colspan="6" style="text-align: center; padding: 40px; color: #94a3b8;">No users found.</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -87,7 +87,7 @@
 
         @else
             <div class="table-card">
-                <div class="card-title-bar">Admins & Approvers</div>
+                <div class="card-title-bar">All Users</div>
                 <table class="data-table">
                     <thead>
                         <tr>
@@ -103,13 +103,13 @@
                                 <td>{{ $admin->name }}</td>
                                 <td>{{ $admin->email }}</td>
                                 <td><span
-                                        class="badge {{ $admin->role === 'superadmin' ? 'badge-approved' : 'badge-pending' }}">{{ ucfirst($admin->role ?? 'user') }}</span>
+                                        class="badge {{ $admin->role === 'superadmin' ? 'badge-approved' : ($admin->role === 'approver' ? 'badge-pending' : '') }}">{{ ucfirst($admin->role ?? 'user') }}</span>
                                 </td>
                                 <td>{{ $admin->created_at?->format('M d, Y') }}</td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" style="text-align: center; padding: 40px; color: #94a3b8;">No admins found.</td>
+                                <td colspan="4" style="text-align: center; padding: 40px; color: #94a3b8;">No users found.</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -118,7 +118,7 @@
         @endif
     @else
         <div class="table-card">
-            <div class="card-title-bar">Admins & Approvers</div>
+            <div class="card-title-bar">All Users</div>
             <table class="data-table">
                 <thead>
                     <tr>
@@ -134,13 +134,13 @@
                             <td>{{ $admin->name }}</td>
                             <td>{{ $admin->email }}</td>
                             <td><span
-                                    class="badge {{ $admin->role === 'superadmin' ? 'badge-approved' : 'badge-pending' }}">{{ ucfirst($admin->role ?? 'user') }}</span>
+                                    class="badge {{ $admin->role === 'superadmin' ? 'badge-approved' : ($admin->role === 'approver' ? 'badge-pending' : '') }}">{{ ucfirst($admin->role ?? 'user') }}</span>
                             </td>
                             <td>{{ $admin->created_at?->format('M d, Y') }}</td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4" style="text-align: center; padding: 40px; color: #94a3b8;">No admins found.</td>
+                            <td colspan="4" style="text-align: center; padding: 40px; color: #94a3b8;">No users found.</td>
                         </tr>
                     @endforelse
                 </tbody>

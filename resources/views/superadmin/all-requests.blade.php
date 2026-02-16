@@ -289,21 +289,77 @@
             padding: 16px 24px;
             border-top: 1px solid #e2e8f0;
             display: flex;
-            justify-content: flex-end;
-            gap: 12px;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
         }
-        #view-request-modal-overlay .view-request-btn-close {
-            padding: 10px 20px;
+        #view-request-modal-overlay .view-request-modal-footer-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-left: auto;
+        }
+        #view-request-modal-overlay .view-request-modal-footer-actions .sa-view-modal-action,
+        #view-request-modal-overlay .view-request-modal-footer-actions .view-request-btn-archive,
+        #view-request-modal-overlay .view-request-modal-footer-actions .view-request-btn-restore {
+            display: none;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 16px;
             font-size: 14px;
             font-weight: 500;
-            background: #2563eb;
-            color: #fff;
             border: none;
             border-radius: 8px;
             cursor: pointer;
         }
-        #view-request-modal-overlay .view-request-btn-close:hover {
-            background: #1d4ed8;
+        #view-request-modal-overlay .view-request-modal-footer-actions .sa-view-modal-action.is-visible {
+            display: inline-flex;
+        }
+        #view-request-modal-overlay .view-request-modal-footer-actions .sa-view-modal-archive-form.is-visible,
+        #view-request-modal-overlay .view-request-modal-footer-actions .sa-view-modal-restore-form.is-visible {
+            display: inline-block;
+        }
+        #view-request-modal-overlay .view-request-modal-footer-actions .sa-view-modal-archive-form.is-visible .view-request-btn-archive,
+        #view-request-modal-overlay .view-request-modal-footer-actions .sa-view-modal-restore-form.is-visible .view-request-btn-restore {
+            display: inline-flex;
+        }
+        #view-request-modal-overlay .view-request-modal-footer-actions .sa-view-modal-action .material-icons,
+        #view-request-modal-overlay .view-request-modal-footer-actions .view-request-btn-archive .material-icons,
+        #view-request-modal-overlay .view-request-modal-footer-actions .view-request-btn-restore .material-icons {
+            font-size: 18px;
+        }
+        #view-request-modal-overlay .view-request-btn-approve {
+            background: #10b981;
+            color: #fff;
+        }
+        #view-request-modal-overlay .view-request-btn-approve:hover {
+            background: #059669;
+        }
+        #view-request-modal-overlay .view-request-btn-reject {
+            background: #ef4444;
+            color: #fff;
+        }
+        #view-request-modal-overlay .view-request-btn-reject:hover {
+            background: #dc2626;
+        }
+        #view-request-modal-overlay .view-request-btn-archive {
+            background: #64748b;
+            color: #fff;
+        }
+        #view-request-modal-overlay .view-request-btn-archive:hover {
+            background: #475569;
+        }
+        #view-request-modal-overlay .view-request-btn-restore {
+            background: #0ea5e9;
+            color: #fff;
+        }
+        #view-request-modal-overlay .view-request-btn-restore:hover {
+            background: #0284c7;
+        }
+        #view-request-modal-overlay .view-request-modal-footer-actions form {
+            display: inline-block;
         }
         #view-request-modal-overlay .sa-view-req-rejection-label {
             margin-top: 10px;
@@ -538,6 +594,21 @@
 
         .confirm-modal .btn-danger:hover {
             background: #b91c1c;
+        }
+
+        .confirm-modal .btn-archive-confirm {
+            background: #64748b;
+            color: #fff;
+        }
+        .confirm-modal .btn-archive-confirm:hover {
+            background: #475569;
+        }
+        .confirm-modal .btn-restore-confirm {
+            background: #0ea5e9;
+            color: #fff;
+        }
+        .confirm-modal .btn-restore-confirm:hover {
+            background: #0284c7;
         }
 
         .confirm-modal .form-group {
@@ -794,26 +865,7 @@
                                     data-decided-at="{{ e($decidedAt) }}"
                                     data-decided-by="{{ e($decidedBy) }}"
                                     data-rejection-reason="{{ e($req->rejection_reason ?? '') }}"><span class="material-icons" aria-hidden="true">visibility</span></button>
-                                @if(($filter ?? '') === 'archived')
-                                    <button type="button" class="btn-sm btn-icon btn-edit-request" title="Edit"><span class="material-icons" aria-hidden="true">edit</span></button>
-                                    <form action="{{ route('superadmin.requests.restore', $req->id) }}" method="POST"
-                                        onsubmit="return confirm('Restore this request? It will appear in the main list again.');">
-                                        @csrf
-                                        <button type="submit" class="btn-sm btn-icon btn-success-sm" title="Restore"><span class="material-icons" aria-hidden="true">restore</span></button>
-                                    </form>
-                                @else
-                                    @if($req->status === 'Pending')
-                                        <button type="button" class="btn-sm btn-icon btn-approve-request" title="Approve"><span class="material-icons" aria-hidden="true">check_circle</span></button>
-                                        <button type="button" class="btn-sm btn-icon btn-reject-request" title="Reject"><span class="material-icons" aria-hidden="true">cancel</span></button>
-                                    @endif
-                                    <button type="button" class="btn-sm btn-icon btn-edit-request" title="Edit"><span class="material-icons" aria-hidden="true">edit</span></button>
-                                    <form action="{{ route('superadmin.requests.archive', $req->id) }}" method="POST"
-                                        onsubmit="return confirm('Archive this request? It will be hidden from the main list.');">
-                                        @csrf
-                                        <input type="hidden" name="status" value="{{ $filter ?? 'all' }}">
-                                        <button type="submit" class="btn-sm btn-icon btn-archive-sm" title="Archive"><span class="material-icons" aria-hidden="true">archive</span></button>
-                                    </form>
-                                @endif
+                                <button type="button" class="btn-sm btn-icon btn-edit-request" title="Edit"><span class="material-icons" aria-hidden="true">edit</span></button>
                             </div>
                         </td>
                     </tr>
@@ -925,6 +977,40 @@
         </div>
     </div>
 
+    {{-- Archive Request Confirmation Modal --}}
+    <div id="archive-request-modal-overlay" class="confirm-modal-overlay" aria-hidden="true">
+        <div class="confirm-modal" role="dialog" aria-labelledby="archive-request-modal-title">
+            <div class="modal-header">
+                <h3 id="archive-request-modal-title">Archive Request</h3>
+                <button type="button" class="modal-close" id="archive-request-modal-close" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="archive-request-modal-message">Archive this request? It will be hidden from the main list.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancel" id="archive-request-modal-cancel">Cancel</button>
+                <button type="button" class="btn btn-archive-confirm" id="archive-request-modal-confirm">Archive</button>
+            </div>
+        </div>
+    </div>
+
+    {{-- Restore Request Confirmation Modal --}}
+    <div id="restore-request-modal-overlay" class="confirm-modal-overlay" aria-hidden="true">
+        <div class="confirm-modal" role="dialog" aria-labelledby="restore-request-modal-title">
+            <div class="modal-header">
+                <h3 id="restore-request-modal-title">Restore Request</h3>
+                <button type="button" class="modal-close" id="restore-request-modal-close" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="restore-request-modal-message">Restore this request? It will appear in the main list again.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-cancel" id="restore-request-modal-cancel">Cancel</button>
+                <button type="button" class="btn btn-restore-confirm" id="restore-request-modal-confirm">Restore</button>
+            </div>
+        </div>
+    </div>
+
     {{-- View request details modal (Super Admin) - same structure as Approver --}}
     <div id="view-request-modal-overlay" class="view-request-modal-overlay" aria-hidden="true">
         <div class="view-request-modal" role="dialog" aria-labelledby="view-request-modal-title">
@@ -960,7 +1046,19 @@
                 </section>
             </div>
             <div class="view-request-modal-footer">
-                <button type="button" class="view-request-btn-close" id="sa-view-request-modal-btn-close">Close</button>
+                <div class="view-request-modal-footer-actions" id="sa-view-modal-footer-actions">
+                    <button type="button" class="view-request-btn-approve sa-view-modal-action" id="sa-view-modal-btn-approve" title="Approve"><span class="material-icons">check_circle</span> Approve</button>
+                    <button type="button" class="view-request-btn-reject sa-view-modal-action" id="sa-view-modal-btn-reject" title="Reject"><span class="material-icons">cancel</span> Reject</button>
+                    <form action="" method="POST" class="sa-view-modal-archive-form" id="sa-view-modal-archive-form">
+                        @csrf
+                        <input type="hidden" name="status" value="{{ $filter ?? 'all' }}">
+                        <button type="submit" class="view-request-btn-archive sa-view-modal-action" id="sa-view-modal-btn-archive" title="Archive"><span class="material-icons">archive</span> Archive</button>
+                    </form>
+                    <form action="" method="POST" class="sa-view-modal-restore-form" id="sa-view-modal-restore-form">
+                        @csrf
+                        <button type="submit" class="view-request-btn-restore sa-view-modal-action" id="sa-view-modal-btn-restore" title="Restore"><span class="material-icons">restore</span> Restore</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -1102,9 +1200,13 @@
                 // View request details modal
                 var viewOverlay = document.getElementById('view-request-modal-overlay');
                 var viewCloseBtn = document.getElementById('view-request-modal-close');
+                var viewBaseUrl = '{{ url("/superadmin/requests") }}';
+                var viewStatusParam = '{{ $filter ?? "all" }}';
                 if (viewOverlay) {
                     document.querySelectorAll('.btn-view-request-sa').forEach(function (btn) {
                         btn.addEventListener('click', function () {
+                            var row = btn.closest('tr.request-row');
+                            var dataId = row ? row.getAttribute('data-id') : null;
                             var id = btn.getAttribute('data-request-id') || '—';
                             var requestor = btn.getAttribute('data-requestor') || '—';
                             var item = btn.getAttribute('data-item') || '—';
@@ -1131,6 +1233,32 @@
                                 rejLabel.style.display = status === 'Rejected' ? '' : 'none';
                                 rejVal.style.display = status === 'Rejected' ? '' : 'none';
                             }
+                            viewOverlay.setAttribute('data-current-id', dataId || '');
+                            viewOverlay.setAttribute('data-current-status', status);
+                            viewOverlay.setAttribute('data-current-status-filter', viewStatusParam);
+                            var btnApprove = document.getElementById('sa-view-modal-btn-approve');
+                            var btnReject = document.getElementById('sa-view-modal-btn-reject');
+                            var formArchive = document.getElementById('sa-view-modal-archive-form');
+                            var formRestore = document.getElementById('sa-view-modal-restore-form');
+                            btnApprove.classList.remove('is-visible');
+                            btnReject.classList.remove('is-visible');
+                            formArchive.classList.remove('is-visible');
+                            formRestore.classList.remove('is-visible');
+                            if (status === 'Pending') {
+                                btnApprove.classList.add('is-visible');
+                                btnReject.classList.add('is-visible');
+                            }
+                            if (viewStatusParam === 'archived') {
+                                formRestore.classList.add('is-visible');
+                                if (formRestore) formRestore.setAttribute('action', viewBaseUrl + '/' + dataId + '/restore');
+                            } else {
+                                formArchive.classList.add('is-visible');
+                                if (formArchive) {
+                                    formArchive.setAttribute('action', viewBaseUrl + '/' + dataId + '/archive');
+                                    var archiveStatusInput = formArchive.querySelector('input[name="status"]');
+                                    if (archiveStatusInput) archiveStatusInput.value = viewStatusParam;
+                                }
+                            }
                             viewOverlay.classList.add('is-open');
                             viewOverlay.setAttribute('aria-hidden', 'false');
                             if (document.body) document.body.classList.add('modal-open');
@@ -1144,14 +1272,118 @@
                         if (document.documentElement) document.documentElement.classList.remove('modal-open');
                     }
                     if (viewCloseBtn) viewCloseBtn.addEventListener('click', closeViewModal);
-                    var viewBtnClose = document.getElementById('sa-view-request-modal-btn-close');
-                    if (viewBtnClose) viewBtnClose.addEventListener('click', closeViewModal);
                     viewOverlay.addEventListener('click', function (e) {
                         if (e.target === viewOverlay) closeViewModal();
                     });
                     viewOverlay.addEventListener('keydown', function (e) {
                         if (e.key === 'Escape') closeViewModal();
                     });
+                    var saViewBtnApprove = document.getElementById('sa-view-modal-btn-approve');
+                    var saViewBtnReject = document.getElementById('sa-view-modal-btn-reject');
+                    if (saViewBtnApprove && approveForm && approveOverlay) {
+                        saViewBtnApprove.addEventListener('click', function () {
+                            var dataId = viewOverlay.getAttribute('data-current-id');
+                            var requestId = document.getElementById('sa-view-req-id').textContent;
+                            if (!dataId) return;
+                            approveForm.setAttribute('action', viewBaseUrl + '/' + dataId + '/approve?status=' + encodeURIComponent(viewStatusParam));
+                            approveForm.querySelector('input[name="status"]').value = viewStatusParam;
+                            var msgEl = document.getElementById('approve-request-modal-message');
+                            if (msgEl) msgEl.innerHTML = 'Approve request <strong>' + (requestId || ('ID ' + dataId)) + '</strong>? This will generate a 6-digit approved ID and mark the item as approved.';
+                            closeViewModal();
+                            approveOverlay.classList.add('is-open');
+                            approveOverlay.setAttribute('aria-hidden', 'false');
+                            if (document.body) document.body.classList.add('modal-open');
+                            if (document.documentElement) document.documentElement.classList.add('modal-open');
+                        });
+                    }
+                    if (saViewBtnReject && rejectForm && rejectOverlay) {
+                        saViewBtnReject.addEventListener('click', function () {
+                            var dataId = viewOverlay.getAttribute('data-current-id');
+                            var requestId = document.getElementById('sa-view-req-id').textContent;
+                            if (!dataId) return;
+                            rejectForm.setAttribute('action', viewBaseUrl + '/' + dataId + '/reject?status=' + encodeURIComponent(viewStatusParam));
+                            rejectForm.querySelector('input[name="status"]').value = viewStatusParam;
+                            var msgEl = document.getElementById('reject-request-modal-message');
+                            if (msgEl) msgEl.innerHTML = 'Reject request <strong>' + (requestId || ('ID ' + dataId)) + '</strong>? The requestor may see the reason if you provide one below.';
+                            closeViewModal();
+                            rejectOverlay.classList.add('is-open');
+                            rejectOverlay.setAttribute('aria-hidden', 'false');
+                            if (document.body) document.body.classList.add('modal-open');
+                            if (document.documentElement) document.documentElement.classList.add('modal-open');
+                        });
+                    }
+                    var formArchive = document.getElementById('sa-view-modal-archive-form');
+                    var formRestore = document.getElementById('sa-view-modal-restore-form');
+                    var archiveOverlay = document.getElementById('archive-request-modal-overlay');
+                    var archiveCloseBtn = document.getElementById('archive-request-modal-close');
+                    var archiveCancelBtn = document.getElementById('archive-request-modal-cancel');
+                    var archiveConfirmBtn = document.getElementById('archive-request-modal-confirm');
+                    var restoreOverlay = document.getElementById('restore-request-modal-overlay');
+                    var restoreCloseBtn = document.getElementById('restore-request-modal-close');
+                    var restoreCancelBtn = document.getElementById('restore-request-modal-cancel');
+                    var restoreConfirmBtn = document.getElementById('restore-request-modal-confirm');
+                    function openArchiveConfirmModal() {
+                        if (archiveOverlay) {
+                            archiveOverlay.classList.add('is-open');
+                            archiveOverlay.setAttribute('aria-hidden', 'false');
+                            if (document.body) document.body.classList.add('modal-open');
+                            if (document.documentElement) document.documentElement.classList.add('modal-open');
+                        }
+                    }
+                    function closeArchiveConfirmModal() {
+                        if (archiveOverlay) {
+                            archiveOverlay.classList.remove('is-open');
+                            archiveOverlay.setAttribute('aria-hidden', 'true');
+                            if (document.body) document.body.classList.remove('modal-open');
+                            if (document.documentElement) document.documentElement.classList.remove('modal-open');
+                        }
+                    }
+                    function openRestoreConfirmModal() {
+                        if (restoreOverlay) {
+                            restoreOverlay.classList.add('is-open');
+                            restoreOverlay.setAttribute('aria-hidden', 'false');
+                            if (document.body) document.body.classList.add('modal-open');
+                            if (document.documentElement) document.documentElement.classList.add('modal-open');
+                        }
+                    }
+                    function closeRestoreConfirmModal() {
+                        if (restoreOverlay) {
+                            restoreOverlay.classList.remove('is-open');
+                            restoreOverlay.setAttribute('aria-hidden', 'true');
+                            if (document.body) document.body.classList.remove('modal-open');
+                            if (document.documentElement) document.documentElement.classList.remove('modal-open');
+                        }
+                    }
+                    if (formArchive) {
+                        formArchive.addEventListener('submit', function (e) {
+                            e.preventDefault();
+                            openArchiveConfirmModal();
+                        });
+                    }
+                    if (formRestore) {
+                        formRestore.addEventListener('submit', function (e) {
+                            e.preventDefault();
+                            openRestoreConfirmModal();
+                        });
+                    }
+                    if (archiveConfirmBtn && formArchive) {
+                        archiveConfirmBtn.addEventListener('click', function () {
+                            closeArchiveConfirmModal();
+                            formArchive.submit();
+                        });
+                    }
+                    if (archiveCloseBtn) archiveCloseBtn.addEventListener('click', closeArchiveConfirmModal);
+                    if (archiveCancelBtn) archiveCancelBtn.addEventListener('click', closeArchiveConfirmModal);
+                    if (archiveOverlay) archiveOverlay.addEventListener('click', function (e) { if (e.target === archiveOverlay) closeArchiveConfirmModal(); });
+                    if (restoreConfirmBtn && formRestore) {
+                        restoreConfirmBtn.addEventListener('click', function () {
+                            closeRestoreConfirmModal();
+                            formRestore.submit();
+                        });
+                    }
+                    if (restoreCloseBtn) restoreCloseBtn.addEventListener('click', closeRestoreConfirmModal);
+                    if (restoreCancelBtn) restoreCancelBtn.addEventListener('click', closeRestoreConfirmModal);
+                    if (restoreOverlay) restoreOverlay.addEventListener('click', function (e) { if (e.target === restoreOverlay) closeRestoreConfirmModal(); });
                 }
             })();
         </script>

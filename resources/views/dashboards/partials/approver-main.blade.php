@@ -104,6 +104,85 @@
 .reject-reason-popover .reject-reason-popover-close:hover { background: #f1f5f9; color: #475569; }
 </style>
 @endif
+{{-- Critical: stat cards + table look (apply even if built CSS is cached/stale) --}}
+<style>
+body.panel-approver .stat-cards {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 16px !important;
+    margin-bottom: 24px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+body.panel-approver .stat-cards .stat-card {
+    border-radius: 12px !important;
+    min-width: 0 !important;
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06) !important;
+}
+@media (max-width: 900px) {
+    body.panel-approver .stat-cards {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+}
+body.panel-approver .table-card {
+    background: #ffffff !important;
+    border-radius: 12px !important;
+    border: 1px solid #e5e7eb !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05) !important;
+    padding: 24px !important;
+    margin-bottom: 24px !important;
+}
+body.panel-approver .table-card .card-title-bar {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    gap: 12px !important;
+    margin-bottom: 20px !important;
+    padding-bottom: 14px !important;
+    border-bottom: 2px solid #e5e7eb !important;
+    background: transparent !important;
+}
+body.panel-approver .table-card .card-title-bar h2 {
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    color: #374151 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    margin: 0 !important;
+}
+body.panel-approver .table-responsive {
+    overflow-x: auto !important;
+    border: 1px solid #e5e7eb !important;
+    border-radius: 8px !important;
+}
+body.panel-approver .data-table th,
+body.panel-approver .data-table td {
+    padding: 14px 18px !important;
+    text-align: left !important;
+    border: 1px solid #e5e7eb !important;
+}
+body.panel-approver .data-table thead th {
+    font-weight: 600 !important;
+    color: #374151 !important;
+    background: #f3f4f6 !important;
+    font-size: 13px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.3px !important;
+}
+body.panel-approver .data-table tbody td {
+    color: #1e293b !important;
+    vertical-align: middle !important;
+}
+body.panel-approver .data-table tbody tr:nth-child(even) {
+    background: #fafafa !important;
+}
+body.panel-approver .data-table tbody tr:hover {
+    background: #f0f9ff !important;
+}
+</style>
 @if(($tab ?? '') === 'pending')
 <style>
 /* Approve/Reject icon buttons - ensure correct design (blue/red, no border) */
@@ -180,11 +259,11 @@
 @endif
 
 <div class="table-card {{ ($tab ?? '') === 'approved' ? 'approver-all-request-card' : '' }}">
-    <div class="card-title-bar" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+    <div class="card-title-bar">
         @if(($tab ?? '') === 'pending')
-            <h2 style="margin: 0; font-size: 14px; font-weight: 600; color: #334155; text-transform: uppercase; letter-spacing: .05em;">All Pending Requests (up to 50)</h2>
+            <h2>All Pending Requests (up to 50)</h2>
         @elseif(($tab ?? '') === 'approved')
-            <h2 style="margin: 0; font-size: 14px; font-weight: 600; color: #334155; text-transform: uppercase; letter-spacing: .05em;">All requests</h2>
+            <h2>All requests</h2>
             @php
                 $approverDashboard = auth()->check() ? route('approver.dashboard') : route('approver.guest');
                 $statusFilter = $statusFilter ?? 'all';
@@ -215,22 +294,23 @@
                 </div>
             </div>
         @else
-            <h2 style="margin: 0; font-size: 14px; font-weight: 600; color: #334155; text-transform: uppercase; letter-spacing: .05em;">Recent 10 Pending</h2>
+            <h2>Recent 10 Pending</h2>
         @endif
     </div>
+    <div class="table-responsive">
     <table class="data-table">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Requestor</th>
                 <th>Item</th>
-                <th>Status</th>
                 @if(($tab ?? '') === 'approved')
+                    <th>Quantity</th>
                     <th>Decided</th>
-                    <th>By</th>
                 @elseif(($tab ?? '') === 'pending')
                     <th>Actions</th>
                 @endif
+                <th>Status</th>
                 @if(($tab ?? '') !== 'pending')
                     <th>View</th>
                 @endif
@@ -241,30 +321,10 @@
             <tr>
                 <td>{{ (($req['status'] ?? '') === 'Approved' && !empty($req['approved_id'] ?? null)) ? $req['approved_id'] : ($req['request_id'] ?? $req['id']) }}</td>
                 <td>{{ $req['requestor'] }}</td>
-                <td class="item-cell-truncate" title="{{ e($req['item'] . (isset($req['quantity']) && $req['quantity'] > 1 ? ' (Qty: ' . $req['quantity'] . ')' : '')) }}">{{ $req['item'] }}{{ isset($req['quantity']) && $req['quantity'] > 1 ? ' (Qty: ' . $req['quantity'] . ')' : '' }}</td>
-                <td>
-                    @if(($req['status'] ?? '') === 'Pending')
-                        <span class="badge badge-pending">Pending</span>
-                    @elseif(($req['status'] ?? '') === 'Approved')
-                        <span class="badge badge-approved">Approved</span>
-                    @else
-                        @php
-                            $rejectReason = $req['rejection_reason'] ?? null;
-                            $hasReason = !empty(trim((string) $rejectReason));
-                        @endphp
-                        <span class="reject-reason-cell">
-                            <span class="badge badge-rejected">Rejected</span>
-                            @if($hasReason)
-                                <button type="button" class="reject-reason-view-btn" data-reason="{{ e($rejectReason) }}" title="Reason for rejection" aria-label="Reason for rejection">
-                                    <span class="material-icons" aria-hidden="true">info</span>
-                                </button>
-                            @endif
-                        </span>
-                    @endif
-                </td>
+                <td class="item-cell-truncate" title="{{ e($req['item'] . (isset($req['quantity']) && $req['quantity'] > 1 ? ' (Qty: ' . $req['quantity'] . ')' : '')) }}">{{ $req['item'] }}</td>
                 @if(($tab ?? '') === 'approved')
+                    <td>{{ $req['quantity'] ?? 1 }}</td>
                     <td>{{ $req['decided_at'] ?? '—' }}</td>
-                    <td>{{ $req['decided_by'] ?? '—' }}</td>
                 @elseif(($tab ?? '') === 'pending')
                     <td class="approver-actions-cell">
                         <div class="approver-action-buttons">
@@ -295,6 +355,26 @@
                         </div>
                     </td>
                 @endif
+                <td>
+                    @if(($req['status'] ?? '') === 'Pending')
+                        <span class="badge badge-pending">Pending</span>
+                    @elseif(($req['status'] ?? '') === 'Approved')
+                        <span class="badge badge-approved">Approved</span>
+                    @else
+                        @php
+                            $rejectReason = $req['rejection_reason'] ?? null;
+                            $hasReason = !empty(trim((string) $rejectReason));
+                        @endphp
+                        <span class="reject-reason-cell">
+                            <span class="badge badge-rejected">Rejected</span>
+                            @if($hasReason)
+                                <button type="button" class="reject-reason-view-btn" data-reason="{{ e($rejectReason) }}" title="Reason for rejection" aria-label="Reason for rejection">
+                                    <span class="material-icons" aria-hidden="true">info</span>
+                                </button>
+                            @endif
+                        </span>
+                    @endif
+                </td>
                 @if(($tab ?? '') !== 'pending')
                 <td>
                     <button type="button" class="btn-view-request btn-sm btn-icon-view" title="View details" aria-label="View request details"
@@ -314,7 +394,7 @@
             </tr>
             @empty
             <tr>
-                <td colspan="{{ ($tab ?? '') === 'approved' ? 7 : 5 }}" style="text-align: center; padding: 40px; color: #94a3b8;">
+                <td colspan="{{ ($tab ?? '') === 'approved' ? 7 : (($tab ?? '') === 'pending' ? 6 : 5) }}" style="text-align: center; padding: 40px; color: #94a3b8;">
                     @if(($tab ?? '') === 'pending')
                         No pending requests.
                     @elseif(($tab ?? '') === 'approved')
@@ -327,6 +407,7 @@
             @endforelse
         </tbody>
     </table>
+    </div>
 </div>
 
 @if(($tab ?? '') === 'approved')

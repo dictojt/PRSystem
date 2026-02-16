@@ -65,12 +65,11 @@ class SuperAdminController extends Controller
     }
 
     /**
-     * Admin Management - list superadmin & approver users
+     * Admin Management - list all users (superadmin, approver, and requesters)
      */
     public function admins()
     {
-        $admins = User::whereIn('role', ['superadmin', 'approver'])
-            ->orderBy('name')
+        $admins = User::orderBy('name')
             ->get(['id', 'name', 'email', 'role', 'is_active', 'created_at']);
 
         return view('superadmin.admins', compact('admins'));
@@ -218,29 +217,6 @@ class SuperAdminController extends Controller
         $prsRequest->update(['archived_at' => null]);
         return redirect()->route('superadmin.requests', ['status' => 'archived'])
             ->with('message', 'Request restored. It will appear in the main list again.');
-    }
-
-    /**
-     * System Reports
-     */
-    public function reports()
-    {
-        $pendingCount = PrsRequest::where('status', 'Pending')->count();
-        $approvedThisMonth = PrsRequest::where('status', 'Approved')
-            ->whereMonth('approved_at', now()->month)
-            ->whereYear('approved_at', now()->year)
-            ->count();
-        $rejectedThisMonth = PrsRequest::where('status', 'Rejected')
-            ->whereMonth('rejected_at', now()->month)
-            ->whereYear('rejected_at', now()->year)
-            ->count();
-        $byStatus = PrsRequest::selectRaw('status, count(*) as total')
-            ->groupBy('status')
-            ->pluck('total', 'status');
-
-        return view('superadmin.reports', compact(
-            'pendingCount', 'approvedThisMonth', 'rejectedThisMonth', 'byStatus'
-        ));
     }
 
     /**
