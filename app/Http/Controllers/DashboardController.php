@@ -111,14 +111,22 @@ class DashboardController extends Controller
                     'requestor' => $r->user?->name ?? 'Unknown',
                     'item' => $r->item_name,
                     'quantity' => $r->quantity ?? 1,
+                    'description' => $r->description ?? null,
                     'date' => $r->created_at->format('Y-m-d'),
                     'status' => $r->status,
                 ])
                 ->toArray();
         } elseif ($tab === 'approved') {
-            $listRequests = PrsRequest::with(['user', 'approvedBy', 'rejectedBy'])
+            $statusFilter = request()->query('status', 'all');
+            $query = PrsRequest::with(['user', 'approvedBy', 'rejectedBy'])
                 ->notArchived()
-                ->whereIn('status', ['Approved', 'Rejected'])
+                ->whereIn('status', ['Approved', 'Rejected']);
+            if ($statusFilter === 'approved') {
+                $query->where('status', 'Approved');
+            } elseif ($statusFilter === 'rejected') {
+                $query->where('status', 'Rejected');
+            }
+            $listRequests = $query
                 ->orderByRaw('COALESCE(approved_at, rejected_at) DESC')
                 ->limit(50)
                 ->get()
@@ -129,10 +137,12 @@ class DashboardController extends Controller
                     'requestor' => $r->user?->name ?? 'Unknown',
                     'item' => $r->item_name,
                     'quantity' => $r->quantity ?? 1,
+                    'description' => $r->description ?? null,
                     'date' => $r->created_at->format('Y-m-d'),
                     'status' => $r->status,
                     'decided_at' => $r->approved_at?->format('M d, Y H:i') ?? $r->rejected_at?->format('M d, Y H:i'),
                     'decided_by' => $r->status === 'Approved' ? ($r->approvedBy?->name ?? '—') : ($r->rejectedBy?->name ?? '—'),
+                    'rejection_reason' => $r->rejection_reason,
                 ])
                 ->toArray();
         } else {
@@ -149,13 +159,15 @@ class DashboardController extends Controller
                     'requestor' => $r->user?->name ?? 'Unknown',
                     'item' => $r->item_name,
                     'quantity' => $r->quantity ?? 1,
+                    'description' => $r->description ?? null,
                     'date' => $r->created_at->format('Y-m-d'),
                     'status' => $r->status,
                 ])
                 ->toArray();
         }
 
-        return view('dashboards.approver', compact('pendingRequests', 'approvedToday', 'completed', 'listRequests', 'tab'));
+        $statusFilter = $tab === 'approved' ? request()->query('status', 'all') : 'all';
+        return view('dashboards.approver', compact('pendingRequests', 'approvedToday', 'completed', 'listRequests', 'tab', 'statusFilter'));
     }
 
     /**

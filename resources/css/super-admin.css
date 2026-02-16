@@ -5,6 +5,98 @@
 @import './partials/panel-layout.css';
 @import './partials/components.css';
 
+/* Super admin uses shared light sidebar (same as user panel) - no dark overrides */
+
+/* Main content polish - super admin (clean like user View Request) */
+.panel-superadmin .main {
+    background: #f8fafc;
+}
+
+.panel-superadmin .header-section {
+    margin-bottom: 28px;
+}
+
+.panel-superadmin .header-section h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #0f172a;
+    letter-spacing: -0.02em;
+}
+
+.panel-superadmin .header-section p {
+    font-size: 14px;
+    color: #64748b;
+}
+
+.panel-superadmin .table-card {
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.panel-superadmin .table-card .card-title-bar {
+    background: #fff;
+    padding: 16px 24px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.panel-superadmin .data-table th {
+    background: #f8fafc;
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 12px 20px;
+}
+
+.panel-superadmin .data-table td {
+    padding: 14px 20px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.panel-superadmin .data-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+/* Status badges - light style with dark text (like user View Request) */
+.panel-superadmin .badge-pending {
+    background: #fef3c7;
+    color: #b45309;
+}
+
+.panel-superadmin .badge-approved {
+    background: #d1fae5;
+    color: #047857;
+}
+
+.panel-superadmin .badge-rejected {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.panel-superadmin .alert-success {
+    background: #d1fae5;
+    color: #047857;
+    border: 1px solid #a7f3d0;
+    border-radius: 10px;
+    padding: 14px 18px;
+}
+
+.panel-superadmin .footer {
+    background: transparent;
+    border-top: 1px solid #e2e8f0;
+}
+
+.panel-superadmin .card,
+.panel-superadmin .stat-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
 /* Super admin specific */
 .stat-cards {
     display: grid;

@@ -1,59 +1,183 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Product Request System (PRS)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**Internal Administrative Portal** for the Department of Information and Communications Technology (DICT), Republic of the Philippines.
 
-## About Laravel
+PRS is a Laravel-based web application that enables employees to submit product/equipment requests, track their status, and receive approvals from designated approvers. Super admins manage users, approve or reject requests, and access system-wide reports.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### For Users
+- **Sign in with Google** — No separate sign-up; accounts are created on first sign-in
+- **Create requests** — Submit one or more product/equipment items (name, description, quantity)
+- **Track requests** — View and filter requests by status (pending, approved, rejected)
+- **Dashboard** — Active requests, pending actions, and recently completed items
+- **Reports** — Summary of requests this month, completed, and pending counts
+- **Support** — Help and contact page
 
-## Learning Laravel
+### For Approvers
+- **Pending queue** — View and approve/reject pending requests
+- **Approved history** — Review past decisions with timestamps
+- **Dashboard** — Pending count, approved today, and completed stats
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### For Super Admins
+- **Overview** — Total admins, pending approvals, approved this month
+- **Admin Management** — Add superadmin/approver users, update roles, deactivate/reactivate (OTP re-auth for sensitive actions)
+- **Approvers** — List of approver users
+- **All Requests** — View, approve, reject, edit, archive, or restore requests
+- **System Reports** — Pending, approved/rejected this month, counts by status
+- **System Settings** — Configuration placeholder
+- **Password resets** — Process forgot-password requests and send new default passwords
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Request Lifecycle
+1. User submits request → **Pending**
+2. Approver or Super Admin reviews → **Approved** or **Rejected**
+3. Approved requests receive a unique 6-digit Approved ID
+4. Super Admin can archive old requests (hidden from main list, viewable in Archived tab)
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Tech Stack
 
-### Premium Partners
+- **PHP 8.2+** with **Laravel 12**
+- **Laravel Socialite** — Google OAuth
+- **MySQL** (default) — Database
+- **Vite** — Frontend build (CSS/JS)
+- **Blade** — Server-side templates
+- **Material Icons** & **Inter** font
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+---
 
-## Contributing
+## Requirements
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- PHP 8.2 or higher
+- Composer
+- Node.js & npm
+- MySQL 5.7+ (or compatible)
+- Google Cloud Console account (for OAuth credentials)
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Installation
 
-## Security Vulnerabilities
+### 1. Clone and install dependencies
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+git clone <repository-url>
+cd PRS
+composer install
+npm install
+```
+
+### 2. Environment setup
+
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+### 3. Configure `.env`
+
+**Database** (update if needed):
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=prs
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+**Application URL** (required for OAuth):
+```
+APP_URL=http://localhost:8000
+```
+When using a tunnel (ngrok, devtunnels, etc.), set `APP_URL` to your tunnel HTTPS URL.
+
+**Google OAuth** (required for sign-in):
+
+1. Go to [Google Cloud Console](https://console.cloud.google.com/) → APIs & Services → Credentials
+2. Create an OAuth 2.0 Client ID (Web application)
+3. Add redirect URI: `http://localhost:8000/auth/google/callback` (or your tunnel URL + `/auth/google/callback`)
+4. Add to `.env`:
+
+```
+GOOGLE_CLIENT_ID=your-client-id
+GOOGLE_CLIENT_SECRET=your-client-secret
+```
+
+**Optional — restrict sign-in by domain:**
+```
+ALLOWED_EMAIL_DOMAINS=dict.gov.ph,gmail.com
+```
+
+### 4. Run migrations
+
+```bash
+php artisan migrate
+```
+
+### 5. Build assets
+
+```bash
+npm run build
+```
+
+### 6. Start the server
+
+```bash
+php artisan serve
+```
+
+Visit [http://localhost:8000](http://localhost:8000).
+
+---
+
+## Development
+
+Run the development server with hot reload (Vite) and queue worker:
+
+```bash
+composer dev
+```
+
+This starts:
+- PHP server
+- Queue listener
+- Vite dev server
+
+---
+
+## User Roles
+
+| Role       | Description                          | Assigned by           |
+|-----------|--------------------------------------|------------------------|
+| `user`    | Default for employees                | Auto on first sign-in  |
+| `approver`| Can approve/reject requests          | Super Admin            |
+| `superadmin` | Full system administration       | Database or seed       |
+
+Roles are stored in the `users.role` column. New users default to `user`. Promote users to `approver` or `superadmin` via Admin Management (superadmin only) or directly in the database.
+
+---
+
+## Guest Mode (Demo / Testing)
+
+Some pages work without login for demo purposes:
+
+- `/user/guest` — User dashboard
+- `/approver/guest` — Approver dashboard (can approve/reject)
+- `/superadmin/guest` — Super Admin overview
+
+---
+
+## Request IDs
+
+- **Request ID** — Format: `REQ-YYYY-MM-NNNNN` (e.g. `REQ-2025-02-00001`)
+- **Approved ID** — 6-digit unique code assigned when a request is approved
+
+---
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+[MIT](https://opensource.org/licenses/MIT)

@@ -5,14 +5,12 @@
     $__partialTitle = $__partialTitle . ' - Product Request System | DICT';
 @endphp
 <div data-page-title="{{ e($__partialTitle) }}">
+    @stack('styles')
     @if(session('message'))
         <div class="alert-success">
             <span>{{ session('message') }}</span>
             <button type="button" onclick="this.parentElement.remove()">✕</button>
         </div>
-    @endif
-    @hasSection('breadcrumb')
-        <nav class="breadcrumb">@yield('breadcrumb')</nav>
     @endif
     @if(!auth()->check())
         <div class="guest-notice">
@@ -43,7 +41,7 @@
     @stack('styles')
 </head>
 
-<body>
+<body class="panel-superadmin">
 
     <div class="container">
         <div class="sidebar" id="sidebar">
@@ -107,9 +105,6 @@
                     <span>{{ session('message') }}</span>
                     <button type="button" onclick="this.parentElement.remove()">✕</button>
                 </div>
-            @endif
-            @hasSection('breadcrumb')
-                <nav class="breadcrumb">@yield('breadcrumb')</nav>
             @endif
             @if(!auth()->check())
                 <div class="guest-notice">

@@ -5,11 +5,6 @@
     $__partialTitle = $__partialTitle . ' - Product Request System | DICT';
 @endphp
 <div data-page-title="{{ e($__partialTitle) }}">
-    @hasSection('breadcrumb')
-    <nav class="breadcrumb">@yield('breadcrumb')</nav>
-    @else
-    <nav class="breadcrumb">Home &gt; <a href="{{ auth()->check() ? route('user.dashboard') : route('user.guest') }}">My account</a> &gt; @yield('title', 'User')</nav>
-    @endif
     @if(!auth()->check())
     <div class="guest-notice">
         <span class="material-icons">info</span>
@@ -80,11 +75,6 @@
         </div>
     </div>
     <div class="main">
-        @hasSection('breadcrumb')
-        <nav class="breadcrumb">@yield('breadcrumb')</nav>
-        @else
-        <nav class="breadcrumb">Home &gt; <a href="{{ auth()->check() ? route('user.dashboard') : route('user.guest') }}">My account</a> &gt; @yield('title', 'User')</nav>
-        @endif
         @if(!auth()->check())
         <div class="guest-notice">
             <span class="material-icons">info</span>

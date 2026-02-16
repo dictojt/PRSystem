@@ -152,9 +152,117 @@
         #rejectModal .btn-reject-modal-confirm:hover {
             background: #b91c1c !important;
         }
+        /* Approve modal - match super admin: centered overlay, styled buttons */
+        #approveModal.approve-modal-wrap {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            z-index: 9999 !important;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0.2s, opacity 0.2s;
+            pointer-events: none;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            padding: 20px !important;
+            box-sizing: border-box !important;
+        }
+        #approveModal.approve-modal-wrap.is-open {
+            visibility: visible !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
+        #approveModal .approve-modal-backdrop {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            background: rgba(0, 0, 0, 0.45) !important;
+            z-index: 1 !important;
+        }
+        #approveModal .approve-modal-content {
+            position: relative !important;
+            z-index: 2 !important;
+            background: #fff !important;
+            border-radius: 12px !important;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+            padding: 24px !important;
+            max-width: 440px !important;
+            width: 100% !important;
+        }
+        #approveModal .approve-modal-header {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            margin-bottom: 16px !important;
+            padding-bottom: 16px !important;
+            border-bottom: 1px solid #e2e8f0 !important;
+        }
+        #approveModal .approve-modal-title {
+            font-size: 18px !important;
+            font-weight: 600 !important;
+            color: #0f172a !important;
+            margin: 0 !important;
+        }
+        #approveModal .approve-modal-close {
+            background: none !important;
+            border: none !important;
+            cursor: pointer !important;
+            padding: 4px !important;
+            color: #64748b !important;
+            font-size: 22px !important;
+            line-height: 1 !important;
+        }
+        #approveModal .approve-modal-close:hover {
+            color: #334155 !important;
+        }
+        #approveModal .approve-modal-desc {
+            margin: 0 0 20px 0 !important;
+            font-size: 14px !important;
+            color: #475569 !important;
+            line-height: 1.5 !important;
+        }
+        #approveModal .approve-modal-actions {
+            display: flex !important;
+            justify-content: flex-end !important;
+            align-items: center !important;
+            gap: 10px !important;
+            padding-top: 16px !important;
+            border-top: 1px solid #e2e8f0 !important;
+        }
+        #approveModal .btn-approve-cancel {
+            padding: 10px 18px !important;
+            border-radius: 8px !important;
+            font-size: 14px !important;
+            font-weight: 500 !important;
+            cursor: pointer !important;
+            border: none !important;
+            background: #f1f5f9 !important;
+            color: #334155 !important;
+        }
+        #approveModal .btn-approve-cancel:hover {
+            background: #e2e8f0 !important;
+        }
+        #approveModal .btn-approve-confirm {
+            padding: 10px 18px !important;
+            border-radius: 8px !important;
+            font-size: 14px !important;
+            font-weight: 500 !important;
+            cursor: pointer !important;
+            border: none !important;
+            background: #059669 !important;
+            color: #fff !important;
+        }
+        #approveModal .btn-approve-confirm:hover {
+            background: #047857 !important;
+        }
     </style>
 </head>
-<body>
+<body class="panel-approver">
     <!-- Reject modal -->
  
 <div id="rejectModal" class="reject-modal" role="dialog" aria-modal="true" aria-labelledby="rejectModalTitle" aria-hidden="true">
@@ -209,8 +317,8 @@
             <a href="{{ $approverDashboard }}?tab=pending" class="{{ ($tab ?? '') === 'pending' ? 'active' : '' }}" title="Pending Requests">
                 <span class="material-icons">pending_actions</span><span class="sidebar-label">Pending Requests</span>
             </a>
-            <a href="{{ $approverDashboard }}?tab=approved" class="{{ ($tab ?? '') === 'approved' ? 'active' : '' }}" title="Approved & Rejected">
-                <span class="material-icons">assignment_turned_in</span><span class="sidebar-label">Approved & Rejected</span>
+            <a href="{{ $approverDashboard }}?tab=approved" class="{{ ($tab ?? '') === 'approved' ? 'active' : '' }}" title="All request">
+                <span class="material-icons">list_alt</span><span class="sidebar-label">All request</span>
             </a>
         </div>
         <div class="logout">

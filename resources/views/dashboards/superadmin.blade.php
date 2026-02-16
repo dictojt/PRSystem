@@ -1,8 +1,5 @@
 @extends('layouts.superadmin')
 @section('title', 'Dashboard')
-@section('breadcrumb')
-Home &gt; <a href="{{ route('superadmin.dashboard') }}">Admin</a> &gt; Overview
-@endsection
 @section('content')
 <div class="header-section">
     <h1>Overview</h1>

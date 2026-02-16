@@ -25,12 +25,13 @@ class UserController extends Controller
             'items' => ['required', 'array', 'min:1'],
             'items.*.item_name' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z0-9\s.,\-]+$/'],
             'items.*.description' => ['nullable', 'string', 'max:500', 'regex:/^[a-zA-Z0-9\s.,\-]+$/'],
-            'items.*.quantity' => ['nullable', 'integer', 'min:1', 'max:9999'],
+            'items.*.quantity' => ['nullable', 'integer', 'min:1', 'max:1000'],
         ], [
             'items.required' => 'Please add at least one item.',
             'items.*.item_name.required' => 'Item name is required.',
             'items.*.item_name.regex' => 'Item name may only contain letters, numbers, spaces, dots, commas, and hyphens.',
             'items.*.description.regex' => 'Description may only contain letters, numbers, spaces, dots, commas, and hyphens.',
+            'items.*.quantity.max' => 'Quantity must not exceed 1000.',
         ]);
 
         $userId = auth()->id();

@@ -264,8 +264,6 @@
     </div>
 
     <div class="main">
-        <nav class="breadcrumb">Home &gt; <a href="{{ auth()->check() ? route('user.dashboard') : route('user.guest') }}">My account</a> &gt; Overview</nav>
-
         @if(!auth()->check())
         <div class="guest-notice">
             <span class="material-icons">info</span>
