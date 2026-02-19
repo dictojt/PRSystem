@@ -10,6 +10,11 @@ import { NetworkFirst, StaleWhileRevalidate } from 'workbox-strategies';
 const LOG_PREFIX = '[PWA][SW]';
 const DEBUG_HOSTS = new Set(['localhost', '127.0.0.1']);
 let debugEnabled = DEBUG_HOSTS.has(self.location.hostname);
+const AUTH_BYPASS_PATHS = ['/auth/google', '/auth/google/callback'];
+
+function isAuthNavigation(url) {
+    return AUTH_BYPASS_PATHS.some((path) => url.pathname.startsWith(path));
+}
 
 function log(event, details) {
     if (!debugEnabled) return;
@@ -74,7 +79,7 @@ precacheAndRoute(self.__WB_MANIFEST);
 cleanupOutdatedCaches();
 
 registerRoute(
-    ({ request }) => request.mode === 'navigate',
+    ({ request, url }) => request.mode === 'navigate' && !isAuthNavigation(url),
     new NetworkFirst({
         cacheName: 'prs-pages-v1',
         networkTimeoutSeconds: 6,

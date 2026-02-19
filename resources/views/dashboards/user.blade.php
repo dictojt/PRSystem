@@ -204,10 +204,10 @@
             box-shadow: 0 1px 3px rgba(0,0,0,.05);
         }
         .quick-actions h3 { font-size: 14px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px; }
-        .quick-actions .btn-wrap { display: flex; flex-wrap: wrap; gap: 12px; }
+        .quick-actions .btn-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
         .quick-actions a {
             display: inline-flex; align-items: center; gap: 8px;
-            padding: 10px 18px; border-radius: 8px; font-size: 14px; font-weight: 500;
+            padding: 8px 12px; border-radius: 8px; font-size: 12px; font-weight: 600;
             text-decoration: none; transition: 0.2s;
         }
         .quick-actions a.btn-primary { background: var(--primary); color: white; border: none; }
@@ -216,6 +216,275 @@
         .quick-actions a.btn-outline:hover { background: #eff6ff; }
         .quick-actions a.btn-secondary { background: #f3f4f6; color: #6b7280; border: none; }
         .quick-actions a.btn-secondary:hover { background: #e5e7eb; color: var(--text-dark); }
+
+        :root {
+            --surface-strong: #ffffff;
+            --surface-muted: #f8fafc;
+            --business-navy: #0f172a;
+            --soft-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+            --badge-approved: #10b981;
+            --badge-pending: #f59e0b;
+            --badge-rejected: #ef4444;
+        }
+
+        .overview-kpis {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 22px;
+        }
+        .kpi-card {
+            background: var(--surface-strong);
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            box-shadow: var(--soft-shadow);
+            padding: 18px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .kpi-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        .kpi-icon.total { background: linear-gradient(135deg, #1d4ed8, #3b82f6); }
+        .kpi-icon.pending { background: linear-gradient(135deg, #d97706, #f59e0b); }
+        .kpi-icon.approved { background: linear-gradient(135deg, #059669, #10b981); }
+        .kpi-icon.rejected { background: linear-gradient(135deg, #dc2626, #ef4444); }
+        .kpi-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #64748b;
+            margin-bottom: 5px;
+        }
+        .kpi-value {
+            font-size: 24px;
+            line-height: 1;
+            color: var(--business-navy);
+            font-weight: 700;
+        }
+
+        .overview-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 18px;
+            margin-bottom: 18px;
+        }
+        .overview-stack {
+            display: grid;
+            gap: 18px;
+        }
+        .overview-panel {
+            background: var(--surface-strong);
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            box-shadow: var(--soft-shadow);
+            padding: 18px;
+        }
+        .overview-panel-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+        .overview-panel-head h2 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--business-navy);
+        }
+        .panel-subtitle {
+            font-size: 12px;
+            color: #64748b;
+        }
+        .table-wrap {
+            overflow-x: auto;
+            border: 1px solid #f1f5f9;
+            border-radius: 12px;
+        }
+        .overview-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+            background: #fff;
+        }
+        .overview-table th,
+        .overview-table td {
+            text-align: left;
+            padding: 12px 14px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 13px;
+            color: #334155;
+            vertical-align: middle;
+        }
+        .overview-table th {
+            background: var(--surface-muted);
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            font-size: 11px;
+            font-weight: 700;
+        }
+        .overview-table tr:last-child td { border-bottom: none; }
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 84px;
+            padding: 5px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 1;
+        }
+        .status-approved { background: rgba(16, 185, 129, 0.14); color: #047857; }
+        .status-pending { background: rgba(245, 158, 11, 0.16); color: #b45309; }
+        .status-reject { background: rgba(239, 68, 68, 0.14); color: #b91c1c; }
+
+        .quote-chart {
+            display: grid;
+            justify-items: center;
+            gap: 16px;
+        }
+        .donut-ring {
+            width: 190px;
+            height: 190px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+        }
+        .donut-center {
+            width: 122px;
+            height: 122px;
+            border-radius: 50%;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+        }
+        .donut-center strong {
+            font-size: 30px;
+            color: var(--business-navy);
+            line-height: 1;
+        }
+        .donut-center span {
+            margin-top: 4px;
+            font-size: 12px;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+        .quote-legend {
+            width: 100%;
+            display: grid;
+            gap: 8px;
+        }
+        .legend-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: #334155;
+            padding: 8px 10px;
+            border-radius: 10px;
+            background: #f8fafc;
+        }
+        .legend-item .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        .dot-approved { background: var(--badge-approved); }
+        .dot-pending { background: var(--badge-pending); }
+        .dot-rejected { background: var(--badge-rejected); }
+
+        .approved-alerts {
+            display: grid;
+            gap: 10px;
+        }
+        .alert-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 0;
+        }
+        .alert-item-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            width: 100%;
+            text-decoration: none;
+            padding: 10px 12px;
+            border-radius: 12px;
+            color: inherit;
+            transition: background 0.2s ease;
+        }
+        .alert-item-link:hover {
+            background: #eef2ff;
+        }
+        .alert-item .alert-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #0f172a;
+        }
+        .alert-item .material-icons {
+            font-size: 18px;
+            color: #059669;
+        }
+        .alert-meta {
+            font-size: 12px;
+            color: #64748b;
+            white-space: nowrap;
+        }
+        .empty-state {
+            text-align: center;
+            color: #64748b;
+            font-size: 13px;
+            padding: 16px;
+            background: #f8fafc;
+            border: 1px dashed #cbd5e1;
+            border-radius: 12px;
+        }
+
+        @media (max-width: 1200px) {
+            .overview-kpis { grid-template-columns: repeat(2, minmax(180px, 1fr)); }
+            .overview-layout { grid-template-columns: 1fr; }
+            .overview-table { min-width: 540px; }
+        }
+        @media (max-width: 768px) {
+            .main {
+                padding: 18px 14px 24px;
+            }
+            .overview-kpis { grid-template-columns: 1fr; }
+            .kpi-card { border-radius: 14px; }
+            .overview-panel { padding: 14px; border-radius: 14px; }
+            .overview-table th,
+            .overview-table td { padding: 10px 10px; font-size: 12px; }
+            .table-wrap { border-radius: 10px; }
+            .donut-ring { width: 170px; height: 170px; }
+            .donut-center { width: 112px; height: 112px; }
+            .quick-actions .btn-wrap { flex-direction: row; justify-content: flex-start; }
+            .quick-actions .btn-wrap a { justify-content: center; }
+        }
     </style>
 </head>
 <body>
@@ -276,113 +545,202 @@
         </div>
         @endif
 
+        @php
+            $statusSummary = $statusSummary ?? [
+                'approved' => count($completed ?? []),
+                'pending' => count($activeRequests ?? []),
+                'rejected' => 0,
+            ];
+
+            $approvedCount = (int) ($statusSummary['approved'] ?? 0);
+            $pendingCount = (int) ($statusSummary['pending'] ?? 0);
+            $rejectedCount = (int) ($statusSummary['rejected'] ?? 0);
+            $totalRequests = $approvedCount + $pendingCount + $rejectedCount;
+
+            $recentRequests = $recentRequests ?? [];
+            if (count($recentRequests) === 0) {
+                $recentRequests = collect(array_merge($activeRequests ?? [], $completed ?? []))
+                    ->sortByDesc(fn ($request) => $request['date'] ?? '')
+                    ->map(function ($request) {
+                        if (! isset($request['status'])) {
+                            $request['status'] = 'Approved';
+                        }
+                        return $request;
+                    })
+                    ->take(5)
+                    ->values()
+                    ->toArray();
+            }
+
+            $badgeClass = function ($status) {
+                $normalized = strtolower((string) $status);
+                if (str_contains($normalized, 'approv')) {
+                    return 'status-approved';
+                }
+                if (str_contains($normalized, 'reject')) {
+                    return 'status-reject';
+                }
+                return 'status-pending';
+            };
+        @endphp
+
         <div class="header-section">
-            <h1>Overview</h1>
-            <p>Manage active requests, pending actions, and completed items.</p>
+            <h1>Procurement Dashboard Overview</h1>
+            <p>Monitor request flow, quote outcomes, and approvals in one business-ready view.</p>
         </div>
 
         @if(session('success'))
-        <div class="alert-success" style="background:#d1fae5;color:#047857;padding:12px 16px;border-radius:8px;margin-bottom:20px;">
+        <div class="alert-success" style="background:#d1fae5;color:#047857;padding:12px 16px;border-radius:10px;margin-bottom:18px;">
             {{ session('success') }}
         </div>
         @endif
 
-        <div class="stat-cards">
-            <div class="stat-card">
-                <div class="stat-icon"><span class="material-icons">inventory_2</span></div>
+        <div class="overview-kpis">
+            <div class="kpi-card">
+                <div class="kpi-icon total"><span class="material-icons">inventory_2</span></div>
                 <div>
-                    <div class="stat-label">Total Requests</div>
-                    <div class="stat-value">{{ count($activeRequests ?? []) + count($completed ?? []) }}</div>
+                    <div class="kpi-label">Total Requests</div>
+                    <div class="kpi-value">{{ $totalRequests }}</div>
                 </div>
             </div>
-            <div class="stat-card">
-                <div class="stat-icon"><span class="material-icons">pending_actions</span></div>
+            <div class="kpi-card">
+                <div class="kpi-icon pending"><span class="material-icons">pending_actions</span></div>
                 <div>
-                    <div class="stat-label">Active</div>
-                    <div class="stat-value">{{ count($activeRequests ?? []) }}</div>
+                    <div class="kpi-label">Pending</div>
+                    <div class="kpi-value">{{ $pendingCount }}</div>
                 </div>
             </div>
-            <div class="stat-card">
-                <div class="stat-icon"><span class="material-icons">schedule</span></div>
+            <div class="kpi-card">
+                <div class="kpi-icon approved"><span class="material-icons">check_circle</span></div>
                 <div>
-                    <div class="stat-label">Pending</div>
-                    <div class="stat-value">{{ count($pendingActions ?? []) }}</div>
+                    <div class="kpi-label">Approved</div>
+                    <div class="kpi-value">{{ $approvedCount }}</div>
                 </div>
             </div>
-            <div class="stat-card">
-                <div class="stat-icon"><span class="material-icons">check_circle</span></div>
+            <div class="kpi-card">
+                <div class="kpi-icon rejected"><span class="material-icons">cancel</span></div>
                 <div>
-                    <div class="stat-label">Completed</div>
-                    <div class="stat-value">{{ count($completed ?? []) }}</div>
+                    <div class="kpi-label">Rejected</div>
+                    <div class="kpi-value">{{ $rejectedCount }}</div>
                 </div>
             </div>
         </div>
 
-        <div class="home-cards">
-            <div class="card">
-                <div class="card-title-bar">
-                    <h2>Active Requests</h2>
-                    <span class="material-icons">pending_actions</span>
+        <div class="overview-layout">
+            <div class="overview-panel">
+                <div class="overview-panel-head">
+                    <h2>Recent Requests</h2>
+                    <span class="panel-subtitle">Latest 5 records</span>
                 </div>
-                <ul class="card-list">
-                    @forelse($activeRequests as $req)
-                    <li>
-                        <div>
-                            <div>{{ $req['item'] }}{{ isset($req['quantity']) && $req['quantity'] > 1 ? ' (×' . $req['quantity'] . ')' : '' }}</div>
-                            <div class="meta">ID: {{ $req['id'] }} · {{ $req['date'] }}</div>
-                        </div>
-                        <span class="badge badge-info">{{ $req['status'] }}</span>
-                    </li>
-                    @empty
-                    <li>No active requests.</li>
-                    @endforelse
-                </ul>
+                <div class="table-wrap">
+                    <table class="overview-table">
+                        <thead>
+                            <tr>
+                                <th>Request ID</th>
+                                <th>Item</th>
+                                <th>Qty</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($recentRequests as $req)
+                            <tr>
+                                <td>{{ $req['id'] ?? '-' }}</td>
+                                <td>{{ $req['item'] ?? '-' }}</td>
+                                <td>{{ $req['quantity'] ?? 1 }}</td>
+                                <td>{{ $req['date'] ?? '-' }}</td>
+                                <td>
+                                    <span class="status-badge {{ $badgeClass($req['status'] ?? 'Pending') }}">
+                                        {{ $req['status'] ?? 'Pending' }}
+                                    </span>
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="5">
+                                    <div class="empty-state">No request history available.</div>
+                                </td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div class="card">
-                <div class="card-title-bar">
-                    <h2>Pending Actions</h2>
-                    <span class="material-icons">schedule</span>
-                </div>
-                <ul class="card-list">
-                    @forelse($pendingActions as $act)
-                    <li>
-                        <div>
-                            <div>{{ $act['action'] }}</div>
-                            <div class="meta">Due: {{ $act['due'] }}</div>
+
+            <div class="overview-stack">
+                <div class="overview-panel">
+                    <div class="overview-panel-head">
+                        <h2>Approved Alerts</h2>
+                        <span class="panel-subtitle">Most recent 5 approvals</span>
+                    </div>
+                    <div class="approved-alerts">
+                        @forelse(($completed ?? []) as $alert)
+                        <div class="alert-item">
+                            <a href="{{ $alert['url'] ?? route('user.requests.view', ['status' => 'approved']) }}" class="alert-item-link">
+                                <div class="alert-left">
+                                    <span class="material-icons">task_alt</span>
+                                    <span>{{ $alert['id'] }} · {{ $alert['item'] }}</span>
+                                </div>
+                                <span class="alert-meta">{{ $alert['date'] }}</span>
+                            </a>
                         </div>
-                    </li>
-                    @empty
-                    <li>No pending actions.</li>
-                    @endforelse
-                </ul>
+                        @empty
+                        <div class="empty-state">No approved alerts available.</div>
+                        @endforelse
+                    </div>
+                </div>
             </div>
-            <div class="card">
-                <div class="card-title-bar">
-                    <h2>Completed</h2>
-                    <span class="material-icons">check_circle</span>
-                </div>
-                <ul class="card-list">
-                    @forelse($completed as $c)
-                    <li>
-                        <div>
-                            <div>{{ $c['item'] }}{{ isset($c['quantity']) && $c['quantity'] > 1 ? ' (×' . $c['quantity'] . ')' : '' }}</div>
-                            <div class="meta">ID: {{ $c['id'] }} · {{ $c['date'] }}</div>
-                        </div>
-                    </li>
-                    @empty
-                    <li>No completed requests.</li>
-                    @endforelse
-                </ul>
+        </div>
+
+        <div class="overview-panel" style="margin-bottom: 20px;">
+            <div class="overview-panel-head">
+                <h2>Active Requests Pending</h2>
+                <span class="panel-subtitle">Requests currently in progress</span>
+            </div>
+            <div class="table-wrap">
+                <table class="overview-table">
+                    <thead>
+                        <tr>
+                            <th>Request ID</th>
+                            <th>Item</th>
+                            <th>Quantity</th>
+                            <th>Submitted</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($activeRequests as $req)
+                        <tr>
+                            <td>{{ $req['id'] ?? '-' }}</td>
+                            <td>{{ $req['item'] ?? '-' }}</td>
+                            <td>{{ $req['quantity'] ?? 1 }}</td>
+                            <td>{{ $req['date'] ?? '-' }}</td>
+                            <td>
+                                <span class="status-badge {{ $badgeClass($req['status'] ?? 'Pending') }}">
+                                    {{ $req['status'] ?? 'Pending' }}
+                                </span>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="5">
+                                <div class="empty-state">No active pending requests.</div>
+                            </td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
             </div>
         </div>
 
         <div class="quick-actions">
             <h3>Quick Actions</h3>
             <div class="btn-wrap">
-                <a href="{{ route('user.requests.create') }}" class="btn-primary"><span class="material-icons" style="font-size:18px;">add</span> Create Request</a>
-                <a href="{{ route('user.requests.view') }}" class="btn-outline"><span class="material-icons" style="font-size:18px;">list_alt</span> View Request</a>
-                <a href="{{ route('user.reports') }}" class="btn-outline"><span class="material-icons" style="font-size:18px;">analytics</span> View Reports</a>
-                <a href="{{ route('user.support') }}" class="btn-secondary"><span class="material-icons" style="font-size:18px;">support</span> Support</a>
+                <a href="{{ route('user.requests.create') }}" class="btn-primary"><span class="material-icons" style="font-size:16px;">add</span> Create Request</a>
+                <a href="{{ route('user.requests.view') }}" class="btn-outline"><span class="material-icons" style="font-size:16px;">list_alt</span> View Request</a>
+                <a href="{{ route('user.reports') }}" class="btn-outline"><span class="material-icons" style="font-size:16px;">analytics</span> View Reports</a>
+                <a href="{{ route('user.support') }}" class="btn-secondary"><span class="material-icons" style="font-size:16px;">support</span> Support</a>
             </div>
         </div>
     </div>
