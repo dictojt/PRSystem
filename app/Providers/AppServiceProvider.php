@@ -36,6 +36,7 @@ class AppServiceProvider extends ServiceProvider
 
         $host = request()->getHost();
         $isLocalHost = in_array($host, ['localhost', '127.0.0.1'], true);
+        $isHttps = request()->secure();
 
         // Always use request URL when accessed via a different host (e.g. ngrok) so
         // post-login redirects and links work instead of sending users to unreachable localhost.
@@ -47,9 +48,16 @@ class AppServiceProvider extends ServiceProvider
             URL::forceRootUrl(rtrim($rootUrl, '/'));
         }
 
-        // When accessed over HTTPS (e.g. ngrok), ensure session cookie is Secure so it is sent on the OAuth callback
-        if (request()->secure()) {
+        // Session cookie policy for OAuth:
+        // - force secure cookies on HTTPS hosts (e.g. ngrok)
+        // - force non-secure on localhost/http to avoid InvalidStateException
+        if ($isHttps) {
             config(['session.secure' => true]);
+        } elseif ($isLocalHost) {
+            config([
+                'session.secure' => false,
+                'session.same_site' => 'lax',
+            ]);
         }
 
         if (! $isLocalHost && $this->app->environment('local') && is_file(public_path('hot'))) {
