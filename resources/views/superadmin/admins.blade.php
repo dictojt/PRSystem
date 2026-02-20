@@ -17,28 +17,90 @@
         @if(auth()->user()->role === 'superadmin')
             <div class="table-card admin-management-card" style="margin-bottom: 24px;">
                 <div class="card-title-bar admin-management-header">
-                    <div class="admin-management-filters">
+                    <div class="admin-management-controls">
+                        <div class="admin-search-row">
                         <label class="admin-search-wrap" for="adminSearchInput">
                             <span class="material-icons">search</span>
                             <input id="adminSearchInput" type="text" placeholder="Search">
                         </label>
-                        <select id="adminRoleFilter" class="admin-filter-select" aria-label="Filter by role">
-                            <option value="all">Role</option>
-                            <option value="superadmin">Superadmin</option>
-                            <option value="approver">Approver</option>
-                            <option value="user">User</option>
-                        </select>
-                        <select id="adminStatusFilter" class="admin-filter-select" aria-label="Filter by status">
-                            <option value="all">Status</option>
-                            <option value="active">Active</option>
-                            <option value="deactivated">Deactivated</option>
-                        </select>
-                        <select id="adminDateFilter" class="admin-filter-select" aria-label="Filter by date">
-                            <option value="all">Date</option>
-                            <option value="last30">Last 30 days</option>
-                            <option value="thisYear">This year</option>
-                            <option value="older">Older</option>
-                        </select>
+                        </div>
+                        <div class="admin-management-filters">
+                        <div class="admin-filter-dropdown" data-filter-dropdown>
+                            <button type="button" class="admin-filter-trigger" id="adminRoleFilterTrigger"
+                                aria-haspopup="listbox" aria-expanded="false" aria-controls="adminRoleFilterMenu"
+                                aria-label="Filter by role">
+                                <span class="admin-filter-trigger-text">Role</span>
+                                <span class="material-icons admin-filter-chevron" aria-hidden="true">expand_more</span>
+                            </button>
+                            <ul id="adminRoleFilterMenu" class="admin-filter-menu" role="listbox" aria-label="Filter by role"
+                                hidden>
+                                <li class="admin-filter-option" role="option" data-value="all" aria-selected="true" tabindex="0">
+                                    Role</li>
+                                <li class="admin-filter-option" role="option" data-value="superadmin" aria-selected="false"
+                                    tabindex="-1">Superadmin</li>
+                                <li class="admin-filter-option" role="option" data-value="approver" aria-selected="false"
+                                    tabindex="-1">Approver</li>
+                                <li class="admin-filter-option" role="option" data-value="user" aria-selected="false"
+                                    tabindex="-1">User</li>
+                            </ul>
+                            <select id="adminRoleFilter" class="admin-filter-native-select" aria-label="Filter by role"
+                                tabindex="-1">
+                                <option value="all">Role</option>
+                                <option value="superadmin">Superadmin</option>
+                                <option value="approver">Approver</option>
+                                <option value="user">User</option>
+                            </select>
+                        </div>
+                        <div class="admin-filter-dropdown" data-filter-dropdown>
+                            <button type="button" class="admin-filter-trigger" id="adminStatusFilterTrigger"
+                                aria-haspopup="listbox" aria-expanded="false" aria-controls="adminStatusFilterMenu"
+                                aria-label="Filter by status">
+                                <span class="admin-filter-trigger-text">Status</span>
+                                <span class="material-icons admin-filter-chevron" aria-hidden="true">expand_more</span>
+                            </button>
+                            <ul id="adminStatusFilterMenu" class="admin-filter-menu" role="listbox"
+                                aria-label="Filter by status" hidden>
+                                <li class="admin-filter-option" role="option" data-value="all" aria-selected="true" tabindex="0">
+                                    Status</li>
+                                <li class="admin-filter-option" role="option" data-value="active" aria-selected="false"
+                                    tabindex="-1">Active</li>
+                                <li class="admin-filter-option" role="option" data-value="deactivated" aria-selected="false"
+                                    tabindex="-1">Deactivated</li>
+                            </ul>
+                            <select id="adminStatusFilter" class="admin-filter-native-select" aria-label="Filter by status"
+                                tabindex="-1">
+                                <option value="all">Status</option>
+                                <option value="active">Active</option>
+                                <option value="deactivated">Deactivated</option>
+                            </select>
+                        </div>
+                        <div class="admin-filter-dropdown" data-filter-dropdown>
+                            <button type="button" class="admin-filter-trigger" id="adminDateFilterTrigger"
+                                aria-haspopup="listbox" aria-expanded="false" aria-controls="adminDateFilterMenu"
+                                aria-label="Filter by date">
+                                <span class="admin-filter-trigger-text">Date</span>
+                                <span class="material-icons admin-filter-chevron" aria-hidden="true">expand_more</span>
+                            </button>
+                            <ul id="adminDateFilterMenu" class="admin-filter-menu" role="listbox" aria-label="Filter by date"
+                                hidden>
+                                <li class="admin-filter-option" role="option" data-value="all" aria-selected="true" tabindex="0">
+                                    Date</li>
+                                <li class="admin-filter-option" role="option" data-value="last30" aria-selected="false"
+                                    tabindex="-1">Last 30 days</li>
+                                <li class="admin-filter-option" role="option" data-value="thisYear" aria-selected="false"
+                                    tabindex="-1">This year</li>
+                                <li class="admin-filter-option" role="option" data-value="older" aria-selected="false"
+                                    tabindex="-1">Older</li>
+                            </ul>
+                            <select id="adminDateFilter" class="admin-filter-native-select" aria-label="Filter by date"
+                                tabindex="-1">
+                                <option value="all">Date</option>
+                                <option value="last30">Last 30 days</option>
+                                <option value="thisYear">This year</option>
+                                <option value="older">Older</option>
+                            </select>
+                        </div>
+                        </div>
                     </div>
                     <button type="button" class="admin-add-user-btn" onclick="openAddUserModal()">
                         <span>Add User</span>
@@ -352,30 +414,62 @@
 
         .admin-management-header {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: space-between;
             gap: 12px;
             flex-wrap: wrap;
             padding: 16px;
+            position: relative;
+            z-index: 40;
+            overflow: visible;
+        }
+
+        .admin-management-controls {
+            display: grid;
+            gap: 10px;
+            flex: 0 1 560px;
+            width: 100%;
+            max-width: 560px;
+            min-width: 0;
+            position: relative;
+            z-index: 45;
+        }
+
+        .admin-search-row {
+            display: block;
+            width: 100%;
         }
 
         .admin-management-filters {
-            display: flex;
-            align-items: center;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 10px;
-            flex-wrap: wrap;
-            flex: 1;
+            width: 100%;
+            align-items: stretch;
         }
 
         .admin-search-wrap {
-            display: inline-flex;
+            display: flex;
             align-items: center;
             gap: 6px;
-            min-width: 220px;
+            width: 100%;
+            min-width: 0;
+            min-height: 38px;
             background: #fff;
-            border: 1px solid #d7deea;
-            border-radius: 10px;
-            padding: 8px 10px;
+            border: 1px solid #bcc7d6;
+            border-radius: 8px;
+            padding: 6px 12px;
+            transition: border-color 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease;
+        }
+
+        .admin-search-wrap:hover {
+            border-color: #95a3b8;
+            background: #fcfdff;
+        }
+
+        .admin-search-wrap:focus-within {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.16);
         }
 
         .admin-search-wrap .material-icons {
@@ -392,55 +486,130 @@
             color: #0f172a;
         }
 
-        .admin-filter-select {
-            min-width: 120px;
-            border: 1px solid #d7deea;
-            border-radius: 10px;
-            background: #fff;
-            padding: 8px 10px;
-            font-size: 13px;
-            color: #334155;
-            outline: none;
-            transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+        .admin-filter-dropdown {
+            position: relative;
+            min-width: 0;
+            z-index: 1;
         }
 
-        .admin-filter-select:hover {
-            border-color: #93c5fd;
-            background: #f8fbff;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+        .admin-filter-dropdown.is-open {
+            z-index: 80;
         }
 
-        .admin-filter-select:focus {
-            border-color: #2563eb;
-            background: #f8fbff;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
-        }
-
-        .admin-filter-select option {
-            color: #1e293b;
+        .admin-filter-trigger {
+            width: 100%;
+            min-height: 44px;
+            border: 1px solid #d0d5dd;
+            border-radius: 6px;
             background: #ffffff;
+            padding: 2px 3px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            box-shadow: 0 1px 2px rgba(16, 24, 40, 0.08);
+            cursor: pointer;
+            transition: border-color 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease;
         }
 
-        .admin-filter-select option:hover,
-        .admin-filter-select option:focus {
-            background: #eff6ff;
+        .admin-filter-trigger:hover {
+            border-color: #b8c2d3;
+            background: #fcfdff;
+        }
+
+        .admin-filter-trigger:focus-visible {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 1px 2px rgba(16, 24, 40, 0.08), 0 0 0 3px rgba(59, 130, 246, 0.22);
+        }
+
+        .admin-filter-trigger-text {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .admin-filter-chevron {
+            font-size: 18px;
+            color: #64748b;
+            transition: transform 0.16s ease;
+        }
+
+        .admin-filter-menu {
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            right: auto;
+            margin: 0;
+            padding: 6px;
+            list-style: none;
+            border: 1px solid #dfe5ef;
+            border-radius: 8px;
+            background: #ffffff;
+            box-shadow: 0 10px 28px rgba(15, 23, 42, 0.14);
+            z-index: 1200;
+            min-width: 160px;
+            max-height: 280px;
+            overflow-y: auto;
+            white-space: nowrap;
+        }
+
+        .admin-filter-option {
+            padding: 10px 12px;
+            border-radius: 6px;
+            color: #0f172a;
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 1.25;
+            cursor: pointer;
+            transition: background-color 0.14s ease, color 0.14s ease;
+        }
+
+        .admin-filter-option:hover,
+        .admin-filter-option:focus-visible {
+            background: #f8fafc;
+            outline: none;
+        }
+
+        .admin-filter-option[aria-selected="true"] {
+            background: #eaf2ff;
             color: #1d4ed8;
+            font-weight: 600;
         }
 
-        .admin-filter-select option:checked {
-            background: #dbeafe;
-            color: #1e3a8a;
+        .admin-filter-dropdown.is-open .admin-filter-trigger {
+            border-color: #3b82f6;
+            box-shadow: 0 1px 2px rgba(16, 24, 40, 0.08), 0 0 0 3px rgba(59, 130, 246, 0.12);
         }
 
-        #adminStatusFilter option[value="deactivated"] {
-            color: #b91c1c;
+        .admin-filter-dropdown.is-open .admin-filter-chevron {
+            transform: rotate(180deg);
         }
 
-        #adminStatusFilter option[value="deactivated"]:hover,
-        #adminStatusFilter option[value="deactivated"]:focus,
-        #adminStatusFilter option[value="deactivated"]:checked {
-            background: #fee2e2;
-            color: #991b1b;
+        .admin-filter-dropdown.is-disabled .admin-filter-trigger {
+            background: #f8fafc;
+            border-color: #e2e8f0;
+            color: #94a3b8;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+
+        .admin-filter-dropdown.is-disabled .admin-filter-chevron {
+            color: #94a3b8;
+        }
+
+        .admin-filter-native-select {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            opacity: 0;
+            pointer-events: none;
         }
 
         .admin-add-user-btn {
@@ -448,6 +617,8 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
+            align-self: flex-start;
+            margin-left: auto;
             border: 1px solid #2748c8;
             background: linear-gradient(180deg, #5b7bff 0%, #4169e1 100%);
             color: #ffffff;
@@ -486,7 +657,13 @@
         }
 
         .admin-table-wrap {
+            position: relative;
+            z-index: 1;
             overflow-x: auto;
+        }
+
+        .admin-management-card {
+            overflow: visible !important;
         }
 
         .admin-management-table th {
@@ -628,12 +805,17 @@
         }
 
         @media (max-width: 860px) {
+            .admin-management-controls {
+                max-width: none;
+                flex: 1 1 100%;
+            }
+
             .admin-search-wrap {
                 min-width: 100%;
             }
 
-            .admin-filter-select {
-                min-width: 100%;
+            .admin-management-filters {
+                grid-template-columns: 1fr;
             }
 
             .admin-add-user-btn {
@@ -725,9 +907,129 @@
                 });
             }
 
+            function getDropdownParts(dropdown) {
+                if (!dropdown) return null;
+                return {
+                    trigger: dropdown.querySelector('.admin-filter-trigger'),
+                    menu: dropdown.querySelector('.admin-filter-menu'),
+                    options: Array.prototype.slice.call(dropdown.querySelectorAll('.admin-filter-option')),
+                    select: dropdown.querySelector('.admin-filter-native-select')
+                };
+            }
+
+            function syncFilterDropdown(dropdown) {
+                var parts = getDropdownParts(dropdown);
+                if (!parts || !parts.trigger || !parts.select) return;
+
+                var selectedValue = parts.select.value || 'all';
+                var selectedOption = parts.options.find(function (option) {
+                    return option.getAttribute('data-value') === selectedValue;
+                }) || parts.options[0];
+
+                parts.options.forEach(function (option) {
+                    var isSelected = option === selectedOption;
+                    option.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+                    option.setAttribute('tabindex', isSelected ? '0' : '-1');
+                });
+
+                var textNode = parts.trigger.querySelector('.admin-filter-trigger-text');
+                if (textNode && selectedOption) {
+                    textNode.textContent = selectedOption.textContent.trim();
+                }
+
+                var isDisabled = !!parts.select.disabled;
+                dropdown.classList.toggle('is-disabled', isDisabled);
+                parts.trigger.disabled = isDisabled;
+            }
+
+            function closeFilterDropdown(dropdown, focusTrigger) {
+                var parts = getDropdownParts(dropdown);
+                if (!parts || !parts.trigger || !parts.menu) return;
+                dropdown.classList.remove('is-open');
+                parts.trigger.setAttribute('aria-expanded', 'false');
+                parts.menu.hidden = true;
+                if (focusTrigger) {
+                    parts.trigger.focus();
+                }
+            }
+
+            function closeAllFilterDropdowns(exceptDropdown) {
+                document.querySelectorAll('[data-filter-dropdown]').forEach(function (dropdown) {
+                    if (!exceptDropdown || dropdown !== exceptDropdown) {
+                        closeFilterDropdown(dropdown, false);
+                    }
+                });
+            }
+
+            function openFilterDropdown(dropdown) {
+                var parts = getDropdownParts(dropdown);
+                if (!parts || !parts.trigger || !parts.menu || !parts.options.length || dropdown.classList.contains('is-disabled')) {
+                    return;
+                }
+                closeAllFilterDropdowns(dropdown);
+                dropdown.classList.add('is-open');
+                parts.trigger.setAttribute('aria-expanded', 'true');
+                parts.menu.hidden = false;
+                var selectedOption = parts.options.find(function (option) {
+                    return option.getAttribute('aria-selected') === 'true';
+                }) || parts.options[0];
+                if (selectedOption) selectedOption.focus();
+            }
+
+            function selectFilterOption(optionEl) {
+                var dropdown = optionEl.closest('[data-filter-dropdown]');
+                var parts = getDropdownParts(dropdown);
+                if (!parts || !parts.select) return;
+                var nextValue = optionEl.getAttribute('data-value') || 'all';
+                parts.select.value = nextValue;
+                syncFilterDropdown(dropdown);
+                parts.select.dispatchEvent(new Event('change', { bubbles: true }));
+                closeFilterDropdown(dropdown, true);
+            }
+
+            function moveDropdownOptionFocus(optionEl, direction) {
+                var dropdown = optionEl.closest('[data-filter-dropdown]');
+                var parts = getDropdownParts(dropdown);
+                if (!parts || !parts.options.length) return;
+                var currentIndex = parts.options.indexOf(optionEl);
+                if (currentIndex < 0) return;
+                var nextIndex = currentIndex + direction;
+                if (nextIndex < 0) nextIndex = 0;
+                if (nextIndex > parts.options.length - 1) nextIndex = parts.options.length - 1;
+                parts.options[nextIndex].focus();
+            }
+
+            function initializeFilterDropdowns() {
+                document.querySelectorAll('[data-filter-dropdown]').forEach(function (dropdown) {
+                    syncFilterDropdown(dropdown);
+                    closeFilterDropdown(dropdown, false);
+                });
+            }
+
             document.addEventListener('click', function (event) {
                 var target = event.target;
                 if (!target || typeof target.closest !== 'function') return;
+
+                var trigger = target.closest('.admin-filter-trigger');
+                if (trigger) {
+                    var triggerDropdown = trigger.closest('[data-filter-dropdown]');
+                    if (triggerDropdown && triggerDropdown.classList.contains('is-open')) {
+                        closeFilterDropdown(triggerDropdown, false);
+                    } else {
+                        openFilterDropdown(triggerDropdown);
+                    }
+                    return;
+                }
+
+                var option = target.closest('.admin-filter-option');
+                if (option) {
+                    selectFilterOption(option);
+                    return;
+                }
+
+                if (!target.closest('[data-filter-dropdown]')) {
+                    closeAllFilterDropdowns(null);
+                }
 
                 var otpButton = target.closest('.send-otp-btn');
                 if (otpButton) {
@@ -787,6 +1089,40 @@
                 }
             });
 
+            document.addEventListener('keydown', function (event) {
+                var target = event.target;
+                if (!target || typeof target.closest !== 'function') return;
+
+                var trigger = target.closest('.admin-filter-trigger');
+                if (trigger) {
+                    var triggerDropdown = trigger.closest('[data-filter-dropdown]');
+                    if (event.key === 'ArrowDown' || event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        openFilterDropdown(triggerDropdown);
+                    } else if (event.key === 'Escape') {
+                        closeFilterDropdown(triggerDropdown, true);
+                    }
+                    return;
+                }
+
+                var option = target.closest('.admin-filter-option');
+                if (!option) return;
+
+                if (event.key === 'ArrowDown') {
+                    event.preventDefault();
+                    moveDropdownOptionFocus(option, 1);
+                } else if (event.key === 'ArrowUp') {
+                    event.preventDefault();
+                    moveDropdownOptionFocus(option, -1);
+                } else if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    selectFilterOption(option);
+                } else if (event.key === 'Escape') {
+                    event.preventDefault();
+                    closeFilterDropdown(option.closest('[data-filter-dropdown]'), true);
+                }
+            });
+
             document.addEventListener('input', function (event) {
                 var t = event.target;
                 if (!t) return;
@@ -797,10 +1133,13 @@
                 var t = event.target;
                 if (!t) return;
                 if (t.id === 'adminRoleFilter' || t.id === 'adminStatusFilter' || t.id === 'adminDateFilter') {
+                    var dropdown = t.closest('[data-filter-dropdown]');
+                    if (dropdown) syncFilterDropdown(dropdown);
                     applyAdminFilters();
                 }
             });
 
+            initializeFilterDropdowns();
             applyAdminFilters();
 
             @if($errors->has('email'))

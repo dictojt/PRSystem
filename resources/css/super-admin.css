@@ -311,7 +311,7 @@
 .card-title-bar .material-icons {
     background: #eff6ff;
     color: var(--primary);
-    padding: 8px;
+    padding: 2px;
     border-radius: 8px;
     font-size: 20px;
 }

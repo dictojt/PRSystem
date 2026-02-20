@@ -7,6 +7,7 @@
         grid-template-columns: repeat(4, minmax(180px, 1fr));
         gap: 12px;
         margin-bottom: 12px;
+        box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
     }
     .sa-kpi {
         background: #fff;
@@ -473,8 +474,8 @@
 
         <div class="sa-panel">
             <div class="sa-panel-head">
-                <h2>Approved Alerts</h2>
-                <span class="sa-subtle">Most recent notifications</span>
+                <h2>Request Activity Feed</h2>
+                <span class="sa-subtle">Most recent approved, rejected, and pending notifications</span>
             </div>
             <div class="sa-alerts">
                 @forelse(array_slice($approvedAlerts ?? [], 0, 5) as $alert)

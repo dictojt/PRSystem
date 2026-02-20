@@ -19,7 +19,7 @@ class DashboardController extends Controller
             return view('dashboards.user', [
                 'activeRequests' => [],
                 'pendingActions' => [],
-                'completed' => [],
+                'requestAlerts' => [],
                 'recentRequests' => [],
                 'statusSummary' => [
                     'approved' => 0,
@@ -73,23 +73,32 @@ class DashboardController extends Controller
             ])
             ->toArray();
 
-        $completed = PrsRequest::where('user_id', $userId)
-            ->whereIn('status', ['Approved'])
+        $requestAlerts = PrsRequest::where('user_id', $userId)
+            ->whereIn('status', ['Pending', 'Approved', 'Rejected'])
             ->orderByDesc('updated_at')
             ->limit(5)
             ->get()
-            ->map(fn ($r) => [
-                'id' => $r->approved_id ?: $r->request_id,
-                'request_id' => $r->request_id,
-                'item' => $r->item_name,
-                'quantity' => $r->quantity ?? 1,
-                'date' => $r->updated_at->format('Y-m-d'),
-                'status' => $r->status,
-                'url' => route('user.requests.view', [
-                    'status' => 'approved',
-                    'focus_request' => $r->request_id,
-                ]),
-            ])
+            ->map(function ($r) {
+                $statusMap = [
+                    'Pending' => 'pending',
+                    'Approved' => 'approved',
+                    'Rejected' => 'rejected',
+                ];
+                $statusFilter = $statusMap[$r->status] ?? 'all';
+
+                return [
+                    'id' => $r->status === 'Approved' ? ($r->approved_id ?: $r->request_id) : $r->request_id,
+                    'request_id' => $r->request_id,
+                    'item' => $r->item_name,
+                    'quantity' => $r->quantity ?? 1,
+                    'date' => ($r->updated_at ?? $r->created_at)?->format('Y-m-d') ?? '-',
+                    'status' => $r->status,
+                    'url' => route('user.requests.view', [
+                        'status' => $statusFilter,
+                        'focus_request' => $r->request_id,
+                    ]),
+                ];
+            })
             ->toArray();
 
         $statusSummary = [
@@ -98,7 +107,7 @@ class DashboardController extends Controller
             'rejected' => PrsRequest::where('user_id', $userId)->where('status', 'Rejected')->count(),
         ];
 
-        return view('dashboards.user', compact('activeRequests', 'pendingActions', 'completed', 'recentRequests', 'statusSummary'));
+        return view('dashboards.user', compact('activeRequests', 'pendingActions', 'requestAlerts', 'recentRequests', 'statusSummary'));
     }
 
     /**

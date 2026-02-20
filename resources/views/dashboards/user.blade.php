@@ -448,8 +448,10 @@
         }
         .alert-item .material-icons {
             font-size: 18px;
-            color: #059669;
         }
+        .alert-icon-approved { color: #059669; }
+        .alert-icon-pending { color: #d97706; }
+        .alert-icon-rejected { color: #dc2626; }
         .alert-meta {
             font-size: 12px;
             color: #64748b;
@@ -546,8 +548,12 @@
         @endif
 
         @php
+            $requestAlerts = $requestAlerts ?? ($completed ?? []);
+            $approvedFromAlerts = collect($requestAlerts)
+                ->filter(fn ($request) => str_contains(strtolower((string) ($request['status'] ?? '')), 'approv'))
+                ->count();
             $statusSummary = $statusSummary ?? [
-                'approved' => count($completed ?? []),
+                'approved' => $approvedFromAlerts,
                 'pending' => count($activeRequests ?? []),
                 'rejected' => 0,
             ];
@@ -559,7 +565,7 @@
 
             $recentRequests = $recentRequests ?? [];
             if (count($recentRequests) === 0) {
-                $recentRequests = collect(array_merge($activeRequests ?? [], $completed ?? []))
+                $recentRequests = collect(array_merge($activeRequests ?? [], $requestAlerts ?? []))
                     ->sortByDesc(fn ($request) => $request['date'] ?? '')
                     ->map(function ($request) {
                         if (! isset($request['status'])) {
@@ -581,6 +587,16 @@
                     return 'status-reject';
                 }
                 return 'status-pending';
+            };
+            $statusIcon = function ($status) {
+                $normalized = strtolower((string) $status);
+                if (str_contains($normalized, 'approv')) {
+                    return ['name' => 'task_alt', 'class' => 'alert-icon-approved'];
+                }
+                if (str_contains($normalized, 'reject')) {
+                    return ['name' => 'cancel', 'class' => 'alert-icon-rejected'];
+                }
+                return ['name' => 'schedule', 'class' => 'alert-icon-pending'];
             };
         @endphp
 
@@ -671,22 +687,23 @@
             <div class="overview-stack">
                 <div class="overview-panel">
                     <div class="overview-panel-head">
-                        <h2>Approved Alerts</h2>
-                        <span class="panel-subtitle">Most recent 5 approvals</span>
+                        <h2>Request Activity Feed</h2>
+                        <span class="panel-subtitle">Most recent approved, rejected, and pending updates</span>
                     </div>
                     <div class="approved-alerts">
-                        @forelse(($completed ?? []) as $alert)
+                        @forelse(($requestAlerts ?? []) as $alert)
+                        @php $icon = $statusIcon($alert['status'] ?? 'Pending'); @endphp
                         <div class="alert-item">
-                            <a href="{{ $alert['url'] ?? route('user.requests.view', ['status' => 'approved']) }}" class="alert-item-link">
+                            <a href="{{ $alert['url'] ?? route('user.requests.view') }}" class="alert-item-link">
                                 <div class="alert-left">
-                                    <span class="material-icons">task_alt</span>
+                                    <span class="material-icons {{ $icon['class'] }}">{{ $icon['name'] }}</span>
                                     <span>{{ $alert['id'] }} · {{ $alert['item'] }}</span>
                                 </div>
-                                <span class="alert-meta">{{ $alert['date'] }}</span>
+                                <span class="alert-meta">{{ $alert['status'] ?? 'Pending' }} · {{ $alert['date'] }}</span>
                             </a>
                         </div>
                         @empty
-                        <div class="empty-state">No approved alerts available.</div>
+                        <div class="empty-state">No request alerts available.</div>
                         @endforelse
                     </div>
                 </div>
