@@ -141,21 +141,6 @@ class DashboardController extends Controller
             ])
             ->toArray();
 
-        $activePendingRequests = (clone $baseQuery)->with('user')
-            ->whereIn('status', ['Pending', 'Processing', 'In Review'])
-            ->orderByDesc('created_at')
-            ->limit(10)
-            ->get()
-            ->map(fn ($r) => [
-                'id' => $r->request_id,
-                'item' => $r->item_name,
-                'requestor' => $r->user?->name ?? 'Unknown',
-                'quantity' => $r->quantity ?? 1,
-                'date' => $r->created_at->format('Y-m-d'),
-                'status' => $r->status,
-            ])
-            ->toArray();
-
         $approvedAlerts = (clone $baseQuery)->with('user')
             ->whereIn('status', ['Pending', 'Approved', 'Rejected'])
             ->orderByDesc('updated_at')
@@ -207,7 +192,6 @@ class DashboardController extends Controller
             'byStatus',
             'requestsLast7Days',
             'recentRequests',
-            'activePendingRequests',
             'approvedAlerts',
             'statusSummary',
             'totalRequests'

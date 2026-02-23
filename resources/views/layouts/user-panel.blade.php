@@ -30,7 +30,7 @@
     @vite(['resources/css/user-panel.css', 'resources/js/user-panel.js'])
     @stack('styles')
 </head>
-<body>
+<body class="panel-user">
 <div class="container">
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
@@ -48,7 +48,7 @@
             </div>
         </div>
         <div class="menu-top">
-            <a href="{{ auth()->check() ? route('user.dashboard') : route('user.guest') }}" class="{{ request()->routeIs('user.dashboard') || request()->routeIs('user.guest') ? 'active' : '' }}" title="Overview">
+            <a href="{{ auth()->check() ? route('user.dashboard') : route('user.guest') }}" class="{{ request()->routeIs('user.dashboard') || request()->routeIs('user.guest') ? 'active' : '' }}" title="Overview" data-full-reload>
                 <span class="material-icons">dashboard</span><span class="sidebar-label">Overview</span>
             </a>
             <a href="{{ route('user.requests.create') }}" class="{{ request()->routeIs('user.requests.create') ? 'active' : '' }}" title="Create Request">
@@ -66,9 +66,12 @@
         </div>
         <div class="logout">
             @auth
-            <a href="{{ route('logout') }}" class="logout-link-get" onclick="return confirm('Are you sure you want to logout?')" style="text-decoration: none; width: 100%;" title="Logout">
-                <span class="material-icons">logout</span><span class="sidebar-label">Logout</span>
-            </a>
+            <form method="POST" action="{{ route('logout') }}" class="logout-form" style="width: 100%; margin: 0;">
+                @csrf
+                <button type="submit" class="logout-link-get" onclick="return confirm('Are you sure you want to logout?')" title="Logout">
+                    <span class="material-icons">logout</span><span class="sidebar-label">Logout</span>
+                </button>
+            </form>
             @else
             <a href="{{ route('home') }}" class="logout-link" title="Sign in">
                 <span class="material-icons">login</span><span class="sidebar-label">Sign in</span>
@@ -76,6 +79,10 @@
             @endauth
         </div>
     </div>
+    <button type="button" class="sidebar-mobile-open" id="sidebarMobileOpen" aria-label="Open menu" title="Open menu">
+        <span class="material-icons">menu</span>
+    </button>
+    <div class="sidebar-backdrop" id="sidebarBackdrop" aria-hidden="true"></div>
     <div class="main">
         @if(!auth()->check())
         <div class="guest-notice">

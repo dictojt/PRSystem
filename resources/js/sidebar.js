@@ -25,7 +25,11 @@ export function initSidebar(storageKey) {
         toggle.addEventListener('click', () => setCollapsed(!sidebar.classList.contains('collapsed')));
     }
 
+    /* Always start expanded (like User sidebar) so labels are visible; clear any saved collapsed state */
     try {
-        if (localStorage.getItem(storageKey) === '1') setCollapsed(true);
+        localStorage.removeItem(storageKey);
     } catch (e) {}
+    if (sidebar) {
+        setCollapsed(false);
+    }
 }

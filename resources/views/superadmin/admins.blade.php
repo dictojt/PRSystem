@@ -25,80 +25,86 @@
                         </label>
                         </div>
                         <div class="admin-management-filters">
-                        <div class="admin-filter-dropdown" data-filter-dropdown>
-                            <button type="button" class="admin-filter-trigger" id="adminRoleFilterTrigger"
-                                aria-haspopup="listbox" aria-expanded="false" aria-controls="adminRoleFilterMenu"
-                                aria-label="Filter by role">
-                                <span class="admin-filter-trigger-text">Role</span>
-                                <span class="material-icons admin-filter-chevron" aria-hidden="true">expand_more</span>
-                            </button>
-                            <ul id="adminRoleFilterMenu" class="admin-filter-menu" role="listbox" aria-label="Filter by role"
-                                hidden>
-                                <li class="admin-filter-option" role="option" data-value="all" aria-selected="true" tabindex="0">
-                                    Role</li>
-                                <li class="admin-filter-option" role="option" data-value="superadmin" aria-selected="false"
-                                    tabindex="-1">Superadmin</li>
-                                <li class="admin-filter-option" role="option" data-value="approver" aria-selected="false"
-                                    tabindex="-1">Approver</li>
-                                <li class="admin-filter-option" role="option" data-value="user" aria-selected="false"
-                                    tabindex="-1">User</li>
-                            </ul>
-                            <select id="adminRoleFilter" class="admin-filter-native-select" aria-label="Filter by role"
-                                tabindex="-1">
-                                <option value="all">Role</option>
-                                <option value="superadmin">Superadmin</option>
-                                <option value="approver">Approver</option>
-                                <option value="user">User</option>
-                            </select>
+                        <div class="admin-filter-block">
+                            <div class="admin-filter-dropdown" data-filter-dropdown>
+                                <button type="button" class="admin-filter-trigger" id="adminRoleFilterTrigger"
+                                    aria-haspopup="listbox" aria-expanded="false" aria-controls="adminRoleFilterMenu"
+                                    aria-label="Filter by role">
+                                    <span class="admin-filter-trigger-text">Role</span>
+                                    <span class="material-icons admin-filter-chevron" aria-hidden="true">expand_more</span>
+                                </button>
+                                <ul id="adminRoleFilterMenu" class="admin-filter-menu" role="listbox" aria-label="Filter by role"
+                                    hidden>
+                                    <li class="admin-filter-option" role="option" data-value="all" aria-selected="true" tabindex="0">
+                                        <span class="admin-filter-option-dot admin-dot-all"></span>Role</li>
+                                    <li class="admin-filter-option" role="option" data-value="superadmin" aria-selected="false"
+                                        tabindex="-1"><span class="admin-filter-option-dot admin-dot-superadmin"></span>Superadmin</li>
+                                    <li class="admin-filter-option" role="option" data-value="approver" aria-selected="false"
+                                        tabindex="-1"><span class="admin-filter-option-dot admin-dot-approver"></span>Approver</li>
+                                    <li class="admin-filter-option" role="option" data-value="user" aria-selected="false"
+                                        tabindex="-1"><span class="admin-filter-option-dot admin-dot-user"></span>User</li>
+                                </ul>
+                                <select id="adminRoleFilter" class="admin-filter-native-select" aria-label="Filter by role"
+                                    tabindex="-1">
+                                    <option value="all">Role</option>
+                                    <option value="superadmin">Superadmin</option>
+                                    <option value="approver">Approver</option>
+                                    <option value="user">User</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="admin-filter-dropdown" data-filter-dropdown>
-                            <button type="button" class="admin-filter-trigger" id="adminStatusFilterTrigger"
-                                aria-haspopup="listbox" aria-expanded="false" aria-controls="adminStatusFilterMenu"
-                                aria-label="Filter by status">
-                                <span class="admin-filter-trigger-text">Status</span>
-                                <span class="material-icons admin-filter-chevron" aria-hidden="true">expand_more</span>
-                            </button>
-                            <ul id="adminStatusFilterMenu" class="admin-filter-menu" role="listbox"
-                                aria-label="Filter by status" hidden>
-                                <li class="admin-filter-option" role="option" data-value="all" aria-selected="true" tabindex="0">
-                                    Status</li>
-                                <li class="admin-filter-option" role="option" data-value="active" aria-selected="false"
-                                    tabindex="-1">Active</li>
-                                <li class="admin-filter-option" role="option" data-value="deactivated" aria-selected="false"
-                                    tabindex="-1">Deactivated</li>
-                            </ul>
-                            <select id="adminStatusFilter" class="admin-filter-native-select" aria-label="Filter by status"
-                                tabindex="-1">
-                                <option value="all">Status</option>
-                                <option value="active">Active</option>
-                                <option value="deactivated">Deactivated</option>
-                            </select>
+                        <div class="admin-filter-block">
+                            <div class="admin-filter-dropdown" data-filter-dropdown>
+                                <button type="button" class="admin-filter-trigger" id="adminStatusFilterTrigger"
+                                    aria-haspopup="listbox" aria-expanded="false" aria-controls="adminStatusFilterMenu"
+                                    aria-label="Filter by status">
+                                    <span class="admin-filter-trigger-text">Status</span>
+                                    <span class="material-icons admin-filter-chevron" aria-hidden="true">expand_more</span>
+                                </button>
+                                <ul id="adminStatusFilterMenu" class="admin-filter-menu" role="listbox"
+                                    aria-label="Filter by status" hidden>
+                                    <li class="admin-filter-option" role="option" data-value="all" aria-selected="true" tabindex="0">
+                                        <span class="admin-filter-option-dot admin-dot-all"></span>Status</li>
+                                    <li class="admin-filter-option" role="option" data-value="active" aria-selected="false"
+                                        tabindex="-1"><span class="admin-filter-option-dot admin-dot-active"></span>Active</li>
+                                    <li class="admin-filter-option" role="option" data-value="deactivated" aria-selected="false"
+                                        tabindex="-1"><span class="admin-filter-option-dot admin-dot-deactivated"></span>Deactivated</li>
+                                </ul>
+                                <select id="adminStatusFilter" class="admin-filter-native-select" aria-label="Filter by status"
+                                    tabindex="-1">
+                                    <option value="all">Status</option>
+                                    <option value="active">Active</option>
+                                    <option value="deactivated">Deactivated</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="admin-filter-dropdown" data-filter-dropdown>
-                            <button type="button" class="admin-filter-trigger" id="adminDateFilterTrigger"
-                                aria-haspopup="listbox" aria-expanded="false" aria-controls="adminDateFilterMenu"
-                                aria-label="Filter by date">
-                                <span class="admin-filter-trigger-text">Date</span>
-                                <span class="material-icons admin-filter-chevron" aria-hidden="true">expand_more</span>
-                            </button>
-                            <ul id="adminDateFilterMenu" class="admin-filter-menu" role="listbox" aria-label="Filter by date"
-                                hidden>
-                                <li class="admin-filter-option" role="option" data-value="all" aria-selected="true" tabindex="0">
-                                    Date</li>
-                                <li class="admin-filter-option" role="option" data-value="last30" aria-selected="false"
-                                    tabindex="-1">Last 30 days</li>
-                                <li class="admin-filter-option" role="option" data-value="thisYear" aria-selected="false"
-                                    tabindex="-1">This year</li>
-                                <li class="admin-filter-option" role="option" data-value="older" aria-selected="false"
-                                    tabindex="-1">Older</li>
-                            </ul>
-                            <select id="adminDateFilter" class="admin-filter-native-select" aria-label="Filter by date"
-                                tabindex="-1">
-                                <option value="all">Date</option>
-                                <option value="last30">Last 30 days</option>
-                                <option value="thisYear">This year</option>
-                                <option value="older">Older</option>
-                            </select>
+                        <div class="admin-filter-block">
+                            <div class="admin-filter-dropdown" data-filter-dropdown>
+                                <button type="button" class="admin-filter-trigger" id="adminDateFilterTrigger"
+                                    aria-haspopup="listbox" aria-expanded="false" aria-controls="adminDateFilterMenu"
+                                    aria-label="Filter by date">
+                                    <span class="admin-filter-trigger-text">Date</span>
+                                    <span class="material-icons admin-filter-chevron" aria-hidden="true">expand_more</span>
+                                </button>
+                                <ul id="adminDateFilterMenu" class="admin-filter-menu" role="listbox" aria-label="Filter by date"
+                                    hidden>
+                                    <li class="admin-filter-option" role="option" data-value="all" aria-selected="true" tabindex="0">
+                                        <span class="admin-filter-option-dot admin-dot-all"></span>Date</li>
+                                    <li class="admin-filter-option" role="option" data-value="last30" aria-selected="false"
+                                        tabindex="-1"><span class="admin-filter-option-dot admin-dot-all"></span>Last 30 days</li>
+                                    <li class="admin-filter-option" role="option" data-value="thisYear" aria-selected="false"
+                                        tabindex="-1"><span class="admin-filter-option-dot admin-dot-all"></span>This year</li>
+                                    <li class="admin-filter-option" role="option" data-value="older" aria-selected="false"
+                                        tabindex="-1"><span class="admin-filter-option-dot admin-dot-all"></span>Older</li>
+                                </ul>
+                                <select id="adminDateFilter" class="admin-filter-native-select" aria-label="Filter by date"
+                                    tabindex="-1">
+                                    <option value="all">Date</option>
+                                    <option value="last30">Last 30 days</option>
+                                    <option value="thisYear">This year</option>
+                                    <option value="older">Older</option>
+                                </select>
+                            </div>
                         </div>
                         </div>
                     </div>
@@ -448,17 +454,23 @@
             align-items: stretch;
         }
 
+        .admin-filter-block {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
         .admin-search-wrap {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             width: 100%;
             min-width: 0;
-            min-height: 38px;
+            min-height: 36px;
             background: #fff;
             border: 1px solid #bcc7d6;
             border-radius: 8px;
-            padding: 6px 12px;
+            padding: 8px 14px;
             transition: border-color 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease;
         }
 
@@ -498,11 +510,11 @@
 
         .admin-filter-trigger {
             width: 100%;
-            min-height: 44px;
-            border: 1px solid #d0d5dd;
-            border-radius: 6px;
+            min-height: 36px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
             background: #ffffff;
-            padding: 2px 3px;
+            padding: 8px 12px;
             font-size: 13px;
             font-weight: 500;
             color: #0f172a;
@@ -510,7 +522,7 @@
             align-items: center;
             justify-content: space-between;
             gap: 8px;
-            box-shadow: 0 1px 2px rgba(16, 24, 40, 0.08);
+            box-shadow: 0 1px 2px rgba(16, 24, 40, 0.06);
             cursor: pointer;
             transition: border-color 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease;
         }
@@ -533,9 +545,15 @@
         }
 
         .admin-filter-chevron {
-            font-size: 18px;
+            font-size: 18px !important;
             color: #64748b;
             transition: transform 0.16s ease;
+        }
+        /* Override global .card-title-bar .material-icons to match Add User button height */
+        .card-title-bar .admin-filter-trigger .admin-filter-chevron {
+            font-size: 18px !important;
+            padding: 2px;
+            border-radius: 6px;
         }
 
         .admin-filter-menu {
@@ -546,7 +564,7 @@
             margin: 0;
             padding: 6px;
             list-style: none;
-            border: 1px solid #dfe5ef;
+            border: 1px solid #e2e8f0;
             border-radius: 8px;
             background: #ffffff;
             box-shadow: 0 10px 28px rgba(15, 23, 42, 0.14);
@@ -554,13 +572,15 @@
             min-width: 160px;
             max-height: 280px;
             overflow-y: auto;
-            white-space: nowrap;
         }
 
         .admin-filter-option {
-            padding: 10px 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
             border-radius: 6px;
-            color: #0f172a;
+            color: #334155;
             font-size: 13px;
             font-weight: 500;
             line-height: 1.25;
@@ -570,15 +590,28 @@
 
         .admin-filter-option:hover,
         .admin-filter-option:focus-visible {
-            background: #f8fafc;
+            background: #f1f5f9;
             outline: none;
         }
 
         .admin-filter-option[aria-selected="true"] {
-            background: #eaf2ff;
+            background: #eff6ff;
             color: #1d4ed8;
             font-weight: 600;
         }
+
+        .admin-filter-option-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .admin-dot-all { background: #94a3b8; }
+        .admin-dot-superadmin { background: #7c3aed; }
+        .admin-dot-approver { background: #2563eb; }
+        .admin-dot-user { background: #64748b; }
+        .admin-dot-active { background: #10b981; }
+        .admin-dot-deactivated { background: #ef4444; }
 
         .admin-filter-dropdown.is-open .admin-filter-trigger {
             border-color: #3b82f6;
@@ -616,16 +649,16 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
             align-self: flex-start;
             margin-left: auto;
             border: 1px solid #2748c8;
             background: linear-gradient(180deg, #5b7bff 0%, #4169e1 100%);
             color: #ffffff;
-            padding: 0 24px;
-            min-height: 44px;
+            padding: 0 18px;
+            min-height: 36px;
             border-radius: 999px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             letter-spacing: 0.01em;
             cursor: pointer;
@@ -643,15 +676,15 @@
         }
 
         .admin-add-user-btn .material-icons {
-            font-size: 19px;
+            font-size: 17px;
             color: #ffffff;
             opacity: 1;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 28px;
-            height: 28px;
-            border-radius: 9px;
+            width: 24px;
+            height: 24px;
+            border-radius: 8px;
             background: rgba(18, 52, 172, 0.45);
             border: 1px solid rgba(255, 255, 255, 0.32);
         }

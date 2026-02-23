@@ -32,11 +32,13 @@
         .sidebar {
             position: fixed; left: 0; top: 0; bottom: 0;
             width: 280px; min-width: 280px; max-width: 280px;
-            background: var(--sidebar-bg); color: var(--sidebar-text-dark);
+            background: #1a365d;
+            color: #fff;
             padding: 16px 12px; display: flex; flex-direction: column;
             overflow-x: hidden; overflow-y: auto;
             transition: width 0.25s ease, min-width 0.25s ease, max-width 0.25s ease;
-            z-index: 1000; border-right: 1px solid var(--sidebar-border);
+            z-index: 1000; border-right: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 4px 0 24px rgba(0,0,0,0.15);
         }
         .sidebar.collapsed { width: 72px; min-width: 72px; max-width: 72px; padding: 12px 8px; flex-shrink: 0; }
         .sidebar.collapsed .sidebar-label,
@@ -49,9 +51,20 @@
         .sidebar.collapsed .sidebar-header h2 { justify-content: center; margin-bottom: 0; }
         .sidebar.collapsed .profile-card { justify-content: center; padding: 10px; }
         .sidebar.collapsed .profile-avatar { margin-right: 0; }
-        .sidebar.collapsed .menu-top a { justify-content: center; padding: 12px; }
+        .sidebar.collapsed .menu-top a { justify-content: center; padding: 12px; position: relative; }
         .sidebar.collapsed .logout button,
-        .sidebar.collapsed .logout .logout-link { justify-content: center; padding: 12px; }
+        .sidebar.collapsed .logout .logout-link,
+        .sidebar.collapsed .logout .logout-link-get { justify-content: center; padding: 12px; position: relative; }
+        .sidebar.collapsed .menu-top a:hover .sidebar-label,
+        .sidebar.collapsed .logout .logout-link-get:hover .sidebar-label,
+        .sidebar.collapsed .logout .logout-link:hover .sidebar-label {
+            display: block !important;
+            position: absolute; left: 100%; top: 50%; transform: translateY(-50%);
+            margin-left: 12px; padding: 6px 12px;
+            background: rgba(30,30,50,0.95); color: #fff; font-size: 13px; font-weight: 500;
+            white-space: nowrap; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            z-index: 10000; pointer-events: none;
+        }
         .sidebar-header {
             display: flex;
             align-items: center;
@@ -62,34 +75,34 @@
             flex-shrink: 0;
             gap: 12px;
         }
-        .sidebar-header h2 { flex: 1; min-width: 0; font-size: 1rem; font-weight: 700; color: var(--sidebar-text-dark); margin: 0; padding: 0; display: flex; align-items: center; gap: 8px; }
-        .sidebar-header h2 .material-icons { color: var(--primary); font-size: 22px; flex-shrink: 0; }
+        .sidebar-header h2 { flex: 1; min-width: 0; font-size: 1rem; font-weight: 700; color: #fff; margin: 0; padding: 0; display: flex; align-items: center; gap: 8px; }
+        .sidebar-header h2 .material-icons { color: #fff; font-size: 22px; flex-shrink: 0; }
         .sidebar-toggle {
             width: 32px; height: 32px; min-width: 32px; min-height: 32px;
-            border-radius: 50%; background: var(--primary); color: white;
+            border-radius: 50%; background: rgba(255,255,255,0.1); color: #fff;
             border: none; cursor: pointer; display: flex !important; align-items: center; justify-content: center;
-            flex-shrink: 0; box-shadow: 0 1px 3px rgba(0,0,0,.1); transition: transform 0.2s, background 0.2s;
+            flex-shrink: 0; transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
             visibility: visible; opacity: 1;
         }
-        .sidebar-toggle:hover { transform: scale(1.05); background: var(--primary-hover); }
+        .sidebar-toggle:hover { transform: scale(1.08); background: rgba(255,255,255,0.18); box-shadow: 0 2px 12px rgba(0,0,0,0.25); }
+        .sidebar-toggle:active { transform: scale(0.98); }
         .sidebar-toggle .material-icons { font-size: 18px; }
-        .sidebar.collapsed .sidebar-toggle .material-icons { transform: rotate(180deg); }
 
         .profile-card {
             display: flex;
             align-items: center;
             padding: 12px 10px;
             margin-bottom: 16px;
-            background: var(--card-white);
+            background: rgba(255,255,255,0.06);
             border-radius: 12px;
-            border: 1px solid var(--sidebar-border);
+            border: 1px solid rgba(255,255,255,0.08);
             flex-shrink: 0;
         }
         .profile-avatar {
             width: 40px; height: 40px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), #6366f1);
-            color: white;
+            background: rgba(255,255,255,0.14);
+            color: #fff;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -99,13 +112,13 @@
             flex-shrink: 0;
         }
         .profile-info { min-width: 0; }
-        .profile-name { font-size: 14px; font-weight: 600; color: var(--sidebar-text-dark); margin-bottom: 2px; }
-        .profile-email { font-size: 12px; color: var(--sidebar-text); }
+        .profile-name { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 2px; }
+        .profile-email { font-size: 12px; color: rgba(255,255,255,0.75); }
 
         .menu-top { flex: 1; display: flex; flex-direction: column; gap: 4px; }
         .menu-top a {
             background: transparent;
-            color: var(--sidebar-text);
+            color: rgba(255,255,255,0.9);
             padding: 10px 12px;
             border-radius: 8px;
             display: flex;
@@ -117,15 +130,15 @@
             text-decoration: none;
             width: 100%;
         }
-        .menu-top a:hover { background: #e5e7eb; color: var(--sidebar-text-dark); }
-        .menu-top a.active { background: #eff6ff; color: var(--primary); }
-        .menu-top a.active .material-icons { color: var(--primary); }
-        .menu-top a .material-icons { flex-shrink: 0; font-size: 20px; color: var(--sidebar-text); }
-        .logout { padding-top: 16px; border-top: 1px solid var(--sidebar-border); }
+        .menu-top a:hover { background: rgba(255,255,255,0.15); color: #fff; }
+        .menu-top a.active { background: rgba(255,255,255,0.15); color: #fff; }
+        .menu-top a.active .material-icons { color: #fff; }
+        .menu-top a .material-icons { flex-shrink: 0; font-size: 20px; color: rgba(255,255,255,0.9); }
+        .logout { padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.12); }
         .logout button, .logout .logout-link-get {
             width: 100%;
-            background: transparent;
-            color: var(--danger);
+            background: #1e40af;
+            color: #fff;
             border: none;
             padding: 10px 12px;
             border-radius: 8px;
@@ -138,12 +151,12 @@
             font-size: 14px;
             transition: 0.2s;
         }
-        .logout button:hover, .logout .logout-link-get:hover { background: #fef2f2; color: var(--danger); }
-        .logout button .material-icons, .logout .logout-link-get .material-icons { flex-shrink: 0; font-size: 20px; }
+        .logout button:hover, .logout .logout-link-get:hover { background: #1e3a8a; color: #fff; }
+        .logout button .material-icons, .logout .logout-link-get .material-icons { flex-shrink: 0; font-size: 20px; color: #fff; }
         .logout-link {
             width: 100%;
-            background: var(--primary);
-            color: white;
+            background: #1e40af;
+            color: #fff;
             border: none;
             padding: 10px 12px;
             border-radius: 8px;
@@ -157,8 +170,8 @@
             transition: 0.2s;
             text-decoration: none;
         }
-        .logout-link:hover { background: var(--primary-hover); color: white; }
-        .logout-link .material-icons { flex-shrink: 0; font-size: 20px; }
+        .logout-link:hover { background: #1e3a8a; color: #fff; }
+        .logout-link .material-icons { flex-shrink: 0; font-size: 20px; color: #fff; }
 
         .main { position: relative; z-index: 1; margin-left: 280px; width: calc(100% - 280px); height: 100vh; padding: 24px 32px 32px; overflow-y: auto; transition: margin-left 0.25s ease, width 0.25s ease; background: var(--bg-main); }
         body.sidebar-collapsed .main { margin-left: 72px; width: calc(100% - 72px); }
@@ -707,47 +720,6 @@
                         @endforelse
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="overview-panel" style="margin-bottom: 20px;">
-            <div class="overview-panel-head">
-                <h2>Active Requests Pending</h2>
-                <span class="panel-subtitle">Requests currently in progress</span>
-            </div>
-            <div class="table-wrap">
-                <table class="overview-table">
-                    <thead>
-                        <tr>
-                            <th>Request ID</th>
-                            <th>Item</th>
-                            <th>Quantity</th>
-                            <th>Submitted</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse($activeRequests as $req)
-                        <tr>
-                            <td>{{ $req['id'] ?? '-' }}</td>
-                            <td>{{ $req['item'] ?? '-' }}</td>
-                            <td>{{ $req['quantity'] ?? 1 }}</td>
-                            <td>{{ $req['date'] ?? '-' }}</td>
-                            <td>
-                                <span class="status-badge {{ $badgeClass($req['status'] ?? 'Pending') }}">
-                                    {{ $req['status'] ?? 'Pending' }}
-                                </span>
-                            </td>
-                        </tr>
-                        @empty
-                        <tr>
-                            <td colspan="5">
-                                <div class="empty-state">No active pending requests.</div>
-                            </td>
-                        </tr>
-                        @endforelse
-                    </tbody>
-                </table>
             </div>
         </div>
 

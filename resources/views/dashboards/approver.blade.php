@@ -325,9 +325,12 @@
         </div>
         <div class="logout">
             @auth
-            <a href="{{ route('logout') }}" class="logout-link-get" onclick="return confirm('Are you sure you want to logout?')" style="text-decoration: none; width: 100%;" title="Logout">
-                <span class="material-icons">logout</span><span class="sidebar-label">Logout</span>
-            </a>
+            <form method="POST" action="{{ route('logout') }}" class="logout-form" style="width: 100%; margin: 0;">
+                @csrf
+                <button type="submit" class="logout-link-get" onclick="return confirm('Are you sure you want to logout?')" title="Logout">
+                    <span class="material-icons">logout</span><span class="sidebar-label">Logout</span>
+                </button>
+            </form>
             @else
             <a href="{{ route('home') }}" class="logout-link" title="Sign in">
                 <span class="material-icons">login</span><span class="sidebar-label">Sign in</span>
@@ -335,7 +338,13 @@
             @endauth
         </div>
     </div>
-
+    <script>
+        (function(){var s=document.getElementById('sidebar');var b=document.body;if(s){s.classList.remove('collapsed');}if(b){b.classList.remove('sidebar-collapsed');}var t=document.getElementById('sidebarToggle');if(t){var i=t.querySelector('.material-icons');if(i){i.textContent='chevron_left';}}})();
+    </script>
+    <button type="button" class="sidebar-mobile-open" id="sidebarMobileOpen" aria-label="Open menu" title="Open menu">
+        <span class="material-icons">menu</span>
+    </button>
+    <div class="sidebar-backdrop" id="sidebarBackdrop" aria-hidden="true"></div>
     <div class="main">
         @include('dashboards.partials.approver-main')
     </div>

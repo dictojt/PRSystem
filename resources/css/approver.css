@@ -5,7 +5,92 @@
 @import './partials/panel-layout.css';
 @import './partials/components.css';
 
-/* Approver uses shared light sidebar (same as user panel / super admin) - no dark overrides */
+/* Approver: sidebar same look as User (first pic) - dark blue gradient, profile card, labels */
+.panel-approver .sidebar,
+.panel-approver #sidebar,
+.panel-approver .container .sidebar {
+    background: #1a365d !important;
+}
+.panel-approver .sidebar .profile-card {
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.panel-approver .sidebar .menu-top a.active {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+}
+.panel-approver .sidebar .logout button,
+.panel-approver .sidebar .logout .logout-link-get {
+    background: #1e40af;
+}
+.panel-approver .sidebar .logout button:hover,
+.panel-approver .sidebar .logout .logout-link-get:hover {
+    background: #1e3a8a;
+}
+
+/* Mobile: same sidebar experience as User panel (open/close overlay) */
+.sidebar-mobile-open {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 999;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    background: #1a365d;
+    color: #fff;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.panel-approver .sidebar-mobile-open {
+    display: none;
+}
+.sidebar-mobile-open:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(79, 70, 229, 0.45);
+}
+.sidebar-mobile-open .material-icons {
+    font-size: 24px;
+}
+.sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 998;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+@media (max-width: 768px) {
+    .panel-approver .sidebar-mobile-open {
+        display: flex !important;
+    }
+    .panel-approver .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.25s ease;
+    }
+    body.sidebar-open.panel-approver .sidebar {
+        transform: translateX(0);
+    }
+    .panel-approver .main {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+    body.sidebar-collapsed .panel-approver .main {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+    body.sidebar-open.panel-approver .sidebar-backdrop {
+        display: block !important;
+        opacity: 1;
+    }
+}
 
 /* Main content polish - approver (clean like user View Request) */
 .panel-approver .main {

@@ -221,9 +221,9 @@
     }
     .sa-quote-table th,
     .sa-quote-table td {
-        padding: 5px 6px;
+        padding: 8px 10px;
         border-bottom: 1px solid #f1f5f9;
-        font-size: 10px;
+        font-size: 11px;
         color: #334155;
         text-align: left;
     }
@@ -234,6 +234,14 @@
         letter-spacing: 0.04em;
     }
     .sa-quote-table tr:last-child td { border-bottom: none; }
+    /* Match Quote Status badge size to Recent Requests badges */
+    .sa-quote-table .sa-badge {
+        min-width: 78px;
+        border-radius: 999px;
+        padding: 4px 10px;
+        font-size: 11px;
+        font-weight: 600;
+    }
 
     .sa-alerts {
         display: grid;
@@ -295,7 +303,7 @@
     .sa-quick-links {
         display: flex;
         flex-wrap: wrap;
-        gap: 6px;
+        gap: 8px;
     }
     .sa-quick-links a {
         display: inline-flex;
@@ -303,11 +311,11 @@
         gap: 6px;
         text-decoration: none;
         border-radius: 8px;
-        padding: 6px 8px;
-        font-size: 11px;
+        padding: 8px 12px;
+        font-size: 12px;
         font-weight: 600;
     }
-    .sa-quick-links a .material-icons { font-size: 14px !important; }
+    .sa-quick-links a .material-icons { font-size: 16px !important; }
     .sa-quick-primary { background: #2563eb; color: #fff; }
     .sa-quick-outline { background: #fff; color: #2563eb; border: 1px solid #2563eb; }
     .sa-quick-muted { background: #f1f5f9; color: #334155; }
@@ -494,43 +502,6 @@
                 @endforelse
             </div>
         </div>
-    </div>
-</div>
-
-<div class="sa-panel" style="margin-bottom: 20px;">
-    <div class="sa-panel-head">
-        <h2>Active Requests Pending</h2>
-        <span class="sa-subtle">Requests currently in progress</span>
-    </div>
-    <div class="sa-table-wrap">
-        <table class="sa-table">
-            <thead>
-                <tr>
-                    <th>Request ID</th>
-                    <th>Requestor</th>
-                    <th>Item</th>
-                    <th>Qty</th>
-                    <th>Submitted</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($activePendingRequests ?? [] as $request)
-                <tr>
-                    <td>{{ $request['id'] ?? '-' }}</td>
-                    <td>{{ $request['requestor'] ?? '-' }}</td>
-                    <td>{{ $request['item'] ?? '-' }}</td>
-                    <td>{{ $request['quantity'] ?? 1 }}</td>
-                    <td>{{ $request['date'] ?? '-' }}</td>
-                    <td><span class="sa-badge {{ $statusBadge($request['status'] ?? 'Pending') }}">{{ $request['status'] ?? 'Pending' }}</span></td>
-                </tr>
-                @empty
-                <tr>
-                    <td colspan="6"><div class="sa-empty">No active pending requests.</div></td>
-                </tr>
-                @endforelse
-            </tbody>
-        </table>
     </div>
 </div>
 

@@ -39,42 +39,53 @@
         .all-requests-page .status-filter-dropdown {
             position: relative;
         }
+        .all-requests-page .status-filter-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
         .all-requests-page .status-filter-trigger {
             display: inline-flex;
             align-items: center;
             justify-content: space-between;
-            gap: 12px;
-            min-width: 150px;
-            padding: 10px 14px;
-            font-size: 14px;
+            gap: 10px;
+            min-width: 140px;
+            padding: 8px 12px;
+            font-size: 13px;
             font-weight: 500;
-            color: #1e293b;
+            color: #0f172a;
             background: #fff;
-            border: 1px solid #e2e8f0;
-            border-radius: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
             cursor: pointer;
             box-shadow: 0 1px 2px rgba(0,0,0,.04);
+        }
+        .all-requests-page .status-filter-trigger:hover {
+            border-color: #94a3b8;
         }
         .all-requests-page .status-filter-value {
             flex: 1;
             text-align: left;
         }
         .all-requests-page .status-filter-chevron {
-            width: 16px;
-            height: 16px;
+            width: 18px;
+            height: 18px;
             flex-shrink: 0;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") no-repeat center;
+            color: #64748b;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") no-repeat center;
         }
         .all-requests-page .status-filter-menu {
             position: absolute;
             top: calc(100% + 6px);
-            right: 0;
-            min-width: 180px;
+            left: 0;
+            min-width: 160px;
             padding: 6px;
             background: #fff;
             border: 1px solid #e2e8f0;
-            border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0,0,0,.1);
+            border-radius: 8px;
+            box-shadow: 0 10px 28px rgba(15, 23, 42, 0.14);
             z-index: 50;
             display: none;
         }
@@ -85,11 +96,11 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            padding: 10px 12px;
-            font-size: 14px;
+            padding: 8px 12px;
+            font-size: 13px;
             font-weight: 500;
             color: #334155;
-            border-radius: 8px;
+            border-radius: 6px;
             cursor: pointer;
             text-decoration: none;
             color: inherit;
@@ -112,13 +123,6 @@
         .all-requests-page .status-dot-approved { background: #10b981; }
         .all-requests-page .status-dot-rejected { background: #ef4444; }
         .all-requests-page .status-dot-archived { background: #64748b; }
-        .all-requests-page .status-filter-label {
-            font-size: 12px;
-            font-weight: 600;
-            color: #64748b;
-            text-transform: uppercase;
-            letter-spacing: .05em;
-        }
         .all-requests-page .request-row-highlight {
             background: #dbeafe !important;
             box-shadow: inset 0 0 0 1px #60a5fa;
@@ -783,7 +787,7 @@
         <div class="card-title-bar" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
             <h2 style="margin: 0; font-size: 14px; font-weight: 600; color: #334155; text-transform: uppercase; letter-spacing: .05em;">Requests</h2>
             <div class="status-filter-wrap">
-                <span class="status-filter-label">Filter by status</span>
+                <span class="status-filter-label">Status</span>
                 <div class="status-filter-dropdown" id="superadmin-status-filter-dropdown">
                     <button type="button" class="status-filter-trigger" id="superadmin-status-filter-trigger" aria-haspopup="listbox" aria-expanded="false" aria-label="Filter by status">
                         @php

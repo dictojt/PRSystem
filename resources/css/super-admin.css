@@ -5,9 +5,31 @@
 @import './partials/panel-layout.css';
 @import './partials/components.css';
 
-/* Super admin uses shared light sidebar (same as user panel) - no dark overrides */
+/* Sidebar: same look as User (first pic) - dark blue gradient, profile card, labels */
+.panel-superadmin .sidebar,
+.panel-superadmin #sidebar,
+.panel-superadmin .container .sidebar {
+    background: #1a365d !important;
+}
+.panel-superadmin .sidebar .profile-card {
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.panel-superadmin .sidebar .menu-top a.active {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+}
+.panel-superadmin .sidebar .logout button,
+.panel-superadmin .sidebar .logout .logout-link-get {
+    background: #1e40af;
+}
+.panel-superadmin .sidebar .logout button:hover,
+.panel-superadmin .sidebar .logout .logout-link-get:hover {
+    background: #1e3a8a;
+}
 
-/* Sidebar: All Requests submenu (hover) */
+/* Sidebar: All Requests submenu (matches dark blue sidebar) */
 .panel-superadmin .sidebar .menu-top .menu-item.has-submenu {
     position: relative;
 }
@@ -19,7 +41,7 @@
 .panel-superadmin .sidebar .menu-top .menu-item.has-submenu .sidebar-submenu-chevron {
     margin-left: auto;
     font-size: 18px;
-    color: var(--sidebar-text);
+    color: rgba(255, 255, 255, 0.9);
     transition: transform 0.2s ease;
 }
 .panel-superadmin .sidebar .menu-top .menu-item.has-submenu:hover .sidebar-submenu-chevron {
@@ -32,7 +54,7 @@
     padding: 4px 0 4px 12px;
     margin-left: 32px;
     margin-top: 4px;
-    border-left: 2px solid var(--sidebar-border);
+    border-left: 2px solid rgba(255, 255, 255, 0.2);
 }
 .panel-superadmin .sidebar .menu-item.has-submenu:hover .sidebar-submenu {
     display: flex;
@@ -41,22 +63,85 @@
     padding: 8px 12px;
     font-size: 13px;
     font-weight: 500;
-    color: var(--sidebar-text);
+    color: rgba(255, 255, 255, 0.9);
     text-decoration: none;
     border-radius: 6px;
     transition: background 0.2s, color 0.2s;
 }
 .panel-superadmin .sidebar .sidebar-submenu a:hover {
-    background: #e5e7eb;
-    color: var(--sidebar-text-dark);
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
 }
 .panel-superadmin .sidebar .sidebar-submenu a.active {
-    background: #eff6ff;
-    color: var(--primary);
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
 }
 .panel-superadmin .sidebar.collapsed .menu-item.has-submenu .sidebar-submenu,
 .panel-superadmin .sidebar.collapsed .menu-item.has-submenu .sidebar-submenu-chevron {
     display: none !important;
+}
+
+/* Mobile: same sidebar experience as User panel (open/close overlay) */
+.sidebar-mobile-open {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 999;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    background: #1a365d;
+    color: #fff;
+    cursor: pointer;
+    display: none; /* shown only in @media below */
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.panel-superadmin .sidebar-mobile-open {
+    display: none;
+}
+.sidebar-mobile-open:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(79, 70, 229, 0.45);
+}
+.sidebar-mobile-open .material-icons {
+    font-size: 24px;
+}
+.sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 998;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+@media (max-width: 768px) {
+    .panel-superadmin .sidebar-mobile-open {
+        display: flex !important;
+    }
+    .panel-superadmin .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.25s ease;
+    }
+    body.sidebar-open.panel-superadmin .sidebar {
+        transform: translateX(0);
+    }
+    .panel-superadmin .main {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+    body.sidebar-collapsed .panel-superadmin .main {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+    body.sidebar-open.panel-superadmin .sidebar-backdrop {
+        display: block !important;
+        opacity: 1;
+    }
 }
 
 /* Main content polish - super admin (clean like user View Request) */
