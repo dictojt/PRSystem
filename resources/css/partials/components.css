@@ -99,3 +99,292 @@
     font-size: 18px;
     padding: 0 4px;
 }
+
+/* Mobile: cards and forms fit narrow screens. Breakpoints: 768, 576, 480, 360, 320 */
+@media (max-width: 768px) {
+    .card {
+        padding: 18px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+    }
+    .form-group input,
+    .form-group textarea {
+        padding: 10px 12px;
+        font-size: 16px; /* avoids zoom on focus on iOS */
+    }
+    .btn {
+        padding: 10px 16px;
+        font-size: 14px;
+        min-height: 44px; /* touch target */
+    }
+}
+
+@media (max-width: 576px) {
+    .card {
+        padding: 16px;
+        margin-bottom: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        padding: 14px;
+        margin-bottom: 16px;
+    }
+    .form-group {
+        margin-bottom: 14px;
+    }
+}
+
+@media (max-width: 400px) {
+    .card {
+        padding: 12px;
+        margin-bottom: 14px;
+    }
+    .btn {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 360px) {
+    .card {
+        padding: 12px;
+        margin-bottom: 14px;
+        border-radius: 8px;
+    }
+    .btn {
+        padding: 10px 14px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 320px) {
+    .card {
+        padding: 10px;
+        margin-bottom: 12px;
+    }
+}
+
+/* ========== Shared responsive modals (user, approver, superadmin) ========== */
+@media (max-width: 768px) {
+    .view-request-modal-wrap,
+    .view-request-modal-overlay {
+        padding: 12px !important;
+        align-items: flex-start !important;
+    }
+    .view-request-modal-content,
+    #viewRequestModal .view-request-modal-content,
+    #view-request-modal-overlay .view-request-modal {
+        width: 100% !important;
+        max-width: calc(100% - 24px) !important;
+        min-width: 0 !important;
+        max-height: calc(100vh - 24px) !important;
+        margin: 12px 0 !important;
+        border-radius: 12px !important;
+    }
+    .view-request-modal-header,
+    #viewRequestModal .view-request-modal-header,
+    #view-request-modal-overlay .view-request-modal .modal-header {
+        padding: 14px 16px !important;
+    }
+    .view-request-modal-title,
+    #view-request-modal-overlay .view-request-modal .modal-header h3 {
+        font-size: 16px !important;
+    }
+    .view-request-modal-close,
+    .view-request-modal-content .view-request-modal-close,
+    #view-request-modal-overlay .view-request-modal .modal-close {
+        min-width: 44px !important;
+        min-height: 44px !important;
+    }
+    .view-request-modal-body,
+    #viewRequestModal .view-request-modal-body,
+    #view-request-modal-overlay .view-request-modal-body {
+        padding: 16px !important;
+        max-height: calc(100vh - 180px) !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+    .view-request-dl {
+        grid-template-columns: 1fr !important;
+        gap: 8px 0 !important;
+    }
+    .reject-modal-content,
+    #rejectModal .reject-modal-content {
+        width: calc(100% - 24px) !important;
+        max-width: none !important;
+        left: 12px !important;
+        right: 12px !important;
+        transform: translateY(-50%) !important;
+        max-height: calc(100vh - 24px) !important;
+        overflow-y: auto !important;
+        padding: 20px 16px 16px !important;
+    }
+    .reject-modal-actions,
+    #rejectModal .reject-modal-actions {
+        flex-wrap: wrap !important;
+        gap: 10px !important;
+    }
+    .btn-reject-modal-cancel,
+    .btn-reject-modal-confirm,
+    #rejectModal .btn-reject-modal-cancel,
+    #rejectModal .btn-reject-modal-confirm {
+        min-height: 44px !important;
+        flex: 1 1 auto !important;
+    }
+    .approve-modal-content,
+    #approveModal .approve-modal-content {
+        width: calc(100% - 24px) !important;
+        max-width: none !important;
+        margin: 12px !important;
+        max-height: calc(100vh - 24px) !important;
+        overflow-y: auto !important;
+        padding: 20px 16px 16px !important;
+    }
+    .approve-modal-actions,
+    #approveModal .approve-modal-actions {
+        flex-wrap: wrap !important;
+        gap: 10px !important;
+    }
+    #approveModal .approve-modal-actions button,
+    .approve-modal-actions button {
+        min-height: 44px !important;
+        flex: 1 1 auto !important;
+    }
+    .modal-overlay {
+        padding: 12px !important;
+    }
+    .modal-box {
+        width: 100% !important;
+        max-width: calc(100% - 24px) !important;
+        max-height: calc(100vh - 24px) !important;
+        overflow: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    .modal-body {
+        max-height: 50vh !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+    .modal-footer button,
+    .modal-footer .btn {
+        min-height: 44px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .view-request-modal-wrap,
+    .view-request-modal-overlay {
+        padding: 8px !important;
+    }
+    .view-request-modal-content,
+    #viewRequestModal .view-request-modal-content,
+    #view-request-modal-overlay .view-request-modal {
+        max-width: calc(100% - 16px) !important;
+        max-height: calc(100vh - 16px) !important;
+    }
+    .reject-modal-content,
+    #rejectModal .reject-modal-content {
+        width: calc(100% - 16px) !important;
+        left: 8px !important;
+        right: 8px !important;
+        padding: 16px 12px 12px !important;
+    }
+    .approve-modal-content,
+    #approveModal .approve-modal-content {
+        max-width: calc(100% - 16px) !important;
+        margin: 8px !important;
+        max-height: calc(100vh - 16px) !important;
+        padding: 16px 12px 12px !important;
+    }
+    .reject-modal-actions,
+    #rejectModal .reject-modal-actions {
+        flex-direction: column !important;
+    }
+    .btn-reject-modal-cancel,
+    .btn-reject-modal-confirm,
+    #rejectModal .btn-reject-modal-cancel,
+    #rejectModal .btn-reject-modal-confirm {
+        width: 100% !important;
+    }
+    .approve-modal-actions,
+    #approveModal .approve-modal-actions {
+        flex-direction: column !important;
+    }
+    #approveModal .approve-modal-actions button,
+    .approve-modal-actions button {
+        width: 100% !important;
+    }
+    .modal-box {
+        max-width: calc(100% - 16px) !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .view-request-modal-header,
+    #viewRequestModal .view-request-modal-header {
+        padding: 12px 14px !important;
+    }
+    .view-request-modal-title {
+        font-size: 15px !important;
+    }
+    .view-request-modal-body,
+    #viewRequestModal .view-request-modal-body {
+        padding: 12px 14px !important;
+    }
+    #rejectModal .reject-modal-title { font-size: 18px !important; }
+    #rejectModal .reject-modal-textarea { min-height: 80px !important; height: 80px !important; }
+}
+
+/* ========== Mobile: card-style layout + no horizontal scroll (web + mobile) ========== */
+@media (max-width: 768px) {
+    /* Prevent horizontal scroll: constrain width and overflow on main content containers */
+    .main .card,
+    .main .table-card,
+    .main .table-responsive,
+    .main .header-section {
+        max-width: 100%;
+        min-width: 0;
+    }
+    .main .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        /* Only inner table scrolls; wrapper stays within viewport */
+        max-width: 100%;
+    }
+    /* Touch-friendly list and card rows (reference-style: one card per item) */
+    .main a[href].card-list-item,
+    .main .alert-item-link,
+    .main .data-table tbody tr {
+        min-height: 44px;
+    }
+    .main .btn,
+    .main .btn-sm,
+    .main .btn-primary,
+    .main .btn-outline,
+    .main .btn-secondary {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+/* Horizontal “recent” strips: stack vertically on small screens (no horizontal scroll) */
+@media (max-width: 992px) {
+    .recent-items-horizontal,
+    .horizontal-scroll-cards {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        overflow-x: visible;
+        max-width: 100%;
+    }
+    .recent-items-horizontal > *,
+    .horizontal-scroll-cards > * {
+        min-width: 0;
+        flex: 0 0 auto;
+    }
+}

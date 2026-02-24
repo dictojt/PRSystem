@@ -29,66 +29,330 @@
     background: #1e3a8a;
 }
 
-/* Mobile: same sidebar experience as User panel (open/close overlay) */
-.sidebar-mobile-open {
-    position: fixed;
-    top: 16px;
-    left: 16px;
-    z-index: 999;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    border: none;
-    background: #1a365d;
-    color: #fff;
-    cursor: pointer;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
-    transition: transform 0.2s, box-shadow 0.2s;
-}
+/* Mobile: same as User – no hamburger; collapsed = icon-only, expanded = overlay + backdrop */
 .panel-approver .sidebar-mobile-open {
+    display: none !important;
+}
+
+.panel-approver .sidebar-backdrop {
     display: none;
-}
-.sidebar-mobile-open:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 16px rgba(79, 70, 229, 0.45);
-}
-.sidebar-mobile-open .material-icons {
-    font-size: 24px;
-}
-.sidebar-backdrop {
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.4);
-    z-index: 998;
-    display: none;
+    z-index: 999;
     opacity: 0;
-    transition: opacity 0.2s;
+    transition: opacity 0.2s ease;
 }
-@media (max-width: 768px) {
-    .panel-approver .sidebar-mobile-open {
-        display: flex !important;
+body:not(.sidebar-collapsed).panel-approver .sidebar-backdrop {
+    display: block;
+    opacity: 1;
+}
+@media (min-width: 993px) {
+    .panel-approver .sidebar-backdrop { display: none !important; }
+}
+
+/* At 992px and below: COLLAPSED = icon-only bar */
+@media (max-width: 992px) {
+    body.sidebar-collapsed.panel-approver .sidebar {
+        width: 72px !important;
+        min-width: 72px !important;
+        max-width: 72px !important;
+        padding: 12px 8px;
+        transform: none;
     }
-    .panel-approver .sidebar {
-        transform: translateX(-100%);
-        transition: transform 0.25s ease;
+    body.sidebar-collapsed.panel-approver .sidebar .sidebar-label,
+    body.sidebar-collapsed.panel-approver .sidebar .menu-top a .sidebar-label,
+    body.sidebar-collapsed.panel-approver .sidebar .logout button .sidebar-label,
+    body.sidebar-collapsed.panel-approver .sidebar .logout .logout-link-get .sidebar-label,
+    body.sidebar-collapsed.panel-approver .sidebar .profile-card .profile-name,
+    body.sidebar-collapsed.panel-approver .sidebar .profile-card .profile-email {
+        display: none !important;
     }
-    body.sidebar-open.panel-approver .sidebar {
-        transform: translateX(0);
+    body.sidebar-collapsed.panel-approver .sidebar .sidebar-header {
+        flex-direction: column-reverse;
+        gap: 6px;
+        justify-content: flex-start;
+        margin-bottom: 10px;
     }
-    .panel-approver .main {
-        margin-left: 0 !important;
-        width: 100% !important;
+    body.sidebar-collapsed.panel-approver .sidebar .sidebar-header h2 {
+        justify-content: center;
+        margin-bottom: 0;
     }
-    body.sidebar-collapsed .panel-approver .main {
-        margin-left: 0 !important;
-        width: 100% !important;
+    body.sidebar-collapsed.panel-approver .sidebar .profile-card {
+        justify-content: center;
+        padding: 10px;
     }
-    body.sidebar-open.panel-approver .sidebar-backdrop {
+    body.sidebar-collapsed.panel-approver .sidebar .profile-avatar {
+        margin-right: 0;
+    }
+    body.sidebar-collapsed.panel-approver .sidebar .menu-top a,
+    body.sidebar-collapsed.panel-approver .sidebar .logout button,
+    body.sidebar-collapsed.panel-approver .sidebar .logout .logout-link-get {
+        justify-content: center;
+        padding: 12px;
+    }
+    body.sidebar-collapsed.panel-approver .main {
+        margin-left: 72px !important;
+        width: calc(100% - 72px) !important;
+    }
+
+    /* EXPANDED = full sidebar overlay with labels */
+    body:not(.sidebar-collapsed).panel-approver .sidebar {
+        width: 280px !important;
+        min-width: 280px !important;
+        max-width: 280px !important;
+        padding: 16px 12px;
+        transform: none;
+        box-shadow: 4px 0 24px rgba(0, 0, 0, 0.25);
+    }
+    body:not(.sidebar-collapsed).panel-approver .sidebar .sidebar-label,
+    body:not(.sidebar-collapsed).panel-approver .sidebar .menu-top a .sidebar-label,
+    body:not(.sidebar-collapsed).panel-approver .sidebar .logout button .sidebar-label,
+    body:not(.sidebar-collapsed).panel-approver .sidebar .logout .logout-link-get .sidebar-label,
+    body:not(.sidebar-collapsed).panel-approver .sidebar .profile-card .profile-name,
+    body:not(.sidebar-collapsed).panel-approver .sidebar .profile-card .profile-email {
         display: block !important;
-        opacity: 1;
+    }
+    body:not(.sidebar-collapsed).panel-approver .sidebar .sidebar-header {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    body:not(.sidebar-collapsed).panel-approver .sidebar .profile-card {
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+    body:not(.sidebar-collapsed).panel-approver .sidebar .profile-avatar {
+        margin-right: 12px;
+    }
+    body:not(.sidebar-collapsed).panel-approver .sidebar .menu-top a,
+    body:not(.sidebar-collapsed).panel-approver .sidebar .logout button,
+    body:not(.sidebar-collapsed).panel-approver .sidebar .logout .logout-link-get {
+        justify-content: flex-start;
+    }
+    body:not(.sidebar-collapsed).panel-approver .main {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+}
+
+@media (max-width: 768px) {
+    body.sidebar-collapsed.panel-approver .sidebar {
+        padding: 10px 6px;
+    }
+    body.sidebar-collapsed.panel-approver .sidebar .sidebar-toggle {
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+        min-height: 36px;
+    }
+    body.sidebar-collapsed.panel-approver .sidebar .profile-avatar {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+    }
+    body.sidebar-collapsed.panel-approver .sidebar .menu-top a,
+    body.sidebar-collapsed.panel-approver .sidebar .logout button,
+    body.sidebar-collapsed.panel-approver .sidebar .logout .logout-link-get {
+        padding: 10px;
+        min-height: 44px;
+    }
+}
+
+@media (max-width: 480px) {
+    body.sidebar-collapsed.panel-approver .sidebar {
+        width: 60px !important;
+        min-width: 60px !important;
+        max-width: 60px !important;
+        padding: 8px 4px;
+    }
+    body.sidebar-collapsed.panel-approver .main {
+        margin-left: 60px !important;
+        width: calc(100% - 60px) !important;
+    }
+    body.sidebar-collapsed.panel-approver .sidebar .sidebar-toggle {
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+        min-height: 32px;
+    }
+    body.sidebar-collapsed.panel-approver .sidebar .profile-avatar {
+        width: 32px;
+        height: 32px;
+        font-size: 13px;
+    }
+    body.sidebar-collapsed.panel-approver .sidebar .menu-top a,
+    body.sidebar-collapsed.panel-approver .sidebar .logout button,
+    body.sidebar-collapsed.panel-approver .sidebar .logout .logout-link-get {
+        padding: 8px;
+        min-height: 40px;
+    }
+}
+
+@media (max-width: 400px) {
+    body.sidebar-collapsed.panel-approver .sidebar {
+        width: 56px !important;
+        min-width: 56px !important;
+        max-width: 56px !important;
+        padding: 7px 4px;
+    }
+    body.sidebar-collapsed.panel-approver .main {
+        margin-left: 56px !important;
+        width: calc(100% - 56px) !important;
+    }
+}
+
+@media (max-width: 360px) {
+    body.sidebar-collapsed.panel-approver .sidebar {
+        width: 56px !important;
+        min-width: 56px !important;
+        max-width: 56px !important;
+        padding: 6px 4px;
+    }
+    body.sidebar-collapsed.panel-approver .main {
+        margin-left: 56px !important;
+        width: calc(100% - 56px) !important;
+    }
+}
+
+/* Approver content - responsive (tables, stat-cards, filters, overview) */
+@media (max-width: 992px) {
+    .panel-approver .header-section h1 { font-size: 22px !important; }
+    .panel-approver .table-card,
+    body.panel-approver .approver-all-request-card {
+        padding: 18px !important;
+    }
+    body.panel-approver .stat-cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 12px !important;
+    }
+    .approver-overview-kpis {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 12px !important;
+    }
+    .approver-overview-layout {
+        grid-template-columns: 1fr !important;
+    }
+    .approver-overview-stack {
+        max-width: 100% !important;
+        justify-self: stretch !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .panel-approver .header-section { margin-bottom: 20px !important; }
+    .panel-approver .header-section h1 { font-size: 20px !important; }
+    .panel-approver .header-section p { font-size: 13px !important; }
+    .panel-approver .table-card,
+    body.panel-approver .approver-all-request-card {
+        padding: 16px !important;
+    }
+    .panel-approver .table-card .card-title-bar,
+    body.panel-approver .approver-all-request-card .card-title-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .panel-approver .data-table th,
+    .panel-approver .data-table td {
+        padding: 10px 12px !important;
+        font-size: 13px !important;
+    }
+    body.panel-approver .stat-cards {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+        margin-bottom: 18px !important;
+    }
+    body.panel-approver .stat-cards .stat-card {
+        padding: 14px !important;
+    }
+    .approver-overview-kpis {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+        margin-bottom: 16px !important;
+    }
+    .approver-overview-kpi {
+        padding: 14px !important;
+    }
+    .approver-overview-kpi-value { font-size: 20px !important; }
+    .approver-overview-table-wrap { margin: 0 -4px !important; border-radius: 10px !important; }
+    .approver-overview-table { min-width: 520px !important; }
+    .approver-overview-table th,
+    .approver-overview-table td {
+        padding: 10px 12px !important;
+        font-size: 12px !important;
+    }
+    .approver-all-request-card .status-filter-trigger {
+        min-width: 140px !important;
+        padding: 8px 12px !important;
+        font-size: 13px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .panel-approver .table-card,
+    body.panel-approver .approver-all-request-card {
+        padding: 14px !important;
+    }
+    .panel-approver .data-table th,
+    .panel-approver .data-table td {
+        padding: 8px 10px !important;
+        font-size: 12px !important;
+    }
+    .approver-overview-table { min-width: 460px !important; }
+    .approver-overview-table th,
+    .approver-overview-table td {
+        padding: 8px 10px !important;
+        font-size: 11px !important;
+    }
+    .panel-approver .btn-sm {
+        min-height: 44px !important;
+        padding: 10px 14px !important;
+    }
+    .panel-approver .btn-icon-view,
+    .panel-approver .btn-icon-approve,
+    .panel-approver .btn-icon-reject {
+        min-width: 44px !important;
+        min-height: 44px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .panel-approver .header-section h1 { font-size: 18px !important; }
+    .panel-approver .table-card .card-title-bar h2,
+    body.panel-approver .approver-all-request-card .card-title-bar h2 {
+        font-size: 14px !important;
+    }
+    .approver-all-request-card .status-filter-wrap {
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+    .approver-all-request-card .status-filter-trigger {
+        min-width: 0 !important;
+        width: 100% !important;
+    }
+}
+
+@media (max-width: 400px) {
+    .panel-approver .table-card,
+    body.panel-approver .approver-all-request-card {
+        padding: 12px !important;
+    }
+    .panel-approver .data-table th,
+    .panel-approver .data-table td {
+        padding: 6px 8px !important;
+        font-size: 11px !important;
+    }
+    .approver-overview-kpi-value { font-size: 18px !important; }
+}
+
+@media (max-width: 360px) {
+    .panel-approver .header-section h1 { font-size: 16px !important; }
+}
+
+@media (max-width: 320px) {
+    .panel-approver .table-card,
+    body.panel-approver .approver-all-request-card {
+        padding: 10px !important;
     }
 }
 

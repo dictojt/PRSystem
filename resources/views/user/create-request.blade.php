@@ -42,7 +42,7 @@
             <button type="button" id="add-item-btn" class="btn btn-outline"><span class="material-icons" style="font-size:18px;">add</span> Add item</button>
         </div>
 
-        <div style="display:flex;gap:12px;margin-top:20px;">
+        <div class="form-submit-row">
             <button type="submit" class="btn btn-primary"><span class="material-icons" style="font-size:18px;">send</span> Submit all items</button>
             <a href="{{ auth()->check() ? route('user.dashboard') : route('user.guest') }}" class="btn btn-outline">Cancel</a>
         </div>
@@ -50,21 +50,54 @@
 </div>
 
 <style>
-.create-request-card { width: 100%; max-width: 100%; box-sizing: border-box; }
+.create-request-card { width: 100%; max-width: 100%; box-sizing: border-box; min-width: 0; overflow-x: hidden; }
 .item-row { border: 1px solid #e5e7eb; border-radius: 10px; padding: 16px; margin-bottom: 16px; background: #fafafa; }
 .item-row-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; font-weight: 600; font-size: 14px; color: #374151; }
 .item-row-delete { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; padding: 0; border: none; background: #fef2f2; color: #b91c1c; border-radius: 8px; cursor: pointer; transition: background 0.2s, color 0.2s; }
 .item-row-delete:hover:not(:disabled) { background: #fee2e2; color: #991b1b; }
 .item-row-delete:disabled { opacity: 0.5; cursor: not-allowed; background: #f3f4f6; color: #9ca3af; }
 .item-row-delete .material-icons { font-size: 20px; }
-.form-row-inline { display: flex; gap: 16px; align-items: flex-start; flex-wrap: wrap; }
+.form-row-inline { display: flex; gap: 16px; align-items: flex-start; flex-wrap: wrap; min-width: 0; }
 .form-row-inline .flex-1 { flex: 1; min-width: 200px; }
-.form-group-qty { width: 100px; }
+.form-group-qty { width: 100px; min-width: 0; }
+.form-group input,
+.form-group textarea { max-width: 100%; box-sizing: border-box; }
 .form-group-qty .qty-hint { display: block; font-size: 11px; color: #6b7280; margin-top: 2px; }
 .form-actions { margin-top: 8px; margin-bottom: 8px; }
+.form-submit-row { display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
+/* Stack form row at 992px so no horizontal scroll when sidebar is visible; then 768, 576, 480, 360, 320 */
+@media (max-width: 992px) {
+    .create-request-card .form-row-inline { flex-direction: column; }
+    .create-request-card .form-row-inline .flex-1 { min-width: 0; width: 100%; }
+    .create-request-card .form-group-qty { width: 100%; max-width: 140px; }
+}
 @media (max-width: 768px) {
-    .create-request-card .form-row-inline .flex-1 { min-width: 100%; }
-    .create-request-card .form-group-qty { width: 120px; }
+    .create-request-card .form-row-inline .flex-1 { min-width: 0; }
+    .create-request-card .form-group-qty { width: 100%; max-width: 120px; }
+}
+@media (max-width: 576px) {
+    .create-request-card .item-row { padding: 14px; margin-bottom: 14px; }
+    .create-request-card .form-group-qty { width: 100%; max-width: 120px; }
+}
+@media (max-width: 480px) {
+    .create-request-card .item-row { padding: 12px; margin-bottom: 12px; }
+    .create-request-card .item-row-header { font-size: 13px; }
+    .create-request-card .form-submit-row { flex-direction: column; align-items: stretch; }
+    .create-request-card .form-submit-row .btn,
+    .create-request-card .form-submit-row .btn-outline { min-height: 44px; }
+}
+@media (max-width: 400px) {
+    .create-request-card .item-row { padding: 10px; margin-bottom: 10px; }
+    .create-request-card .item-row-header { font-size: 12px; }
+    .create-request-card .form-submit-row .btn,
+    .create-request-card .form-submit-row .btn-outline { min-height: 42px; }
+}
+@media (max-width: 360px) {
+    .create-request-card .item-row { padding: 10px; margin-bottom: 10px; }
+    .create-request-card .item-row-delete { width: 32px; height: 32px; }
+}
+@media (max-width: 320px) {
+    .create-request-card .item-row { padding: 8px; margin-bottom: 8px; border-radius: 8px; }
 }
 </style>
 

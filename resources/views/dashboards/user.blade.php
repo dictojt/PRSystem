@@ -26,8 +26,8 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        html, body { height: 100%; overflow: hidden; background-color: var(--bg-main); color: var(--text-dark); }
-        .container { display: flex; }
+        html, body { height: 100%; overflow: hidden; overflow-x: hidden; background-color: var(--bg-main); color: var(--text-dark); }
+        .container { display: flex; min-width: 0; overflow-x: hidden; }
 
         .sidebar {
             position: fixed; left: 0; top: 0; bottom: 0;
@@ -173,7 +173,7 @@
         .logout-link:hover { background: #1e3a8a; color: #fff; }
         .logout-link .material-icons { flex-shrink: 0; font-size: 20px; color: #fff; }
 
-        .main { position: relative; z-index: 1; margin-left: 280px; width: calc(100% - 280px); height: 100vh; padding: 24px 32px 32px; overflow-y: auto; transition: margin-left 0.25s ease, width 0.25s ease; background: var(--bg-main); }
+        .main { position: relative; z-index: 1; margin-left: 280px; width: calc(100% - 280px); min-width: 0; max-width: 100%; height: 100vh; padding: 24px 32px 32px; overflow-y: auto; overflow-x: hidden; transition: margin-left 0.25s ease, width 0.25s ease; background: var(--bg-main); }
         body.sidebar-collapsed .main { margin-left: 72px; width: calc(100% - 72px); }
         .breadcrumb { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
         .breadcrumb a { color: var(--primary); text-decoration: none; }
@@ -481,24 +481,148 @@
         }
 
         @media (max-width: 1200px) {
-            .overview-kpis { grid-template-columns: repeat(2, minmax(180px, 1fr)); }
+            .overview-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
             .overview-layout { grid-template-columns: 1fr; }
             .overview-table { min-width: 540px; }
         }
-        @media (max-width: 768px) {
-            .main {
-                padding: 18px 14px 24px;
-            }
+        @media (max-width: 992px) {
             .overview-kpis { grid-template-columns: 1fr; }
-            .kpi-card { border-radius: 14px; }
-            .overview-panel { padding: 14px; border-radius: 14px; }
-            .overview-table th,
-            .overview-table td { padding: 10px 10px; font-size: 12px; }
-            .table-wrap { border-radius: 10px; }
+            .stat-cards { grid-template-columns: repeat(2, 1fr); }
+            /* Collapsed: icon-only. Expanded: full overlay + backdrop (click outside to close) */
+            .sidebar.collapsed { width: 72px !important; min-width: 72px !important; max-width: 72px !important; }
+            body.sidebar-collapsed .main { margin-left: 72px !important; width: calc(100% - 72px) !important; }
+            .sidebar:not(.collapsed) { width: 280px !important; min-width: 280px !important; max-width: 280px !important; box-shadow: 4px 0 24px rgba(0,0,0,0.25); }
+            body:not(.sidebar-collapsed) .main { margin-left: 0 !important; width: 100% !important; }
+            .sidebar-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 999; cursor: pointer; }
+            body:not(.sidebar-collapsed) .sidebar-backdrop { display: block; }
+        }
+        @media (min-width: 993px) {
+            .sidebar-backdrop { display: none !important; }
+        }
+        @media (max-width: 768px) {
+            .main { padding: 18px 14px 24px; overflow-x: hidden; max-width: 100%; }
+            .header-section h1 { font-size: 20px; }
+            .header-section p { font-size: 13px; }
+            .overview-kpis { grid-template-columns: 1fr; gap: 12px; max-width: 100%; min-width: 0; }
+            .kpi-card { border-radius: 14px; padding: 14px; min-width: 0; }
+            .kpi-value { font-size: 18px; }
+            .overview-layout { gap: 14px; max-width: 100%; min-width: 0; }
+            .overview-panel { padding: 14px; border-radius: 14px; max-width: 100%; min-width: 0; overflow-x: hidden; box-sizing: border-box; }
+            .overview-panel-head { flex-wrap: wrap; gap: 8px; }
+            .overview-panel-head h2 { font-size: 14px; }
+            .panel-subtitle { font-size: 11px; }
+            /* Card-style table: fits in viewport, no horizontal scroll */
+            .table-wrap {
+                overflow-x: hidden;
+                border: none;
+                margin: 0;
+                max-width: 100%;
+                min-width: 0;
+                box-sizing: border-box;
+            }
+            .overview-table {
+                width: 100%;
+                max-width: 100%;
+                min-width: 0;
+                box-sizing: border-box;
+            }
+            .overview-table thead { display: none; }
+            .overview-table tbody tr {
+                display: block;
+                margin-bottom: 12px;
+                padding: 14px;
+                border: 1px solid #e2e8f0;
+                border-radius: 12px;
+                background: #fff;
+                box-shadow: 0 1px 3px rgba(0,0,0,.06);
+                max-width: 100%;
+                box-sizing: border-box;
+            }
+            .overview-table tbody tr:last-child { margin-bottom: 0; }
+            .overview-table tbody td {
+                display: block;
+                padding: 6px 0 8px;
+                border: none;
+                border-bottom: 1px solid #f1f5f9;
+                font-size: 13px;
+                text-align: left;
+                max-width: 100%;
+                min-width: 0;
+                box-sizing: border-box;
+                word-break: break-word;
+                overflow-wrap: break-word;
+            }
+            .overview-table tbody td:last-child { border-bottom: none; padding-bottom: 0; }
+            .overview-table tbody td::before {
+                content: attr(data-label);
+                display: block;
+                font-size: 11px;
+                font-weight: 600;
+                color: #64748b;
+                text-transform: uppercase;
+                letter-spacing: .04em;
+                margin-bottom: 2px;
+            }
+            .overview-table tbody tr:has(td[colspan]) { padding: 14px; }
+            .overview-table tbody tr:has(td[colspan]) td { display: block; padding: 0; border: none; }
+            .overview-table tbody tr:has(td[colspan]) td::before { display: none; }
+            .status-badge { min-width: 70px; padding: 4px 8px; font-size: 11px; max-width: 100%; display: inline-block; }
+            .alert-item-link { flex-wrap: wrap; gap: 6px; padding: 10px 12px; }
+            .alert-item .alert-left { flex: 1; min-width: 0; font-size: 12px; }
+            .alert-item .alert-left span:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+            .alert-meta { font-size: 11px; white-space: normal; }
+            .quick-actions { padding: 16px; max-width: 100%; min-width: 0; }
+            .quick-actions .btn-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
+            .quick-actions .btn-wrap a { padding: 10px 14px; font-size: 13px; min-height: 44px; align-items: center; justify-content: center; }
             .donut-ring { width: 170px; height: 170px; }
             .donut-center { width: 112px; height: 112px; }
-            .quick-actions .btn-wrap { flex-direction: row; justify-content: flex-start; }
-            .quick-actions .btn-wrap a { justify-content: center; }
+        }
+        @media (max-width: 576px) {
+            .main { padding: 14px 12px 20px; }
+            .header-section h1 { font-size: 18px; }
+            .header-section p { font-size: 12px; }
+            .stat-cards { grid-template-columns: 1fr; gap: 12px; }
+            .stat-card { padding: 16px; }
+            .overview-panel { padding: 12px; }
+            .overview-table tbody tr { padding: 12px; margin-bottom: 10px; border-radius: 10px; }
+            .overview-table tbody td { font-size: 12px; }
+            .quick-actions .btn-wrap a { width: 100%; justify-content: center; }
+            .donut-ring { width: 150px; height: 150px; }
+            .donut-center { width: 96px; height: 96px; }
+            .donut-center strong { font-size: 24px; }
+        }
+        @media (max-width: 480px) {
+            .main { padding: 12px 10px 16px; }
+            .header-section h1 { font-size: 17px; }
+            .overview-panel { padding: 12px; }
+            .kpi-card { padding: 12px; }
+            .kpi-value { font-size: 16px; }
+            .kpi-label { font-size: 11px; }
+            .overview-table tbody tr { padding: 12px; margin-bottom: 8px; }
+            .overview-table tbody td { font-size: 12px; }
+            .alert-item-link { padding: 10px 12px; min-height: 44px; }
+        }
+        @media (max-width: 400px) {
+            .main { padding: 11px 10px 14px; }
+            .header-section h1 { font-size: 16px; }
+            .header-section p { font-size: 11px; }
+            .overview-panel { padding: 10px; }
+            .kpi-card { padding: 10px; }
+            .kpi-value { font-size: 15px; }
+            .overview-table tbody tr { padding: 10px; margin-bottom: 8px; border-radius: 10px; }
+            .overview-table tbody td { font-size: 11px; }
+            .quick-actions .btn-wrap a { font-size: 12px; padding: 9px 12px; }
+        }
+        @media (max-width: 360px) {
+            .main { padding: 10px 8px 14px; }
+            .header-section h1 { font-size: 16px; }
+            .kpi-card { padding: 10px; }
+            .overview-panel { padding: 10px; }
+            .quick-actions { padding: 12px; }
+        }
+        @media (max-width: 320px) {
+            .main { padding: 8px 8px 12px; }
+            .header-section h1 { font-size: 15px; }
         }
     </style>
 </head>
@@ -549,7 +673,7 @@
             @endauth
         </div>
     </div>
-
+    <div class="sidebar-backdrop" id="sidebarBackdrop" aria-hidden="true"></div>
     <div class="main">
         @if(!auth()->check())
         <div class="guest-notice">
@@ -612,7 +736,7 @@
                 return ['name' => 'schedule', 'class' => 'alert-icon-pending'];
             };
         @endphp
-
+<!-- header section -->
         <div class="header-section">
             <h1>Procurement Dashboard Overview</h1>
             <p>Monitor request flow, quote outcomes, and approvals in one business-ready view.</p>
@@ -623,7 +747,7 @@
             {{ session('success') }}
         </div>
         @endif
-
+<!-- stat- cards -->
         <div class="overview-kpis">
             <div class="kpi-card">
                 <div class="kpi-icon total"><span class="material-icons">inventory_2</span></div>
@@ -675,11 +799,11 @@
                         <tbody>
                             @forelse($recentRequests as $req)
                             <tr>
-                                <td>{{ $req['id'] ?? '-' }}</td>
-                                <td>{{ $req['item'] ?? '-' }}</td>
-                                <td>{{ $req['quantity'] ?? 1 }}</td>
-                                <td>{{ $req['date'] ?? '-' }}</td>
-                                <td>
+                                <td data-label="Request ID">{{ $req['id'] ?? '-' }}</td>
+                                <td data-label="Item">{{ $req['item'] ?? '-' }}</td>
+                                <td data-label="Qty">{{ $req['quantity'] ?? 1 }}</td>
+                                <td data-label="Date">{{ $req['date'] ?? '-' }}</td>
+                                <td data-label="Status">
                                     <span class="status-badge {{ $badgeClass($req['status'] ?? 'Pending') }}">
                                         {{ $req['status'] ?? 'Pending' }}
                                     </span>
@@ -755,6 +879,10 @@
         }
     }
     if (toggle) toggle.addEventListener('click', function() { setCollapsed(!sidebar.classList.contains('collapsed')); });
+    var backdrop = document.getElementById('sidebarBackdrop');
+    if (backdrop) backdrop.addEventListener('click', function() {
+        if (window.innerWidth <= 992 && !sidebar.classList.contains('collapsed')) setCollapsed(true);
+    });
     try { if (localStorage.getItem(KEY) === '1') setCollapsed(true); } catch (e) {}
 })();
 </script>

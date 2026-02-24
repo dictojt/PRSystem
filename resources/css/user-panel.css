@@ -29,66 +29,233 @@
     background: #1e3a8a;
 }
 
-/* Mobile: same sidebar experience as Super Admin and Approver (open/close overlay) */
+/* Mobile: no hamburger. Collapsed = icon-only bar. Expanded = full overlay with labels. */
 .sidebar-mobile-open {
-    position: fixed;
-    top: 16px;
-    left: 16px;
-    z-index: 999;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    border: none;
-    background: #1a365d;
-    color: #fff;
-    cursor: pointer;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    transition: transform 0.2s, box-shadow 0.2s;
+    display: none !important;
 }
-.panel-user .sidebar-mobile-open {
-    display: none;
-}
-.sidebar-mobile-open:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
-}
-.sidebar-mobile-open .material-icons {
-    font-size: 24px;
-}
+
 .sidebar-backdrop {
+    display: none;
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.4);
-    z-index: 998;
-    display: none;
+    z-index: 999;
     opacity: 0;
-    transition: opacity 0.2s;
+    transition: opacity 0.2s ease;
 }
-@media (max-width: 768px) {
-    .panel-user .sidebar-mobile-open {
-        display: flex !important;
+body:not(.sidebar-collapsed).panel-user .sidebar-backdrop {
+    display: block;
+    opacity: 1;
+}
+@media (min-width: 993px) {
+    .sidebar-backdrop { display: none !important; }
+}
+
+/* Mobile: COLLAPSED = icon-only bar (72px). Main content beside it. */
+@media (max-width: 992px) {
+    body.sidebar-collapsed.panel-user .sidebar {
+        width: 72px !important;
+        min-width: 72px !important;
+        max-width: 72px !important;
+        padding: 12px 8px;
+        transform: none;
     }
-    .panel-user .sidebar {
-        transform: translateX(-100%);
-        transition: transform 0.25s ease;
+    body.sidebar-collapsed.panel-user .sidebar .sidebar-label,
+    body.sidebar-collapsed.panel-user .sidebar .menu-top a .sidebar-label,
+    body.sidebar-collapsed.panel-user .sidebar .logout button .sidebar-label,
+    body.sidebar-collapsed.panel-user .sidebar .logout .logout-link-get .sidebar-label,
+    body.sidebar-collapsed.panel-user .sidebar .profile-card .profile-name,
+    body.sidebar-collapsed.panel-user .sidebar .profile-card .profile-email {
+        display: none !important;
     }
-    body.sidebar-open.panel-user .sidebar {
-        transform: translateX(0);
+    body.sidebar-collapsed.panel-user .sidebar .sidebar-header {
+        flex-direction: column-reverse;
+        gap: 6px;
+        justify-content: flex-start;
+        margin-bottom: 10px;
     }
-    .panel-user .main {
-        margin-left: 0 !important;
-        width: 100% !important;
+    body.sidebar-collapsed.panel-user .sidebar .sidebar-header h2 {
+        justify-content: center;
+        margin-bottom: 0;
     }
-    body.sidebar-collapsed .panel-user .main {
-        margin-left: 0 !important;
-        width: 100% !important;
+    body.sidebar-collapsed.panel-user .sidebar .profile-card {
+        justify-content: center;
+        padding: 10px;
     }
-    body.sidebar-open.panel-user .sidebar-backdrop {
+    body.sidebar-collapsed.panel-user .sidebar .profile-avatar {
+        margin-right: 0;
+    }
+    body.sidebar-collapsed.panel-user .sidebar .menu-top a,
+    body.sidebar-collapsed.panel-user .sidebar .logout button,
+    body.sidebar-collapsed.panel-user .sidebar .logout .logout-link-get {
+        justify-content: center;
+        padding: 12px;
+    }
+    body.sidebar-collapsed.panel-user .main {
+        margin-left: 72px !important;
+        width: calc(100% - 72px) !important;
+    }
+
+    /* Mobile: EXPANDED = full sidebar (280px) as overlay. Labels visible. Main full width. */
+    body:not(.sidebar-collapsed).panel-user .sidebar {
+        width: 280px !important;
+        min-width: 280px !important;
+        max-width: 280px !important;
+        padding: 16px 12px;
+        transform: none;
+        box-shadow: 4px 0 24px rgba(0, 0, 0, 0.25);
+    }
+    body:not(.sidebar-collapsed).panel-user .sidebar .sidebar-label,
+    body:not(.sidebar-collapsed).panel-user .sidebar .menu-top a .sidebar-label,
+    body:not(.sidebar-collapsed).panel-user .sidebar .logout button .sidebar-label,
+    body:not(.sidebar-collapsed).panel-user .sidebar .logout .logout-link-get .sidebar-label,
+    body:not(.sidebar-collapsed).panel-user .sidebar .profile-card .profile-name,
+    body:not(.sidebar-collapsed).panel-user .sidebar .profile-card .profile-email {
         display: block !important;
-        opacity: 1;
+    }
+    body:not(.sidebar-collapsed).panel-user .sidebar .sidebar-header {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    body:not(.sidebar-collapsed).panel-user .sidebar .profile-card {
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+    body:not(.sidebar-collapsed).panel-user .sidebar .profile-avatar {
+        margin-right: 12px;
+    }
+    body:not(.sidebar-collapsed).panel-user .sidebar .menu-top a,
+    body:not(.sidebar-collapsed).panel-user .sidebar .logout button,
+    body:not(.sidebar-collapsed).panel-user .sidebar .logout .logout-link-get {
+        justify-content: flex-start;
+    }
+    body:not(.sidebar-collapsed).panel-user .main {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+}
+
+/* Refined mobile COLLAPSED: tighter, cleaner */
+@media (max-width: 768px) {
+    body.sidebar-collapsed.panel-user .sidebar {
+        padding: 10px 6px;
+    }
+    body.sidebar-collapsed.panel-user .sidebar .menu-top {
+        gap: 2px;
+    }
+    body.sidebar-collapsed.panel-user .sidebar .sidebar-header {
+        margin-bottom: 8px;
+    }
+    body.sidebar-collapsed.panel-user .sidebar .sidebar-toggle {
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+        min-height: 36px;
+    }
+    body.sidebar-collapsed.panel-user .sidebar .profile-card {
+        padding: 8px;
+        margin-bottom: 12px;
+    }
+    body.sidebar-collapsed.panel-user .sidebar .profile-avatar {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+    }
+    body.sidebar-collapsed.panel-user .sidebar .menu-top a,
+    body.sidebar-collapsed.panel-user .sidebar .logout button,
+    body.sidebar-collapsed.panel-user .sidebar .logout .logout-link-get {
+        padding: 10px;
+        min-height: 44px;
+        border-radius: 10px;
+    }
+    body.sidebar-collapsed.panel-user .sidebar .menu-top a .material-icons,
+    body.sidebar-collapsed.panel-user .sidebar .logout button .material-icons,
+    body.sidebar-collapsed.panel-user .sidebar .logout .logout-link-get .material-icons {
+        font-size: 22px;
+    }
+}
+
+/* Very small screens: slimmer COLLAPSED sidebar. 480, 400, 360, 320 */
+@media (max-width: 480px) {
+    body.sidebar-collapsed.panel-user .sidebar {
+        width: 60px !important;
+        min-width: 60px !important;
+        max-width: 60px !important;
+        padding: 8px 4px;
+    }
+    body.sidebar-collapsed.panel-user .main {
+        margin-left: 60px !important;
+        width: calc(100% - 60px) !important;
+    }
+    body.sidebar-collapsed.panel-user .sidebar .sidebar-toggle {
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+        min-height: 32px;
+    }
+    body.sidebar-collapsed.panel-user .sidebar .profile-avatar {
+        width: 32px;
+        height: 32px;
+        font-size: 13px;
+    }
+    body.sidebar-collapsed.panel-user .sidebar .menu-top a,
+    body.sidebar-collapsed.panel-user .sidebar .logout button,
+    body.sidebar-collapsed.panel-user .sidebar .logout .logout-link-get {
+        padding: 8px;
+        min-height: 40px;
+    }
+    body.sidebar-collapsed.panel-user .sidebar .menu-top a .material-icons,
+    body.sidebar-collapsed.panel-user .sidebar .logout button .material-icons,
+    body.sidebar-collapsed.panel-user .sidebar .logout .logout-link-get .material-icons {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 400px) {
+    body.sidebar-collapsed.panel-user .sidebar {
+        width: 56px !important;
+        min-width: 56px !important;
+        max-width: 56px !important;
+        padding: 7px 4px;
+    }
+    body.sidebar-collapsed.panel-user .main {
+        margin-left: 56px !important;
+        width: calc(100% - 56px) !important;
+    }
+    body.sidebar-collapsed.panel-user .sidebar .sidebar-toggle {
+        width: 30px;
+        height: 30px;
+        min-width: 30px;
+        min-height: 30px;
+    }
+    body.sidebar-collapsed.panel-user .sidebar .profile-avatar {
+        width: 30px;
+        height: 30px;
+        font-size: 12px;
+    }
+    body.sidebar-collapsed.panel-user .sidebar .menu-top a,
+    body.sidebar-collapsed.panel-user .sidebar .logout button,
+    body.sidebar-collapsed.panel-user .sidebar .logout .logout-link-get {
+        padding: 7px;
+        min-height: 38px;
+    }
+    body.sidebar-collapsed.panel-user .sidebar .menu-top a .material-icons,
+    body.sidebar-collapsed.panel-user .sidebar .logout button .material-icons,
+    body.sidebar-collapsed.panel-user .sidebar .logout .logout-link-get .material-icons {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 360px) {
+    body.sidebar-collapsed.panel-user .sidebar {
+        width: 56px !important;
+        min-width: 56px !important;
+        max-width: 56px !important;
+        padding: 6px 4px;
+    }
+    body.sidebar-collapsed.panel-user .main {
+        margin-left: 56px !important;
+        width: calc(100% - 56px) !important;
     }
 }
 

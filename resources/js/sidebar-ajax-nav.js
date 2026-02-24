@@ -73,6 +73,8 @@ export function initSidebarAjaxNav() {
     main.innerHTML = root ? root.innerHTML : html;
     runScripts(main);
     setActiveLink();
+    /* So user-panel can expand sidebar and show labels after nav */
+    window.dispatchEvent(new CustomEvent('sidebar-ajax-nav-applied'));
   }
 
   function loadPartial(href) {

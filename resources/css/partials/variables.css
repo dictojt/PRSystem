@@ -1,5 +1,26 @@
 /* Shared CSS variables for PRS panel layouts */
+
+/*
+ * Standardized breakpoints (use these exact px values in @media (max-width: XXXpx))
+ * Order: 1200 → 992 → 768 → 576 → 480 → 400 → 360 → 320
+ * --bp-3xl: 1200px  (desktop)
+ * --bp-2xl: 992px   (tablets landscape / small laptop)
+ * --bp-xl:  768px   (tablets portrait)
+ * --bp-lg:  576px   (large phones / phablets)
+ * --bp-md:  480px   (large phones)
+ * --bp-sm2: 400px   (phones &lt; 400px)
+ * --bp-sm:  360px   (small phones)
+ * --bp-xs:  320px   (extra small, e.g. iPhone SE)
+ */
 :root {
+    --bp-xs: 320px;
+    --bp-sm: 360px;
+    --bp-sm2: 400px;
+    --bp-md: 480px;
+    --bp-lg: 576px;
+    --bp-xl: 768px;
+    --bp-2xl: 992px;
+    --bp-3xl: 1200px;
     --primary: #2563eb;
     --primary-hover: #1d4ed8;
     --sidebar-bg: #f9fafb;
