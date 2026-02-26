@@ -43,6 +43,8 @@
         justify-content: center;
         color: #fff;
         flex-shrink: 0;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-sizing: border-box;
     }
     .approver-overview-kpi-icon.total { background: linear-gradient(135deg, #1d4ed8, #3b82f6); }
     .approver-overview-kpi-icon.pending { background: linear-gradient(135deg, #d97706, #f59e0b); }
@@ -143,6 +145,8 @@
         width: 92px;
         text-align: center;
     }
+    .approver-overview-row-clickable { cursor: pointer; }
+    .approver-overview-row-clickable:hover { background: #f8fafc !important; }
     .ov-badge {
         display: inline-flex;
         align-items: center;
@@ -293,6 +297,14 @@
         .approver-overview-table tbody tr:has(td[colspan]) td::before { display: none; }
         .approver-overview-table tbody tr.approver-overview-empty-row .approver-overview-empty,
         .approver-overview-table tbody tr:has(td[colspan]) .approver-overview-empty { margin: 0; }
+        .approver-overview-table tbody td .ov-badge,
+        .approver-overview-table tbody td[data-label="Status"] .ov-badge {
+            padding: 2px 6px !important;
+            font-size: 10px !important;
+            border-radius: 4px !important;
+            line-height: 1.2 !important;
+            min-width: 0 !important;
+        }
         .approver-overview-actions { flex-direction: row; justify-content: flex-start; flex-wrap: wrap; }
         .approver-overview-actions a { justify-content: center; }
     }
@@ -357,8 +369,22 @@
                 </thead>
                 <tbody>
                     @forelse($recentRequests ?? [] as $request)
-                    <tr>
-                        <td data-label="Request ID">{{ $request['id'] ?? '-' }}</td>
+                    <tr class="approver-overview-row-clickable" role="button" tabindex="0" title="Click to view details">
+                        <td data-label="Request ID">
+                            <button type="button" class="btn-view-request approver-overview-view-btn" style="display:none;position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;"
+                                data-request-id="{{ e($request['id'] ?? '') }}"
+                                data-requestor="{{ e($request['requestor'] ?? '') }}"
+                                data-item="{{ e($request['item'] ?? '') }}"
+                                data-quantity="{{ $request['quantity'] ?? 1 }}"
+                                data-description="—"
+                                data-date="{{ e($request['date'] ?? '') }}"
+                                data-status="{{ e($request['status'] ?? '') }}"
+                                data-decided-at="—"
+                                data-decided-by="—"
+                                data-rejection-reason="—"
+                                data-approved-id="">View</button>
+                            {{ $request['id'] ?? '-' }}
+                        </td>
                         <td data-label="Requestor">{{ $request['requestor'] ?? '-' }}</td>
                         <td data-label="Item">{{ $request['item'] ?? '-' }}</td>
                         <td data-label="Qty">{{ $request['quantity'] ?? 1 }}</td>

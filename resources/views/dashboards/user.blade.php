@@ -8,8 +8,7 @@
     <title>User Panel - Product Request System | DICT</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    @vite(['resources/js/app.js'])
-
+    @vite(['resources/js/app.js', 'resources/css/theme-dark-standalone.css'])
     <style>
         :root {
             --primary: #2563eb;
@@ -178,7 +177,7 @@
         .breadcrumb { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
         .breadcrumb a { color: var(--primary); text-decoration: none; }
         .breadcrumb a:hover { text-decoration: underline; }
-        .guest-notice { display: flex; align-items: flex-start; gap: 12px; padding: 14px 18px; margin-bottom: 20px; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px; font-size: 14px; color: #1e40af; }
+        .guest-notice { display: flex; align-items: flex-start; gap: 12px; padding: 14px 18px; margin-bottom: 20px; background: transparent; border: 1px solid #bfdbfe; border-radius: 10px; font-size: 14px; color: #1e40af; }
         .guest-notice .material-icons { flex-shrink: 0; font-size: 22px; margin-top: 1px; }
         .guest-notice a { color: var(--primary); font-weight: 600; text-decoration: none; }
         .guest-notice a:hover { text-decoration: underline; }
@@ -189,7 +188,7 @@
         .stat-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
         @media (max-width: 900px) { .stat-cards { grid-template-columns: repeat(2, 1fr); } }
         .stat-card { background: var(--card-white); padding: 20px; border-radius: 12px; border: 1px solid #e5e7eb; box-shadow: 0 1px 3px rgba(0,0,0,.05); display: flex; align-items: flex-start; gap: 12px; }
-        .stat-card .stat-icon { width: 44px; height: 44px; border-radius: 10px; background: #eff6ff; color: var(--primary); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .stat-card .stat-icon { width: 44px; height: 44px; border-radius: 10px; background: transparent; color: var(--primary); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
         .stat-card .stat-label { font-size: 13px; color: var(--text-muted); margin-bottom: 4px; }
         .stat-card .stat-value { font-size: 20px; font-weight: 700; color: var(--text-dark); }
 
@@ -199,7 +198,7 @@
         }
         .card-title-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid #e5e7eb; }
         .card-title-bar h2 { font-size: 14px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
-        .card-title-bar .material-icons { background: #eff6ff; color: var(--primary); padding: 8px; border-radius: 8px; font-size: 20px; }
+        .card-title-bar .material-icons { background: transparent; color: var(--primary); padding: 8px; border-radius: 8px; font-size: 20px; }
         .card-list { list-style: none; }
         .card-list li { padding: 12px 0; font-size: 14px; color: var(--text-dark); border-bottom: 1px solid #f3f4f6; display: flex; justify-content: space-between; align-items: center; }
         .card-list li:last-child { border-bottom: none; }
@@ -226,7 +225,7 @@
         .quick-actions a.btn-primary { background: var(--primary); color: white; border: none; }
         .quick-actions a.btn-primary:hover { background: var(--primary-hover); color: white; }
         .quick-actions a.btn-outline { background: white; color: var(--primary); border: 1px solid var(--primary); }
-        .quick-actions a.btn-outline:hover { background: #eff6ff; }
+        .quick-actions a.btn-outline:hover { background: transparent; }
         .quick-actions a.btn-secondary { background: #f3f4f6; color: #6b7280; border: none; }
         .quick-actions a.btn-secondary:hover { background: #e5e7eb; color: var(--text-dark); }
 
@@ -346,6 +345,9 @@
             font-weight: 700;
         }
         .overview-table tr:last-child td { border-bottom: none; }
+        .user-overview-row-clickable { cursor: pointer; }
+        .user-overview-row-clickable:hover { background: #f8fafc !important; }
+        #userViewRequestModal.is-open { visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; }
         .status-badge {
             display: inline-flex;
             align-items: center;
@@ -551,6 +553,7 @@
                 box-sizing: border-box;
                 word-break: break-word;
                 overflow-wrap: break-word;
+                overflow: hidden;
             }
             .overview-table tbody td:last-child { border-bottom: none; padding-bottom: 0; }
             .overview-table tbody td::before {
@@ -566,7 +569,15 @@
             .overview-table tbody tr:has(td[colspan]) { padding: 14px; }
             .overview-table tbody tr:has(td[colspan]) td { display: block; padding: 0; border: none; }
             .overview-table tbody tr:has(td[colspan]) td::before { display: none; }
-            .status-badge { min-width: 70px; padding: 4px 8px; font-size: 11px; max-width: 100%; display: inline-block; }
+            .status-badge { min-width: 0 !important; padding: 2px 6px !important; font-size: 10px !important; border-radius: 4px !important; line-height: 1.2 !important; max-width: 100%; display: inline-block; }
+            /* Role contents size only (compact) */
+            .overview-table tbody td[data-label="Role"] .badge {
+                padding: 2px 6px !important;
+                font-size: 10px !important;
+                border-radius: 4px !important;
+                line-height: 1.2 !important;
+                min-width: 0 !important;
+            }
             .alert-item-link { flex-wrap: wrap; gap: 6px; padding: 10px 12px; }
             .alert-item .alert-left { flex: 1; min-width: 0; font-size: 12px; }
             .alert-item .alert-left span:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -626,53 +637,10 @@
         }
     </style>
 </head>
-<body>
-
+<body class="panel-user">
+<script>document.body.classList.add('theme-' + (localStorage.getItem('prs-theme') || 'light'));</script>
 <div class="container">
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <h2><span class="material-icons">person</span><span class="sidebar-label">PRS User</span></h2>
-            <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Collapse sidebar">
-                <span class="material-icons">chevron_left</span>
-            </button>
-        </div>
-        <div class="profile-card">
-            @php $u = auth()->user(); @endphp
-            <div class="profile-avatar">{{ $u ? strtoupper(substr($u->name ?? 'U', 0, 1)) : 'G' }}</div>
-            <div class="profile-info">
-                <div class="profile-name">{{ $u ? ($u->name ?? 'User') : 'Guest' }}</div>
-                <div class="profile-email">{{ $u ? ($u->email ?? '') : '' }}</div>
-            </div>
-        </div>
-        <div class="menu-top">
-            <a href="{{ auth()->check() ? route('user.dashboard') : route('user.guest') }}" class="{{ request()->routeIs('user.dashboard') || request()->routeIs('user.guest') ? 'active' : '' }}" title="Overview">
-                <span class="material-icons">dashboard</span><span class="sidebar-label">Overview</span>
-            </a>
-            <a href="{{ route('user.requests.create') }}" class="{{ request()->routeIs('user.requests.create') ? 'active' : '' }}" title="Create Request">
-                <span class="material-icons">add_circle</span><span class="sidebar-label">Create Request</span>
-            </a>
-            <a href="{{ route('user.requests.view') }}" class="{{ request()->routeIs('user.requests.view') ? 'active' : '' }}" title="View Request">
-                <span class="material-icons">list_alt</span><span class="sidebar-label">View Request</span>
-            </a>
-            <a href="{{ route('user.reports') }}" class="{{ request()->routeIs('user.reports') ? 'active' : '' }}" title="View Reports">
-                <span class="material-icons">analytics</span><span class="sidebar-label">View Reports</span>
-            </a>
-            <a href="{{ route('user.support') }}" class="{{ request()->routeIs('user.support') ? 'active' : '' }}" title="Support">
-                <span class="material-icons">support</span><span class="sidebar-label">Support</span>
-            </a>
-        </div>
-        <div class="logout">
-            @auth
-            <a href="{{ route('logout') }}" class="logout-link-get" onclick="return confirm('Are you sure you want to logout?')" style="text-decoration: none; width: 100%;" title="Logout">
-                <span class="material-icons">logout</span><span class="sidebar-label">Logout</span>
-            </a>
-            @else
-            <a href="{{ route('home') }}" class="logout-link" title="Sign in">
-                <span class="material-icons">login</span><span class="sidebar-label">Sign in</span>
-            </a>
-            @endauth
-        </div>
-    </div>
+    @include('partials.user-sidebar')
     <div class="sidebar-backdrop" id="sidebarBackdrop" aria-hidden="true"></div>
     <div class="main">
         @if(!auth()->check())
@@ -798,8 +766,16 @@
                         </thead>
                         <tbody>
                             @forelse($recentRequests as $req)
-                            <tr>
-                                <td data-label="Request ID">{{ $req['id'] ?? '-' }}</td>
+                            <tr class="user-overview-row-clickable" role="button" tabindex="0" title="Click to view details">
+                                <td data-label="Request ID">
+                                    <button type="button" class="user-btn-view-request" style="display:none;position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;"
+                                        data-request-id="{{ e($req['id'] ?? '') }}"
+                                        data-item="{{ e($req['item'] ?? '') }}"
+                                        data-quantity="{{ $req['quantity'] ?? 1 }}"
+                                        data-date="{{ e($req['date'] ?? '') }}"
+                                        data-status="{{ e($req['status'] ?? '') }}">View</button>
+                                    {{ $req['id'] ?? '-' }}
+                                </td>
                                 <td data-label="Item">{{ $req['item'] ?? '-' }}</td>
                                 <td data-label="Qty">{{ $req['quantity'] ?? 1 }}</td>
                                 <td data-label="Date">{{ $req['date'] ?? '-' }}</td>
@@ -859,6 +835,33 @@
     </div>
 </div>
 
+{{-- View request modal (dashboard Recent Requests – single-click row) --}}
+<div id="userViewRequestModal" class="user-view-request-modal-wrap" role="dialog" aria-modal="true" aria-labelledby="userViewRequestModalTitle" aria-hidden="true" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:1100;visibility:hidden;opacity:0;pointer-events:none;display:flex;align-items:center;justify-content:center;padding:24px;box-sizing:border-box;">
+    <div class="user-view-request-modal-backdrop" id="userViewRequestModalBackdrop" style="position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:1;"></div>
+    <div class="user-view-request-modal-content" id="userViewRequestModalContent" style="position:relative;z-index:2;background:var(--card-white,#fff);border-radius:12px;box-shadow:0 25px 50px -12px rgba(0,0,0,0.25);max-width:440px;width:100%;max-height:90vh;overflow:hidden;display:flex;flex-direction:column;">
+        <div class="user-view-request-modal-header" style="padding:20px 24px;border-bottom:1px solid #e2e8f0;flex-shrink:0;">
+            <h2 id="userViewRequestModalTitle" class="user-view-request-modal-title" style="margin:0;font-size:18px;font-weight:600;color:#0f172a;">Request details</h2>
+            <button type="button" class="user-view-request-modal-close" id="userViewRequestModalClose" aria-label="Close" style="position:absolute;top:16px;right:16px;background:none;border:none;font-size:24px;cursor:pointer;color:#64748b;">&times;</button>
+        </div>
+        <div class="user-view-request-modal-body" style="padding:24px;overflow-y:auto;flex:1;">
+            <section class="user-view-request-section" style="margin-bottom:16px;">
+                <h3 style="font-size:12px;font-weight:600;color:#64748b;text-transform:uppercase;margin:0 0 8px 0;">Request Details</h3>
+                <dl style="margin:0;font-size:14px;">
+                    <dt style="margin:0;font-weight:600;color:#64748b;">Request ID</dt><dd id="user-view-req-id" style="margin:0 0 8px 0;color:#0f172a;">—</dd>
+                    <dt style="margin:0;font-weight:600;color:#64748b;">Item</dt><dd id="user-view-req-item" style="margin:0 0 8px 0;color:#0f172a;">—</dd>
+                    <dt style="margin:0;font-weight:600;color:#64748b;">Quantity</dt><dd id="user-view-req-quantity" style="margin:0 0 8px 0;color:#0f172a;">—</dd>
+                    <dt style="margin:0;font-weight:600;color:#64748b;">Date</dt><dd id="user-view-req-date" style="margin:0 0 8px 0;color:#0f172a;">—</dd>
+                    <dt style="margin:0;font-weight:600;color:#64748b;">Status</dt><dd id="user-view-req-status" style="margin:0;color:#0f172a;">—</dd>
+                </dl>
+            </section>
+        </div>
+        <div class="user-view-request-modal-footer" style="padding:16px 24px;border-top:1px solid #e2e8f0;flex-shrink:0;">
+            <a href="{{ route('user.requests.view') }}" class="user-view-request-btn-all" style="display:inline-block;padding:10px 18px;background:#1d4ed8;color:#fff;border-radius:8px;text-decoration:none;font-weight:500;">View all my requests</a>
+            <button type="button" class="user-view-request-btn-close" id="userViewRequestModalBtnClose" style="margin-left:8px;padding:10px 18px;background:#f1f5f9;color:#334155;border:none;border-radius:8px;cursor:pointer;font-weight:500;">Close</button>
+        </div>
+    </div>
+</div>
+
 <script>
 (function() {
     var KEY = 'prs_user_sidebar_collapsed';
@@ -884,6 +887,51 @@
         if (window.innerWidth <= 992 && !sidebar.classList.contains('collapsed')) setCollapsed(true);
     });
     try { if (localStorage.getItem(KEY) === '1') setCollapsed(true); } catch (e) {}
+})();
+
+(function() {
+    var modal = document.getElementById('userViewRequestModal');
+    var backdrop = document.getElementById('userViewRequestModalBackdrop');
+    var closeBtn = document.getElementById('userViewRequestModalClose');
+    var footerClose = document.getElementById('userViewRequestModalBtnClose');
+    function openUserViewModal(btn) {
+        if (!btn) return;
+        document.getElementById('user-view-req-id').textContent = btn.getAttribute('data-request-id') || '—';
+        document.getElementById('user-view-req-item').textContent = btn.getAttribute('data-item') || '—';
+        document.getElementById('user-view-req-quantity').textContent = btn.getAttribute('data-quantity') || '1';
+        document.getElementById('user-view-req-date').textContent = btn.getAttribute('data-date') || '—';
+        document.getElementById('user-view-req-status').textContent = btn.getAttribute('data-status') || '—';
+        if (modal) { modal.classList.add('is-open'); modal.style.visibility = 'visible'; modal.style.opacity = '1'; modal.style.pointerEvents = 'auto'; modal.setAttribute('aria-hidden', 'false'); }
+        document.body && document.body.classList.add('modal-open');
+    }
+    function closeUserViewModal() {
+        if (modal) { modal.classList.remove('is-open'); modal.style.visibility = 'hidden'; modal.style.opacity = '0'; modal.style.pointerEvents = 'none'; modal.setAttribute('aria-hidden', 'true'); }
+        document.body && document.body.classList.remove('modal-open');
+    }
+    document.querySelectorAll('.user-btn-view-request').forEach(function(btn) {
+        btn.addEventListener('click', function(e) { e.stopPropagation(); openUserViewModal(btn); });
+    });
+    var userTable = document.querySelector('.overview-table');
+    if (userTable) {
+        userTable.addEventListener('click', function(e) {
+            var row = e.target.closest('tr.user-overview-row-clickable');
+            if (!row) return;
+            var btn = row.querySelector('.user-btn-view-request');
+            if (btn) btn.click();
+        });
+        userTable.addEventListener('keydown', function(e) {
+            if (e.key !== 'Enter' && e.key !== ' ') return;
+            var row = e.target.closest('tr.user-overview-row-clickable');
+            if (!row) return;
+            e.preventDefault();
+            var btn = row.querySelector('.user-btn-view-request');
+            if (btn) btn.click();
+        });
+    }
+    if (backdrop) backdrop.addEventListener('click', closeUserViewModal);
+    if (closeBtn) closeBtn.addEventListener('click', closeUserViewModal);
+    if (footerClose) footerClose.addEventListener('click', closeUserViewModal);
+    if (modal) modal.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeUserViewModal(); });
 })();
 </script>
 </body>

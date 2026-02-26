@@ -4,6 +4,7 @@
 @import './partials/sidebar.css';
 @import './partials/panel-layout.css';
 @import './partials/components.css';
+@import './partials/theme-dark.css';
 
 /* Sidebar: same look across User, Super Admin, Approver - dark blue, profile card, logout */
 .panel-user .sidebar,
@@ -29,26 +30,26 @@
     background: #1e3a8a;
 }
 
-/* Mobile: no hamburger. Collapsed = icon-only bar. Expanded = full overlay with labels. */
-.sidebar-mobile-open {
-    display: none !important;
-}
-
+/* Mobile: same as Superadmin – sidebar only (no hamburger). Collapsed = icon bar; expanded = overlay + backdrop. */
 .sidebar-backdrop {
-    display: none;
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.4);
-    z-index: 999;
+    z-index: 998;
+    display: none;
     opacity: 0;
-    transition: opacity 0.2s ease;
+    transition: opacity 0.2s;
+}
+.panel-user .sidebar-backdrop {
+    display: none;
+    z-index: 999;
 }
 body:not(.sidebar-collapsed).panel-user .sidebar-backdrop {
     display: block;
     opacity: 1;
 }
 @media (min-width: 993px) {
-    .sidebar-backdrop { display: none !important; }
+    .panel-user .sidebar-backdrop { display: none !important; }
 }
 
 /* Mobile: COLLAPSED = icon-only bar (72px). Main content beside it. */
@@ -175,17 +176,17 @@ body:not(.sidebar-collapsed).panel-user .sidebar-backdrop {
     }
 }
 
-/* Very small screens: slimmer COLLAPSED sidebar. 480, 400, 360, 320 */
+/* Very small screens: same COLLAPSED width as super admin (72px) */
 @media (max-width: 480px) {
     body.sidebar-collapsed.panel-user .sidebar {
-        width: 60px !important;
-        min-width: 60px !important;
-        max-width: 60px !important;
+        width: 72px !important;
+        min-width: 72px !important;
+        max-width: 72px !important;
         padding: 8px 4px;
     }
     body.sidebar-collapsed.panel-user .main {
-        margin-left: 60px !important;
-        width: calc(100% - 60px) !important;
+        margin-left: 72px !important;
+        width: calc(100% - 72px) !important;
     }
     body.sidebar-collapsed.panel-user .sidebar .sidebar-toggle {
         width: 32px;
@@ -213,14 +214,14 @@ body:not(.sidebar-collapsed).panel-user .sidebar-backdrop {
 
 @media (max-width: 400px) {
     body.sidebar-collapsed.panel-user .sidebar {
-        width: 56px !important;
-        min-width: 56px !important;
-        max-width: 56px !important;
+        width: 72px !important;
+        min-width: 72px !important;
+        max-width: 72px !important;
         padding: 7px 4px;
     }
     body.sidebar-collapsed.panel-user .main {
-        margin-left: 56px !important;
-        width: calc(100% - 56px) !important;
+        margin-left: 72px !important;
+        width: calc(100% - 72px) !important;
     }
     body.sidebar-collapsed.panel-user .sidebar .sidebar-toggle {
         width: 30px;
@@ -248,14 +249,14 @@ body:not(.sidebar-collapsed).panel-user .sidebar-backdrop {
 
 @media (max-width: 360px) {
     body.sidebar-collapsed.panel-user .sidebar {
-        width: 56px !important;
-        min-width: 56px !important;
-        max-width: 56px !important;
+        width: 72px !important;
+        min-width: 72px !important;
+        max-width: 72px !important;
         padding: 6px 4px;
     }
     body.sidebar-collapsed.panel-user .main {
-        margin-left: 56px !important;
-        width: calc(100% - 56px) !important;
+        margin-left: 72px !important;
+        width: calc(100% - 72px) !important;
     }
 }
 
@@ -346,7 +347,7 @@ body:not(.sidebar-collapsed).panel-user .sidebar-backdrop {
 .badge {
     padding: 4px 10px;
     border-radius: 6px;
-    font-size: 12px;
+    font-size: var(--text-sm);
     font-weight: 600;
 }
 
@@ -372,8 +373,8 @@ body:not(.sidebar-collapsed).panel-user .sidebar-backdrop {
 
 /* View Request page - inlined so they are always in the build */
 .view-requests-page .header-section { margin-bottom: 24px; }
-.view-requests-page .header-section h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; color: #1e293b; }
-.view-requests-page .header-section p { font-size: 14px; color: #6b7280; margin: 0; }
+.view-requests-page .header-section h1 { font-size: 20px; font-weight: 700; margin-bottom: 4px; color: #1e293b; }
+.view-requests-page .header-section p { font-size: var(--text-base); color: #6b7280; margin: 0; }
 
 .view-requests-page .table-card {
     background: #ffffff;
@@ -415,8 +416,8 @@ body:not(.sidebar-collapsed).panel-user .sidebar-backdrop {
     justify-content: space-between;
     gap: 12px;
     min-width: 150px;
-    padding: 10px 14px;
-    font-size: 14px;
+    padding: 8px 12px;
+    font-size: var(--text-input);
     font-weight: 500;
     color: #1e293b;
     background: #ffffff;
@@ -474,12 +475,13 @@ body:not(.sidebar-collapsed).panel-user .sidebar-backdrop {
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.15s;
+    border: 1px solid #e2e8f0;
 }
 .view-requests-page .status-filter-option:hover {
     background: #f1f5f9;
 }
 .view-requests-page .status-filter-option[aria-selected="true"] {
-    background: #eff6ff;
+    background: transparent;
     color: #1d4ed8;
 }
 .view-requests-page .status-filter-option-dot {
@@ -487,6 +489,8 @@ body:not(.sidebar-collapsed).panel-user .sidebar-backdrop {
     height: 8px;
     border-radius: 50%;
     flex-shrink: 0;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
 }
 .view-requests-page .status-dot-all {
     background: #94a3b8;
@@ -555,3 +559,15 @@ body:not(.sidebar-collapsed).panel-user .sidebar-backdrop {
 .view-requests-page .card p { font-size: 14px; line-height: 1.5; }
 .view-requests-page .card a { color: #2563eb; font-weight: 500; text-decoration: none; }
 .view-requests-page .card a:hover { text-decoration: underline; }
+
+/* Footer: space above "Product Request System" across user panel */
+.panel-user .footer {
+    margin-top: 40px;
+    padding: 16px 24px;
+    text-align: center;
+}
+.panel-user .footer .copyright {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin: 0;
+}

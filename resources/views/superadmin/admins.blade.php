@@ -144,20 +144,20 @@
                                 data-role="{{ strtolower((string) ($admin->role ?? 'user')) }}"
                                 data-status="{{ $statusValue }}"
                                 data-joined-ts="{{ $joinedAt?->timestamp ?? 0 }}">
-                                <td>{{ $admin->name }}</td>
-                                <td>{{ $admin->email }}</td>
-                                <td>{{ $username !== '' ? $username : '-' }}</td>
-                                <td>
+                                <td data-label="Full Name">{{ $admin->name }}</td>
+                                <td data-label="Email">{{ $admin->email }}</td>
+                                <td data-label="Username">{{ $username !== '' ? $username : '-' }}</td>
+                                <td data-label="Status">
                                     <span class="admin-status-badge {{ $statusValue === 'active' ? 'status-active' : 'status-deactivated' }}">
                                         {{ $statusLabel }}
                                     </span>
                                 </td>
-                                <td><span
-                                        class="badge {{ $admin->role === 'superadmin' ? 'badge-approved' : ($admin->role === 'approver' ? 'badge-pending' : '') }}">{{ ucfirst($admin->role ?? 'user') }}</span>
+                                <td data-label="Role"><span
+                                        class="badge {{ $admin->role === 'superadmin' ? 'badge-approved' : ($admin->role === 'approver' ? 'badge-pending' : 'badge-info') }}">{{ ucfirst($admin->role ?? 'user') }}</span>
                                 </td>
-                                <td>{{ $joinedAt?->format('M d, Y') }}</td>
-                                <td>{{ $lastActiveAt?->diffForHumans() ?? '-' }}</td>
-                                <td>
+                                <td data-label="Joined Date">{{ $joinedAt?->format('M d, Y') }}</td>
+                                <td data-label="Last Active">{{ $lastActiveAt?->diffForHumans() ?? '-' }}</td>
+                                <td data-label="Actions">
                                     @if(auth()->id() !== $admin->id)
                                         <div class="action-buttons">
                                             <button type="button" class="btn-sm btn-action-icon"
@@ -193,7 +193,7 @@
                                 </td>
                             </tr>
                         @empty
-                            <tr>
+                            <tr class="admin-empty-row">
                                 <td colspan="8" style="text-align: center; padding: 40px; color: #94a3b8;">No users found.</td>
                             </tr>
                         @endforelse
@@ -203,9 +203,9 @@
             </div>
 
         @else
-            <div class="table-card">
+            <div class="table-card admin-simple-table-card">
                 <div class="card-title-bar">All Users</div>
-                <table class="data-table">
+                <table class="data-table admin-simple-table">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -217,15 +217,15 @@
                     <tbody>
                         @forelse($admins ?? [] as $admin)
                             <tr>
-                                <td>{{ $admin->name }}</td>
-                                <td>{{ $admin->email }}</td>
-                                <td><span
-                                        class="badge {{ $admin->role === 'superadmin' ? 'badge-approved' : ($admin->role === 'approver' ? 'badge-pending' : '') }}">{{ ucfirst($admin->role ?? 'user') }}</span>
+                                <td data-label="Name">{{ $admin->name }}</td>
+                                <td data-label="Email">{{ $admin->email }}</td>
+                                <td data-label="Role"><span
+                                        class="badge {{ $admin->role === 'superadmin' ? 'badge-approved' : ($admin->role === 'approver' ? 'badge-pending' : 'badge-info') }}">{{ ucfirst($admin->role ?? 'user') }}</span>
                                 </td>
-                                <td>{{ $admin->created_at?->format('M d, Y') }}</td>
+                                <td data-label="Joined">{{ $admin->created_at?->format('M d, Y') }}</td>
                             </tr>
                         @empty
-                            <tr>
+                            <tr class="admin-empty-row">
                                 <td colspan="4" style="text-align: center; padding: 40px; color: #94a3b8;">No users found.</td>
                             </tr>
                         @endforelse
@@ -234,9 +234,9 @@
             </div>
         @endif
     @else
-        <div class="table-card">
+        <div class="table-card admin-simple-table-card">
             <div class="card-title-bar">All Users</div>
-            <table class="data-table">
+            <table class="data-table admin-simple-table">
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -248,17 +248,17 @@
                 <tbody>
                     @forelse($admins ?? [] as $admin)
                         <tr>
-                            <td>{{ $admin->name }}</td>
-                            <td>{{ $admin->email }}</td>
-                            <td><span
-                                    class="badge {{ $admin->role === 'superadmin' ? 'badge-approved' : ($admin->role === 'approver' ? 'badge-pending' : '') }}">{{ ucfirst($admin->role ?? 'user') }}</span>
+                            <td data-label="Name">{{ $admin->name }}</td>
+                            <td data-label="Email">{{ $admin->email }}</td>
+                            <td data-label="Role"><span
+                                    class="badge {{ $admin->role === 'superadmin' ? 'badge-approved' : ($admin->role === 'approver' ? 'badge-pending' : 'badge-info') }}">{{ ucfirst($admin->role ?? 'user') }}</span>
                             </td>
-                            <td>{{ $admin->created_at?->format('M d, Y') }}</td>
+                            <td data-label="Joined">{{ $admin->created_at?->format('M d, Y') }}</td>
                         </tr>
                     @empty
-                        <tr>
-                            <td colspan="4" style="text-align: center; padding: 40px; color: #94a3b8;">No users found.</td>
-                        </tr>
+                            <tr class="admin-empty-row">
+                                <td colspan="4" style="text-align: center; padding: 40px; color: #94a3b8;">No users found.</td>
+                            </tr>
                     @endforelse
                 </tbody>
             </table>
@@ -595,7 +595,7 @@
         }
 
         .admin-filter-option[aria-selected="true"] {
-            background: #eff6ff;
+            background: transparent;
             color: #1d4ed8;
             font-weight: 600;
         }
@@ -754,7 +754,7 @@
         .action-buttons {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 6px;
         }
 
         .btn-sm {
@@ -766,9 +766,21 @@
             font-weight: 500;
         }
 
+        /* Square icon buttons in admin management (override global min-height) */
+        .action-buttons .btn-sm.btn-action-icon {
+            width: 32px;
+            height: 32px;
+            min-width: 32px;
+            min-height: 32px;
+            padding: 0;
+            border-radius: 6px;
+        }
+
         .btn-action-icon {
-            width: 30px;
-            height: 30px;
+            width: 32px;
+            height: 32px;
+            min-width: 32px;
+            min-height: 32px;
             border: 1px solid #dbe4f0;
             background: #ffffff;
             color: #475569;
@@ -783,7 +795,7 @@
         }
 
         .btn-action-icon .material-icons {
-            font-size: 16px;
+            font-size: 18px;
         }
 
         .btn-action-icon.deactivate {
@@ -855,6 +867,204 @@
                 width: 100%;
                 justify-content: center;
             }
+        }
+
+        /* ========== Mobile responsive: Admin Management ========== */
+        @media (max-width: 768px) {
+            .header-section h1 { font-size: 20px; }
+            .header-section p { font-size: 13px; }
+            .admin-management-card,
+            .table-card.admin-management-card {
+                padding: 14px;
+                border-radius: 14px;
+                max-width: 100%;
+                min-width: 0;
+                overflow-x: hidden;
+                box-sizing: border-box;
+            }
+            .admin-management-header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+            }
+            .admin-management-controls {
+                order: 1;
+            }
+            .admin-add-user-btn {
+                order: 2;
+                margin-left: 0;
+            }
+            .admin-search-row {
+                width: 100%;
+            }
+            .admin-management-filters {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .admin-filter-block {
+                flex: 1 1 auto;
+                min-width: 0;
+            }
+            .admin-table-wrap {
+                overflow-x: hidden;
+                margin: 0 -14px;
+                padding: 0 14px;
+                max-width: 100%;
+            }
+            .admin-management-table {
+                width: 100%;
+                max-width: 100%;
+                min-width: 0;
+                box-sizing: border-box;
+            }
+            .admin-management-table thead {
+                display: none;
+            }
+            .admin-management-table tbody tr {
+                display: block;
+                margin-bottom: 12px;
+                padding: 14px;
+                border: 1px solid #e2e8f0;
+                border-radius: 12px;
+                background: #fff;
+                box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+                max-width: 100%;
+                box-sizing: border-box;
+            }
+            .admin-management-table tbody tr:last-child { margin-bottom: 0; }
+            .admin-management-table tbody td {
+                display: block;
+                padding: 6px 0 8px;
+                border: none;
+                border-bottom: 1px solid #f1f5f9;
+                font-size: 13px;
+                text-align: left;
+                max-width: 100%;
+                min-width: 0;
+                box-sizing: border-box;
+                word-break: break-word;
+                overflow-wrap: break-word;
+            }
+            .admin-management-table tbody td:last-child { border-bottom: none; padding-bottom: 0; }
+            .admin-management-table tbody td::before {
+                content: attr(data-label);
+                display: block;
+                font-size: 10px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.04em;
+                color: #64748b;
+                margin-bottom: 2px;
+            }
+            .admin-management-table tbody tr.admin-empty-row,
+            .admin-management-table tbody tr:has(td[colspan]) { padding: 14px; }
+            .admin-management-table tbody tr.admin-empty-row td,
+            .admin-management-table tbody tr:has(td[colspan]) td { display: block; padding: 0; border: none; }
+            .admin-management-table tbody tr.admin-empty-row td::before,
+            .admin-management-table tbody tr:has(td[colspan]) td::before { display: none; }
+            /* Role contents size only (compact) */
+            .admin-management-table tbody td[data-label="Role"] .badge {
+                padding: 2px 6px !important;
+                font-size: 10px !important;
+                border-radius: 4px !important;
+                line-height: 1.2 !important;
+                min-width: 0 !important;
+            }
+            .action-buttons {
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+            .action-buttons .btn-sm.btn-action-icon,
+            .btn-action-icon {
+                width: 32px;
+                height: 32px;
+                min-width: 32px;
+                min-height: 32px;
+            }
+            .btn-action-icon .material-icons {
+                font-size: 18px;
+            }
+            /* Simple table (non-superadmin / guest) */
+            .admin-simple-table-card {
+                padding: 14px;
+                overflow-x: hidden;
+                max-width: 100%;
+            }
+            .admin-simple-table thead { display: none; }
+            .admin-simple-table tbody tr {
+                display: block;
+                margin-bottom: 12px;
+                padding: 14px;
+                border: 1px solid #e2e8f0;
+                border-radius: 12px;
+                background: #fff;
+                box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+            }
+            .admin-simple-table tbody td {
+                display: block;
+                padding: 6px 0 8px;
+                border: none;
+                border-bottom: 1px solid #f1f5f9;
+                font-size: 13px;
+            }
+            .admin-simple-table tbody td:last-child { border-bottom: none; }
+            .admin-simple-table tbody td::before {
+                content: attr(data-label);
+                display: block;
+                font-size: 10px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.04em;
+                color: #64748b;
+                margin-bottom: 2px;
+            }
+            .admin-simple-table tbody td[data-label="Role"] .badge {
+                padding: 2px 6px !important;
+                font-size: 10px !important;
+                border-radius: 4px !important;
+                line-height: 1.2 !important;
+                min-width: 0 !important;
+            }
+            .admin-simple-table tbody tr.admin-empty-row td,
+            .admin-simple-table tbody tr:has(td[colspan]) td { display: block; padding: 0; border: none; }
+            .admin-simple-table tbody tr.admin-empty-row td::before,
+            .admin-simple-table tbody tr:has(td[colspan]) td::before { display: none; }
+            /* Modals */
+            .modal-overlay {
+                padding: 12px;
+                align-items: flex-end;
+            }
+            .modal-overlay .modal-box {
+                max-width: 100%;
+                max-height: 90vh;
+                overflow-y: auto;
+                border-radius: 12px 12px 0 0;
+            }
+            .modal-overlay .modal-header,
+            .modal-overlay .modal-body,
+            .modal-overlay .modal-footer {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+            .modal-overlay .modal-footer {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .modal-overlay .btn-primary,
+            .modal-overlay .btn-secondary {
+                min-height: 44px;
+            }
+        }
+        @media (max-width: 480px) {
+            .header-section h1 { font-size: 18px; }
+            .admin-management-card,
+            .table-card.admin-management-card { padding: 12px; }
+            .admin-management-table tbody tr { padding: 12px; }
+            .admin-management-table tbody td { font-size: 12px; }
+            .admin-simple-table-card { padding: 12px; }
+            .admin-simple-table tbody tr { padding: 12px; }
+            .admin-simple-table tbody td { font-size: 12px; }
         }
     </style>
 @endpush

@@ -22,6 +22,7 @@ export function initSidebarAjaxNav() {
 
   function shouldIntercept(link) {
     if (link.hasAttribute('data-full-reload')) return false;
+    if (link.getAttribute('aria-haspopup') === 'true') return false; /* dropdown toggle (e.g. All Requests) */
     if (link.classList.contains('logout-link-get') || link.classList.contains('logout-link')) return false;
     if (link.target === '_blank') return false;
     const origin = isSameOrigin(link.href);

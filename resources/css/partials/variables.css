@@ -21,6 +21,13 @@
     --bp-xl: 768px;
     --bp-2xl: 992px;
     --bp-3xl: 1200px;
+    /* Text sizing: consistent smaller scale across system */
+    --text-base: 13px;
+    --text-sm: 12px;
+    --text-xs: 11px;
+    --text-input: 13px;
+    --text-btn: 13px;
+    --text-label: 13px;
     --primary: #2563eb;
     --primary-hover: #1d4ed8;
     --sidebar-bg: #f9fafb;

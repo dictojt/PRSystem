@@ -64,14 +64,17 @@
     font-weight: 500 !important;
     color: #334155 !important;
     border-radius: 8px !important;
+    border: 1px solid #e2e8f0 !important;
 }
 .approver-all-request-card .status-filter-option:hover { background: #f1f5f9 !important; }
-.approver-all-request-card .status-filter-option.selected { background: #eff6ff !important; color: #1d4ed8 !important; }
+.approver-all-request-card .status-filter-option.selected { background: transparent !important; color: #1d4ed8 !important; }
 .approver-all-request-card .status-filter-option-dot {
     width: 8px !important;
     height: 8px !important;
     border-radius: 50% !important;
     flex-shrink: 0 !important;
+    border: 1px solid rgba(0, 0, 0, 0.15) !important;
+    box-sizing: border-box !important;
 }
 .approver-all-request-card .status-dot-all { background: #94a3b8 !important; }
 .approver-all-request-card .status-dot-approved { background: #10b981 !important; }
@@ -182,6 +185,127 @@ body.panel-approver .data-table tbody tr:nth-child(even) {
 body.panel-approver .data-table tbody tr:hover {
     background: #f0f9ff !important;
 }
+
+/* Mobile card layout: content fits phone-sized container (Superadmin/Approver/User) */
+@media (max-width: 768px) {
+    body.panel-approver .table-card {
+        padding: 14px !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        overflow-x: hidden !important;
+        box-sizing: border-box !important;
+    }
+    body.panel-approver .table-card .card-title-bar {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 12px !important;
+    }
+    body.panel-approver .table-responsive {
+        overflow-x: visible !important;
+        border: none !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+    }
+    body.panel-approver .data-table {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+    }
+    body.panel-approver .data-table thead { display: none !important; }
+    body.panel-approver .data-table tbody tr {
+        display: block !important;
+        margin-bottom: 12px !important;
+        padding: 14px !important;
+        border: 1px solid #e2e8f0 !important;
+        border-radius: 12px !important;
+        background: #fff !important;
+        box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06) !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    body.panel-approver .data-table tbody tr:last-child { margin-bottom: 0 !important; }
+    body.panel-approver .data-table tbody td {
+        display: block !important;
+        padding: 6px 0 8px !important;
+        border: none !important;
+        border-bottom: 1px solid #f1f5f9 !important;
+        font-size: 13px !important;
+        text-align: left !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+        word-break: break-word !important;
+        overflow-wrap: break-word !important;
+        overflow: hidden !important;
+    }
+    body.panel-approver .data-table tbody td:last-child { border-bottom: none !important; padding-bottom: 0 !important; }
+    body.panel-approver .data-table tbody td::before {
+        content: attr(data-label) !important;
+        display: block !important;
+        font-size: 10px !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.04em !important;
+        color: #64748b !important;
+        margin-bottom: 2px !important;
+    }
+    body.panel-approver .data-table td.item-cell-truncate {
+        max-width: none !important;
+        white-space: normal !important;
+        overflow: visible !important;
+        text-overflow: clip !important;
+    }
+    body.panel-approver .data-table tbody tr:has(td[colspan]) td {
+        padding: 14px !important;
+        border: none !important;
+    }
+    body.panel-approver .data-table tbody tr:has(td[colspan]) td::before { display: none !important; }
+    body.panel-approver .data-table tbody td .badge,
+    body.panel-approver .data-table tbody td[data-label="Status"] .badge {
+        max-width: 100% !important;
+        display: inline-block !important;
+        box-sizing: border-box !important;
+        padding: 2px 6px !important;
+        font-size: 10px !important;
+        border-radius: 4px !important;
+        line-height: 1.2 !important;
+        min-width: 0 !important;
+    }
+    /* Role contents size only (compact) */
+    body.panel-approver .data-table tbody td[data-label="Role"] .badge {
+        padding: 2px 6px !important;
+        font-size: 10px !important;
+        border-radius: 4px !important;
+        line-height: 1.2 !important;
+        min-width: 0 !important;
+    }
+    body.panel-approver .approver-action-buttons {
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+    }
+    body.panel-approver .approver-actions-cell { white-space: normal !important; }
+}
+@media (max-width: 480px) {
+    body.panel-approver .table-card { padding: 12px !important; }
+    body.panel-approver .data-table tbody tr { padding: 12px !important; }
+    body.panel-approver .data-table tbody td { font-size: 12px !important; }
+    body.panel-approver .data-table tbody td[data-label="Actions"],
+    body.panel-approver .data-table tbody td[data-label="View"] { padding-top: 10px !important; }
+}
+@media (max-width: 380px) {
+    body.panel-approver .approver-action-buttons {
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+    body.panel-approver .approver-action-buttons .btn-icon-action,
+    body.panel-approver .approver-form-inline { width: 100% !important; min-width: 0 !important; }
+    body.panel-approver .approver-form-inline .btn-icon-action { width: 100% !important; }
+}
 </style>
 @if(($tab ?? '') === 'pending')
 <style>
@@ -191,11 +315,11 @@ body.panel-approver .data-table tbody tr:hover {
 .approver-actions-cell { white-space: nowrap; vertical-align: middle; }
 .btn-icon-action {
     display: inline-flex !important; align-items: center !important; justify-content: center !important;
-    width: 38px !important; height: 38px !important; min-width: 38px !important; min-height: 38px !important;
-    padding: 0 !important; border: none !important; border-radius: 10px !important;
+    width: 26px !important; height: 26px !important; min-width: 26px !important; min-height: 26px !important;
+    padding: 0 !important; border: none !important; border-radius: 6px !important;
     cursor: pointer !important; box-sizing: border-box !important;
 }
-.btn-icon-action .material-icons { font-size: 22px !important; flex-shrink: 0 !important; line-height: 1 !important; }
+.btn-icon-action .material-icons { font-size: 16px !important; flex-shrink: 0 !important; line-height: 1 !important; }
 .btn-icon-view { background: #f1f5f9 !important; color: #475569 !important; }
 .btn-icon-view:hover { background: #e2e8f0 !important; color: #1e293b !important; }
 .btn-icon-approve { background: #059669 !important; color: #fff !important; }
@@ -310,11 +434,11 @@ body.panel-approver .data-table tbody tr:hover {
                 @if(($tab ?? '') === 'approved')
                     <th>Quantity</th>
                     <th>Decided</th>
-                @elseif(($tab ?? '') === 'pending')
-                    <th>Actions</th>
                 @endif
                 <th>Status</th>
-                @if(($tab ?? '') !== 'pending')
+                @if(($tab ?? '') === 'pending')
+                    <th>Actions</th>
+                @else
                     <th>View</th>
                 @endif
             </tr>
@@ -322,14 +446,35 @@ body.panel-approver .data-table tbody tr:hover {
         <tbody>
             @forelse(($listRequests ?? []) as $req)
             <tr data-request-row-id="{{ e($req['request_id'] ?? $req['id']) }}">
-                <td>{{ (($req['status'] ?? '') === 'Approved' && !empty($req['approved_id'] ?? null)) ? $req['approved_id'] : ($req['request_id'] ?? $req['id']) }}</td>
-                <td>{{ $req['requestor'] }}</td>
-                <td class="item-cell-truncate" title="{{ e($req['item'] . (isset($req['quantity']) && $req['quantity'] > 1 ? ' (Qty: ' . $req['quantity'] . ')' : '')) }}">{{ $req['item'] }}</td>
+                <td data-label="ID">{{ (($req['status'] ?? '') === 'Approved' && !empty($req['approved_id'] ?? null)) ? $req['approved_id'] : ($req['request_id'] ?? $req['id']) }}</td>
+                <td data-label="Requestor">{{ $req['requestor'] }}</td>
+                <td class="item-cell-truncate" data-label="Item" title="{{ e($req['item'] . (isset($req['quantity']) && $req['quantity'] > 1 ? ' (Qty: ' . $req['quantity'] . ')' : '')) }}">{{ $req['item'] }}</td>
                 @if(($tab ?? '') === 'approved')
-                    <td>{{ $req['quantity'] ?? 1 }}</td>
-                    <td>{{ $req['decided_at'] ?? '—' }}</td>
-                @elseif(($tab ?? '') === 'pending')
-                    <td class="approver-actions-cell">
+                    <td data-label="Quantity">{{ $req['quantity'] ?? 1 }}</td>
+                    <td data-label="Decided">{{ $req['decided_at'] ?? '—' }}</td>
+                @endif
+                <td data-label="Status">
+                    @if(($req['status'] ?? '') === 'Pending')
+                        <span class="badge badge-pending">Pending</span>
+                    @elseif(($req['status'] ?? '') === 'Approved')
+                        <span class="badge badge-approved">Approved</span>
+                    @else
+                        @php
+                            $rejectReason = $req['rejection_reason'] ?? null;
+                            $hasReason = !empty(trim((string) $rejectReason));
+                        @endphp
+                        <span class="reject-reason-cell">
+                            <span class="badge badge-rejected">Rejected</span>
+                            @if($hasReason)
+                                <button type="button" class="reject-reason-view-btn" data-reason="{{ e($rejectReason) }}" title="Reason for rejection" aria-label="Reason for rejection">
+                                    <span class="material-icons" aria-hidden="true">info</span>
+                                </button>
+                            @endif
+                        </span>
+                    @endif
+                </td>
+                @if(($tab ?? '') === 'pending')
+                    <td class="approver-actions-cell" data-label="Actions">
                         <div class="approver-action-buttons">
                             <button type="button" class="btn-view-request btn-icon-action btn-icon-view" title="View details" aria-label="View request details"
                                 data-request-id="{{ e($req['request_id'] ?? $req['id']) }}"
@@ -357,29 +502,8 @@ body.panel-approver .data-table tbody tr:hover {
                             @endif
                         </div>
                     </td>
-                @endif
-                <td>
-                    @if(($req['status'] ?? '') === 'Pending')
-                        <span class="badge badge-pending">Pending</span>
-                    @elseif(($req['status'] ?? '') === 'Approved')
-                        <span class="badge badge-approved">Approved</span>
-                    @else
-                        @php
-                            $rejectReason = $req['rejection_reason'] ?? null;
-                            $hasReason = !empty(trim((string) $rejectReason));
-                        @endphp
-                        <span class="reject-reason-cell">
-                            <span class="badge badge-rejected">Rejected</span>
-                            @if($hasReason)
-                                <button type="button" class="reject-reason-view-btn" data-reason="{{ e($rejectReason) }}" title="Reason for rejection" aria-label="Reason for rejection">
-                                    <span class="material-icons" aria-hidden="true">info</span>
-                                </button>
-                            @endif
-                        </span>
-                    @endif
-                </td>
-                @if(($tab ?? '') !== 'pending')
-                <td>
+                @else
+                <td data-label="View">
                     <button type="button" class="btn-view-request btn-sm btn-icon-view" title="View details" aria-label="View request details"
                         data-request-id="{{ e($req['request_id'] ?? $req['id']) }}"
                         data-requestor="{{ e($req['requestor'] ?? '') }}"
@@ -471,7 +595,7 @@ body.panel-approver .data-table tbody tr:hover {
 #viewRequestModal .view-request-modal-close:hover {
     background: rgba(255,255,255,0.3) !important;
 }
-#viewRequestModal .view-request-modal-body { padding: 24px !important; overflow-y: auto !important; flex: 1; min-height: 0; }
+#viewRequestModal .view-request-modal-body { padding: 24px 24px 28px 24px !important; overflow-y: auto !important; flex: 1; min-height: 0; }
 #viewRequestModal .view-request-section { margin-bottom: 20px !important; }
 #viewRequestModal .view-request-section:last-of-type { margin-bottom: 0 !important; }
 #viewRequestModal .view-request-section-title {
@@ -486,7 +610,7 @@ body.panel-approver .data-table tbody tr:hover {
 #viewRequestModal .view-request-dl dt { margin: 0 !important; font-weight: 600 !important; color: #64748b !important; }
 #viewRequestModal .view-request-dl dd { margin: 0 !important; color: #0f172a !important; word-break: break-word !important; }
 #viewRequestModal .view-request-modal-footer {
-    padding: 16px 24px !important; border-top: 1px solid #e2e8f0 !important;
+    padding: 20px 24px !important; border-top: 1px solid #e2e8f0 !important;
     display: flex !important; justify-content: flex-end !important; gap: 12px !important;
 }
 #viewRequestModal .view-request-btn-close {
@@ -822,8 +946,26 @@ body.panel-approver .data-table tbody tr:hover {
     }
 
     document.querySelectorAll('.btn-view-request').forEach(function(btn) {
-        btn.addEventListener('click', function() { openViewModal(btn); });
+        btn.addEventListener('click', function(e) { e.stopPropagation(); openViewModal(btn); });
     });
+    /* Single-click on Approver Overview Recent Requests row opens view modal */
+    var overviewTable = document.querySelector('.approver-overview-table');
+    if (overviewTable) {
+        overviewTable.addEventListener('click', function(e) {
+            var row = e.target.closest('tr.approver-overview-row-clickable');
+            if (!row) return;
+            var btn = row.querySelector('.btn-view-request');
+            if (btn) btn.click();
+        });
+        overviewTable.addEventListener('keydown', function(e) {
+            if (e.key !== 'Enter' && e.key !== ' ') return;
+            var row = e.target.closest('tr.approver-overview-row-clickable');
+            if (!row) return;
+            e.preventDefault();
+            var btn = row.querySelector('.btn-view-request');
+            if (btn) btn.click();
+        });
+    }
     if (viewBackdrop) viewBackdrop.addEventListener('click', closeViewModal);
     if (viewClose) viewClose.addEventListener('click', closeViewModal);
     var viewBtnClose = document.getElementById('viewRequestModalBtnClose');

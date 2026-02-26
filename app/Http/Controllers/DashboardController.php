@@ -388,6 +388,14 @@ class DashboardController extends Controller
         return $this->approverRedirect("Request {$prsRequest->request_id} rejected.");
     }
 
+    /**
+     * Approver panel settings (theme, etc.)
+     */
+    public function approverSettings()
+    {
+        return view('settings.approver');
+    }
+
     private function approverRedirect(string $message, string $key = 'message')
     {
         $tab = request('tab', '');

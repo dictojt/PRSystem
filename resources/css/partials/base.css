@@ -19,6 +19,7 @@ body {
     overflow-x: hidden;
     background-color: var(--bg-main);
     color: var(--text-dark);
+    font-size: var(--text-base);
 }
 
 .container {

@@ -1,4 +1,21 @@
-/* Shared UI components */
+/* Shared UI components - system-wide text sizing */
+input:not([type="hidden"]),
+textarea,
+select {
+    font-size: var(--text-input);
+}
+button,
+.btn,
+.btn-sm,
+.btn-primary,
+.btn-secondary,
+.btn-outline,
+.btn-danger,
+.btn-success,
+.btn-cancel {
+    font-size: var(--text-btn);
+}
+
 .card {
     background: var(--card-white);
     padding: 24px;
@@ -14,19 +31,28 @@
 
 .form-group label {
     display: block;
-    font-size: 14px;
+    font-size: var(--text-label);
     font-weight: 500;
     margin-bottom: 6px;
     color: var(--text-dark);
 }
 
 .form-group input,
-.form-group textarea {
+.form-group textarea,
+.form-group select {
     width: 100%;
-    padding: 10px 14px;
+    padding: 8px 12px;
     border: 1px solid #e5e7eb;
     border-radius: 8px;
-    font-size: 14px;
+    font-size: var(--text-input);
+    background: #fff;
+    color: var(--text-dark);
+}
+
+.form-group select {
+    cursor: pointer;
+    appearance: auto;
+    max-width: 100%;
 }
 
 .form-group textarea {
@@ -38,9 +64,9 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 10px 18px;
+    padding: 8px 14px;
     border-radius: 8px;
-    font-size: 14px;
+    font-size: var(--text-btn);
     font-weight: 500;
     text-decoration: none;
     border: none;
@@ -65,7 +91,7 @@
 }
 
 .btn-outline:hover {
-    background: #eff6ff;
+    background: transparent;
     color: var(--primary-hover);
 }
 
@@ -91,12 +117,33 @@
     border: 1px solid #a7f3d0;
 }
 
+/* Theme settings (Appearance) block */
+.settings-appearance {
+    padding: 0 24px 24px;
+}
+.settings-appearance .form-group {
+    margin-bottom: 0;
+}
+.settings-appearance .form-group label {
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+.settings-appearance .form-group select {
+    max-width: 220px;
+}
+.settings-appearance .settings-theme-note {
+    margin-top: 10px;
+    font-size: var(--text-sm);
+    line-height: 1.45;
+    color: var(--text-muted);
+}
+
 .alert-success button {
     background: none;
     border: none;
     cursor: pointer;
     color: #047857;
-    font-size: 18px;
+    font-size: var(--text-base);
     padding: 0 4px;
 }
 
@@ -108,13 +155,14 @@
         border-radius: 10px;
     }
     .form-group input,
-    .form-group textarea {
-        padding: 10px 12px;
-        font-size: 16px; /* avoids zoom on focus on iOS */
+    .form-group textarea,
+    .form-group select {
+        padding: 8px 12px;
+        font-size: var(--text-input);
     }
     .btn {
-        padding: 10px 16px;
-        font-size: 14px;
+        padding: 8px 14px;
+        font-size: var(--text-btn);
         min-height: 44px; /* touch target */
     }
 }
@@ -142,8 +190,8 @@
         margin-bottom: 14px;
     }
     .btn {
-        padding: 10px 12px;
-        font-size: 13px;
+        padding: 8px 12px;
+        font-size: var(--text-sm);
     }
 }
 
@@ -154,8 +202,8 @@
         border-radius: 8px;
     }
     .btn {
-        padding: 10px 14px;
-        font-size: 13px;
+        padding: 8px 12px;
+        font-size: var(--text-sm);
     }
 }
 

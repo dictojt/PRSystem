@@ -104,12 +104,13 @@
             cursor: pointer;
             text-decoration: none;
             color: inherit;
+            border: 1px solid #e2e8f0;
         }
         .all-requests-page .status-filter-option:hover {
             background: #f1f5f9;
         }
         .all-requests-page .status-filter-option.selected {
-            background: #eff6ff;
+            background: transparent;
             color: #1d4ed8;
         }
         .all-requests-page .status-filter-option-dot {
@@ -117,6 +118,8 @@
             height: 8px;
             border-radius: 50%;
             flex-shrink: 0;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            box-sizing: border-box;
         }
         .all-requests-page .status-dot-all { background: #94a3b8; }
         .all-requests-page .status-dot-pending { background: #f59e0b; }
@@ -145,7 +148,7 @@
         .all-requests-actions form {
             display: flex;
             flex: 1;
-            min-width: 32px;
+            min-width: 24px;
         }
 
         .all-requests-actions form .btn-icon {
@@ -155,14 +158,14 @@
         /* Each direct child (button or form) expands to fill space equally */
         .all-requests-actions > .btn-icon {
             flex: 1;
-            min-width: 32px;
+            min-width: 24px;
         }
 
-        /* Icon-only action buttons with tooltip (title) */
+        /* Icon-only action buttons with tooltip (title) - compact size */
         .all-requests-actions .btn-icon {
-            width: 32px;
-            min-width: 32px;
-            height: 32px;
+            width: 24px;
+            min-width: 24px;
+            height: 24px;
             padding: 0;
             display: inline-flex;
             align-items: center;
@@ -175,7 +178,7 @@
             width: auto;
         }
         .all-requests-actions .btn-icon .material-icons {
-            font-size: 18px;
+            font-size: 14px;
         }
 
         .all-requests-actions .btn-view-request-sa {
@@ -255,7 +258,7 @@
             background: rgba(255, 255, 255, 0.3);
         }
         #view-request-modal-overlay .view-request-modal-body {
-            padding: 24px;
+            padding: 24px 24px 28px 24px;
             overflow-y: auto;
             flex: 1;
             min-height: 0;
@@ -294,7 +297,7 @@
             word-break: break-word;
         }
         #view-request-modal-overlay .view-request-modal-footer {
-            padding: 16px 24px;
+            padding: 20px 24px;
             border-top: 1px solid #e2e8f0;
             display: flex;
             align-items: center;
@@ -770,6 +773,311 @@
             opacity: 0.6;
             cursor: not-allowed;
         }
+
+        /* ========== Mobile responsive: All Requests ========== */
+        @media (max-width: 768px) {
+            .all-requests-page .header-section {
+                margin-bottom: 18px;
+            }
+            .all-requests-page .header-section h1 {
+                font-size: 20px;
+            }
+            .all-requests-page .header-section p {
+                font-size: 13px;
+            }
+            .table-card.all-requests-table {
+                padding: 14px;
+                border-radius: 14px;
+                max-width: 100%;
+                min-width: 0;
+                overflow-x: hidden;
+                box-sizing: border-box;
+            }
+            .table-card.all-requests-table .card-title-bar {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+                margin-bottom: 14px;
+            }
+            .all-requests-page .status-filter-wrap {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .all-requests-page .status-filter-trigger {
+                min-width: 0;
+                width: 100%;
+            }
+            .table-card.all-requests-table .data-table {
+                width: 100%;
+                max-width: 100%;
+                min-width: 0;
+                box-sizing: border-box;
+            }
+            .table-card.all-requests-table .data-table thead {
+                display: none;
+            }
+            .table-card.all-requests-table .data-table tbody tr {
+                display: block;
+                margin-bottom: 12px;
+                padding: 14px 14px 20px 14px;
+                border: 1px solid #e2e8f0;
+                border-radius: 12px;
+                background: #fff;
+                box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+                max-width: 100%;
+                box-sizing: border-box;
+            }
+            .table-card.all-requests-table .data-table tbody tr:last-child {
+                margin-bottom: 0;
+            }
+            .table-card.all-requests-table .data-table tbody td {
+                display: block;
+                padding: 6px 0 8px;
+                border: none;
+                border-bottom: 1px solid #f1f5f9;
+                font-size: 13px;
+                text-align: left;
+                max-width: 100%;
+                min-width: 0;
+                box-sizing: border-box;
+                word-break: break-word;
+                overflow-wrap: break-word;
+                overflow: hidden;
+            }
+            .table-card.all-requests-table .data-table tbody td .badge,
+            .table-card.all-requests-table .data-table tbody td[data-label="Status"] .badge {
+                max-width: 100% !important;
+                display: inline-block !important;
+                box-sizing: border-box !important;
+                padding: 2px 6px !important;
+                font-size: 10px !important;
+                border-radius: 4px !important;
+                line-height: 1.2 !important;
+                min-width: 0 !important;
+            }
+            .table-card.all-requests-table .data-table tbody td:last-child {
+                border-bottom: none;
+                padding-bottom: 12px;
+            }
+            .table-card.all-requests-table .data-table tbody td::before {
+                content: attr(data-label);
+                display: block;
+                font-size: 10px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.04em;
+                color: #64748b;
+                margin-bottom: 2px;
+            }
+            .table-card.all-requests-table .data-table td.item-cell-truncate {
+                max-width: none;
+                white-space: normal;
+                overflow: visible;
+                text-overflow: clip;
+            }
+            .table-card.all-requests-table .data-table tbody tr.all-requests-empty-row,
+            .table-card.all-requests-table .data-table tbody tr:has(td[colspan]) {
+                padding: 14px;
+            }
+            .table-card.all-requests-table .data-table tbody tr.all-requests-empty-row td,
+            .table-card.all-requests-table .data-table tbody tr:has(td[colspan]) td {
+                display: block;
+                padding: 0;
+                border: none;
+            }
+            .table-card.all-requests-table .data-table tbody tr.all-requests-empty-row td::before,
+            .table-card.all-requests-table .data-table tbody tr:has(td[colspan]) td::before {
+                display: none;
+            }
+            .all-requests-actions {
+                flex-wrap: wrap;
+                gap: 8px;
+                width: 100%;
+                max-width: 100%;
+                min-width: 0;
+                box-sizing: border-box;
+            }
+            .all-requests-actions .btn-icon {
+                min-width: 24px;
+                height: 24px;
+                flex-shrink: 0;
+            }
+            .all-requests-pagination {
+                padding: 12px 14px;
+                max-width: 100%;
+                min-width: 0;
+                box-sizing: border-box;
+            }
+            .all-requests-pagination nav[role="navigation"] {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+                max-width: 100%;
+                min-width: 0;
+            }
+            .all-requests-pagination nav > div:first-child {
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .all-requests-pagination nav > div:last-child {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .all-requests-pagination nav p {
+                word-break: break-word;
+                overflow-wrap: break-word;
+                min-width: 0;
+            }
+            .all-requests-pagination nav > div:last-child > div:last-child {
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+            .all-requests-pagination nav a,
+            .all-requests-pagination nav span[aria-disabled] span,
+            .all-requests-pagination nav span[aria-current="page"] span {
+                min-width: 40px;
+                min-height: 40px;
+            }
+            #view-request-modal-overlay {
+                padding: 12px;
+                align-items: flex-end;
+            }
+            #view-request-modal-overlay .view-request-modal {
+                min-width: 0;
+                max-width: 100%;
+                max-height: 85vh;
+                border-radius: 12px 12px 0 0;
+            }
+            #view-request-modal-overlay .view-request-modal .modal-header {
+                padding: 14px 16px;
+            }
+            #view-request-modal-overlay .view-request-modal-body {
+                padding: 16px;
+                max-height: calc(100vh - 160px);
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            #view-request-modal-overlay .view-request-section-title {
+                font-size: 12px;
+            }
+            #view-request-modal-overlay .view-request-dl {
+                grid-template-columns: 1fr;
+                gap: 6px 0;
+                font-size: 14px;
+            }
+            #view-request-modal-overlay .view-request-modal .modal-close {
+                min-width: 44px;
+                min-height: 44px;
+            }
+            #view-request-modal-overlay .view-request-modal-footer {
+                padding: 12px 16px;
+                flex-direction: column;
+                align-items: stretch;
+            }
+            #view-request-modal-overlay .view-request-modal-footer-actions {
+                margin-left: 0;
+                justify-content: flex-end;
+                flex-wrap: wrap;
+            }
+            .edit-request-modal-overlay {
+                padding: 12px;
+                align-items: flex-end;
+            }
+            .edit-request-modal-overlay.is-open {
+                display: flex;
+            }
+            .edit-request-modal {
+                max-width: 100%;
+                max-height: 90vh;
+                overflow-y: auto;
+                border-radius: 12px 12px 0 0;
+            }
+            .edit-request-modal .modal-header,
+            .edit-request-modal .modal-body,
+            .edit-request-modal .modal-footer {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+            .edit-request-modal .modal-footer {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .edit-request-modal .btn {
+                min-height: 44px;
+            }
+            .confirm-modal-overlay {
+                padding: 12px;
+                align-items: flex-end;
+            }
+            .confirm-modal-overlay.is-open {
+                display: flex;
+            }
+            .confirm-modal {
+                max-width: 100%;
+                max-height: 90vh;
+                overflow-y: auto;
+                border-radius: 12px 12px 0 0;
+            }
+            .confirm-modal .modal-header,
+            .confirm-modal .modal-body,
+            .confirm-modal .modal-footer {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+            .confirm-modal .modal-footer {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .confirm-modal .btn {
+                min-height: 44px;
+            }
+        }
+        @media (max-width: 480px) {
+            .all-requests-page .header-section h1 {
+                font-size: 18px;
+            }
+            .table-card.all-requests-table {
+                padding: 12px;
+            }
+            .table-card.all-requests-table .data-table tbody tr {
+                padding: 12px;
+            }
+            .table-card.all-requests-table .data-table tbody td {
+                font-size: 12px;
+            }
+            .table-card.all-requests-table .data-table tbody td[data-label="Actions"] {
+                padding-top: 10px;
+            }
+            .all-requests-actions {
+                flex-direction: row;
+                justify-content: flex-start;
+            }
+            .all-requests-actions .btn-icon {
+                min-width: 24px;
+                height: 24px;
+            }
+            .all-requests-pagination nav a,
+            .all-requests-pagination nav span[aria-disabled] span,
+            .all-requests-pagination nav span[aria-current="page"] span {
+                min-width: 36px;
+                min-height: 36px;
+                padding: 6px 10px;
+                font-size: 13px;
+            }
+        }
+        @media (max-width: 380px) {
+            .all-requests-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .all-requests-actions .btn-icon,
+            .all-requests-actions form .btn-icon {
+                width: 100%;
+                min-width: 0;
+            }
+        }
     </style>
 @endpush
 @section('content')
@@ -830,8 +1138,8 @@
                     <th>Requestor</th>
                     <th>Item</th>
                     <th>Qty</th>
-                    <th>Status</th>
                     <th>Date</th>
+                    <th>Status</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -846,11 +1154,12 @@
                         data-request-id="{{ e($req->request_id) }}" data-status="{{ e($req->status) }}"
                         data-requestor="{{ e($req->user?->name ?? '—') }}" data-date="{{ $req->created_at?->format('M d, Y') }}"
                         data-decided-at="{{ e($decidedAt) }}" data-decided-by="{{ e($decidedBy) }}" data-rejection-reason="{{ e($req->rejection_reason ?? '') }}" data-approved-id="{{ e($req->approved_id ?? '') }}">
-                        <td>{{ $req->status === 'Approved' && $req->approved_id ? $req->approved_id : $req->request_id }}</td>
-                        <td>{{ $req->user?->name ?? '—' }}</td>
-                        <td class="item-cell-truncate" title="{{ e($req->item_name) }}">{{ $req->item_name }}</td>
-                        <td>{{ $req->quantity ?? 1 }}</td>
-                        <td>
+                        <td data-label="ID">{{ $req->status === 'Approved' && $req->approved_id ? $req->approved_id : $req->request_id }}</td>
+                        <td data-label="Requestor">{{ $req->user?->name ?? '—' }}</td>
+                        <td data-label="Item" class="item-cell-truncate" title="{{ e($req->item_name) }}">{{ $req->item_name }}</td>
+                        <td data-label="Qty">{{ $req->quantity ?? 1 }}</td>
+                        <td data-label="Date">{{ $req->created_at?->format('M d, Y') }}</td>
+                        <td data-label="Status">
                             @if($req->status === 'Pending')
                                 <span class="badge badge-pending">Pending</span>
                             @elseif($req->status === 'Approved')
@@ -859,8 +1168,7 @@
                                 <span class="badge badge-rejected">Rejected</span>
                             @endif
                         </td>
-                        <td>{{ $req->created_at?->format('M d, Y') }}</td>
-                        <td>
+                        <td data-label="Actions">
                             <div class="all-requests-actions">
                                 <button type="button" class="btn-sm btn-icon btn-view-request-sa" title="View details" aria-label="View request details"
                                     data-request-id="{{ $req->status === 'Approved' && $req->approved_id ? e($req->approved_id) : e($req->request_id) }}"
@@ -878,7 +1186,7 @@
                         </td>
                     </tr>
                 @empty
-                    <tr>
+                    <tr class="all-requests-empty-row">
                         <td colspan="7" style="text-align: center; padding: 40px; color: #94a3b8;">
                             @if(($filter ?? 'all') === 'archived')
                                 No archived requests.

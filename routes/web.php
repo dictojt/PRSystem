@@ -47,6 +47,7 @@ Route::post('/forgot-password', [AuthController::class, 'submitForgotPasswordReq
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [HomeController::class, 'dashboardRedirect'])->name('dashboard.redirect');
+    Route::get('/user/settings', [UserController::class, 'settings'])->name('user.settings');
 
     /*
     |--------------------------------------------------------------------------
@@ -70,7 +71,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/superadmin/requests/{id}/restore', [SuperAdminController::class, 'restoreRequest'])->name('superadmin.requests.restore');
     Route::get('/superadmin/settings', [SuperAdminController::class, 'settings'])->name('superadmin.settings');
     Route::match(['get', 'post'], '/approver', [DashboardController::class, 'approver'])->name('approver.dashboard');
+    Route::get('/approver/settings', [DashboardController::class, 'approverSettings'])->name('approver.settings');
     Route::post('/approver/approve/{id}', [DashboardController::class, 'approveRequest'])->name('approver.approve');
     Route::post('/approver/reject/{id}', [DashboardController::class, 'rejectRequest'])->name('approver.reject');
 });
-  

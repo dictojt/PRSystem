@@ -1,0 +1,3 @@
+/* Load theme-dark for pages that have their own layout (e.g. user dashboard) */
+@import './partials/variables.css';
+@import './partials/theme-dark.css';

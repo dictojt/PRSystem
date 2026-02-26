@@ -11,6 +11,7 @@ export default defineConfig({
                 'resources/css/user-panel.css',
                 'resources/css/super-admin.css',
                 'resources/css/approver.css',
+                'resources/css/theme-dark-standalone.css',
                 'resources/css/home.css',
                 'resources/css/prs.css',
                 'resources/js/app.js',

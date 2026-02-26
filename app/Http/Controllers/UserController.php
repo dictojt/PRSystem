@@ -171,4 +171,12 @@ class UserController extends Controller
     {
         return view('user.support');
     }
+
+    /**
+     * User panel settings (appearance, etc.)
+     */
+    public function settings()
+    {
+        return view('settings.user');
+    }
 }

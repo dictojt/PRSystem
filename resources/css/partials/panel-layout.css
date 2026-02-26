@@ -40,10 +40,10 @@ body.sidebar-collapsed .main {
     gap: 12px;
     padding: 14px 18px;
     margin-bottom: 20px;
-    background: #eff6ff;
+    background: transparent;
     border: 1px solid #bfdbfe;
     border-radius: 10px;
-    font-size: 14px;
+    font-size: var(--text-base);
     color: #1e40af;
 }
 
@@ -68,14 +68,14 @@ body.sidebar-collapsed .main {
 }
 
 .header-section h1 {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 700;
     margin-bottom: 4px;
     color: var(--text-dark);
 }
 
 .header-section p {
-    font-size: 14px;
+    font-size: var(--text-base);
     color: var(--text-muted);
 }
 
@@ -102,7 +102,7 @@ body.sidebar-collapsed .main {
         font-size: 20px;
     }
     .header-section p {
-        font-size: 13px;
+        font-size: var(--text-sm);
     }
     .guest-notice {
         padding: 12px 14px;

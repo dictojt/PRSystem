@@ -30,58 +30,33 @@
     @vite(['resources/css/user-panel.css', 'resources/js/user-panel.js'])
     @stack('styles')
 </head>
-<body class="panel-user">
+@php
+    $autoCollapseSidebar = request()->routeIs('user.dashboard') || request()->routeIs('user.guest')
+        || request()->routeIs('user.requests.create') || request()->routeIs('user.requests.view')
+        || request()->routeIs('user.reports') || request()->routeIs('user.support')
+        || request()->routeIs('user.settings');
+@endphp
+<body class="panel-user {{ $autoCollapseSidebar ? 'sidebar-collapsed' : '' }}" data-auto-collapse-sidebar="{{ $autoCollapseSidebar ? '1' : '0' }}">
+<script>document.body.classList.add('theme-' + (localStorage.getItem('prs-theme') || 'light'));</script>
 <div class="container">
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <h2><span class="material-icons">person</span><span class="sidebar-label">PRS User</span></h2>
-            <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Collapse sidebar">
-                <span class="material-icons">chevron_left</span>
-            </button>
-        </div>
-        @php $u = auth()->user(); @endphp
-        <div class="profile-card">
-            <div class="profile-avatar">{{ $u ? strtoupper(substr($u->name ?? 'U', 0, 1)) : 'G' }}</div>
-            <div class="profile-info">
-                <div class="profile-name">{{ $u ? ($u->name ?? 'User') : 'Guest' }}</div>
-                <div class="profile-email">{{ $u ? ($u->email ?? '') : '' }}</div>
-            </div>
-        </div>
-        <div class="menu-top">
-            <a href="{{ auth()->check() ? route('user.dashboard') : route('user.guest') }}" class="{{ request()->routeIs('user.dashboard') || request()->routeIs('user.guest') ? 'active' : '' }}" title="Overview" data-full-reload>
-                <span class="material-icons">dashboard</span><span class="sidebar-label">Overview</span>
-            </a>
-            <a href="{{ route('user.requests.create') }}" class="{{ request()->routeIs('user.requests.create') ? 'active' : '' }}" title="Create Request">
-                <span class="material-icons">add_circle</span><span class="sidebar-label">Create Request</span>
-            </a>
-            <a href="{{ route('user.requests.view') }}" class="{{ request()->routeIs('user.requests.view') ? 'active' : '' }}" title="View Request">
-                <span class="material-icons">list_alt</span><span class="sidebar-label">View Request</span>
-            </a>
-            <a href="{{ route('user.reports') }}" class="{{ request()->routeIs('user.reports') ? 'active' : '' }}" title="View Reports">
-                <span class="material-icons">analytics</span><span class="sidebar-label">View Reports</span>
-            </a>
-            <a href="{{ route('user.support') }}" class="{{ request()->routeIs('user.support') ? 'active' : '' }}" title="Support">
-                <span class="material-icons">support</span><span class="sidebar-label">Support</span>
-            </a>
-        </div>
-        <div class="logout">
-            @auth
-            <form method="POST" action="{{ route('logout') }}" class="logout-form" style="width: 100%; margin: 0;">
-                @csrf
-                <button type="submit" class="logout-link-get" onclick="return confirm('Are you sure you want to logout?')" title="Logout">
-                    <span class="material-icons">logout</span><span class="sidebar-label">Logout</span>
-                </button>
-            </form>
-            @else
-            <a href="{{ route('home') }}" class="logout-link" title="Sign in">
-                <span class="material-icons">login</span><span class="sidebar-label">Sign in</span>
-            </a>
-            @endauth
-        </div>
-    </div>
-    <button type="button" class="sidebar-mobile-open" id="sidebarMobileOpen" aria-label="Open menu" title="Open menu">
-        <span class="material-icons">menu</span>
-    </button>
+    @include('partials.user-sidebar', ['collapsed' => $autoCollapseSidebar])
+    <script>
+        (function(){
+            var s=document.getElementById('sidebar');
+            var b=document.body;
+            var t=document.getElementById('sidebarToggle');
+            var i=t&&t.querySelector('.material-icons');
+            if(b.dataset.autoCollapseSidebar==='1'){
+                if(s){s.classList.add('collapsed');}
+                b.classList.add('sidebar-collapsed');
+                if(i){i.textContent='chevron_right';}
+            }else{
+                if(s){s.classList.remove('collapsed');}
+                b.classList.remove('sidebar-collapsed');
+                if(i){i.textContent='chevron_left';}
+            }
+        })();
+    </script>
     <div class="sidebar-backdrop" id="sidebarBackdrop" aria-hidden="true"></div>
     <div class="main">
         @if(!auth()->check())
@@ -93,6 +68,9 @@
         </div>
         @endif
         @yield('main')
+        <footer class="footer">
+            <p class="copyright">© {{ date('Y') }} Product Request System - DICT</p>
+        </footer>
     </div>
 </div>
 @stack('scripts')

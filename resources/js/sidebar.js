@@ -25,7 +25,12 @@ export function initSidebar(storageKey) {
         toggle.addEventListener('click', () => setCollapsed(!sidebar.classList.contains('collapsed')));
     }
 
-    /* Always start expanded (like User sidebar) so labels are visible; clear any saved collapsed state */
+    /* If sidebar is already collapsed (e.g. server-set for superadmin content pages), keep it and persist */
+    if (sidebar && sidebar.classList.contains('collapsed')) {
+        try { localStorage.setItem(storageKey, '1'); } catch (e) {}
+        return;
+    }
+    /* Otherwise start expanded; clear any saved collapsed state */
     try {
         localStorage.removeItem(storageKey);
     } catch (e) {}

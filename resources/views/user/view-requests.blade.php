@@ -28,17 +28,19 @@
 .view-requests-page .status-filter-option {
     display: flex; align-items: center; gap: 10px; padding: 10px 12px;
     font-size: 14px; font-weight: 500; color: #334155; border-radius: 8px; cursor: pointer;
+    border: 1px solid #e2e8f0;
 }
 .view-requests-page .status-filter-option:hover { background: #f1f5f9; }
-.view-requests-page .status-filter-option[aria-selected="true"] { background: #eff6ff; color: #1d4ed8; }
+.view-requests-page .status-filter-option[aria-selected="true"] { background: transparent; color: #1d4ed8; }
 .view-requests-page .status-filter-option-dot {
     width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+    border: 1px solid rgba(0, 0, 0, 0.15); box-sizing: border-box;
 }
 .view-requests-page .status-dot-all { background: #94a3b8; }
 .view-requests-page .status-dot-pending { background: #f59e0b; }
 .view-requests-page .status-dot-completed { background: #10b981; }
 .view-requests-page .status-dot-rejected { background: #ef4444; }
-.view-requests-page .status-filter-option.selected { background: #eff6ff; color: #1d4ed8; }
+.view-requests-page .status-filter-option.selected { background: transparent; color: #1d4ed8; }
 .view-requests-page .status-filter-menu a.status-filter-option { text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px; }
 .view-requests-page .status-filter-label {
     font-size: 12px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: .05em;
@@ -104,8 +106,42 @@
         letter-spacing: .04em;
         margin-bottom: 4px;
     }
+    .view-requests-page .data-table tbody td {
+        word-break: break-word;
+        overflow-wrap: break-word;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
     .view-requests-page .data-table .description-cell { max-width: none; }
     .view-requests-page .rejection-reason-text { max-width: none; }
+    .view-requests-page .data-table tbody td .badge,
+    .view-requests-page .data-table tbody td[data-label="Status"] .badge {
+        max-width: 100% !important;
+        display: inline-block !important;
+        box-sizing: border-box !important;
+        padding: 2px 6px !important;
+        font-size: 10px !important;
+        border-radius: 4px !important;
+        line-height: 1.2 !important;
+        min-width: 0 !important;
+    }
+    /* Role contents size only (compact) */
+    .view-requests-page .data-table tbody td[data-label="Role"] .badge {
+        padding: 2px 6px !important;
+        font-size: 10px !important;
+        border-radius: 4px !important;
+        line-height: 1.2 !important;
+        min-width: 0 !important;
+    }
+    .view-requests-page .table-card,
+    .view-requests-page .table-responsive {
+        max-width: 100%;
+        min-width: 0;
+        overflow-x: hidden;
+        box-sizing: border-box;
+    }
+    .view-requests-page .data-table { width: 100%; max-width: 100%; min-width: 0; box-sizing: border-box; }
 }
 
 @media (max-width: 576px) {

@@ -3,6 +3,7 @@
     "private": true,
     "type": "module",
     "scripts": {
+        "prebuild": "node scripts/clean-sw.js",
         "build": "vite build",
         "dev": "vite"
     },
