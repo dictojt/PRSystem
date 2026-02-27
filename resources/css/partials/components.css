@@ -25,6 +25,108 @@ button,
     margin-bottom: 24px;
 }
 
+/* Dark request-detail container (REQUEST ID, ITEM, QTY, DATE, STATUS style) */
+.request-detail-card {
+    background: #1e293b;
+    border-radius: 12px;
+    padding: 16px 20px 20px;
+    margin-bottom: 16px;
+}
+.request-detail-card:last-child { margin-bottom: 0; }
+.request-detail-card .view-request-dl,
+#viewRequestModal .request-detail-card .view-request-dl,
+#view-request-modal-overlay .request-detail-card .view-request-dl {
+    display: block !important;
+    grid-template-columns: none !important;
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+}
+.request-detail-card .view-request-dl dt {
+    display: block;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    padding-top: 10px;
+    margin: 0 0 4px 0;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #94a3b8;
+}
+.request-detail-card .view-request-dl dt:first-child {
+    border-top: none;
+    padding-top: 0;
+}
+.request-detail-card .view-request-dl dd {
+    display: block;
+    margin: 0 0 0 0;
+    padding-bottom: 0;
+    color: #e2e8f0;
+    font-size: 14px;
+    font-weight: 500;
+}
+.request-detail-card .view-request-dl dd .badge-rejected {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 9999px;
+    background: #dc2626;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+}
+.request-detail-card .view-request-dl dd .badge-approved {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 9999px;
+    background: #059669;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+}
+.request-detail-card .view-request-dl dd .badge-pending {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 9999px;
+    background: #d97706;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+}
+/* Override modal-specific dl styles so dark card layout and colors win */
+#viewRequestModal .request-detail-card .view-request-dl dt,
+#view-request-modal-overlay .request-detail-card .view-request-dl dt {
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    padding-top: 10px;
+    margin: 0 0 4px 0 !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.04em !important;
+    color: #94a3b8 !important;
+}
+#viewRequestModal .request-detail-card .view-request-dl dt:first-child,
+#view-request-modal-overlay .request-detail-card .view-request-dl dt:first-child {
+    border-top: none;
+    padding-top: 0;
+}
+#viewRequestModal .request-detail-card .view-request-dl dd,
+#view-request-modal-overlay .request-detail-card .view-request-dl dd {
+    display: block !important;
+    margin: 0 !important;
+    padding-bottom: 0 !important;
+    color: #e2e8f0 !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+}
+.request-detail-card .view-request-dl .view-req-rejection-label,
+.request-detail-card .view-request-dl .sa-view-req-rejection-label {
+    border-top-color: rgba(255, 255, 255, 0.12) !important;
+}
+.request-detail-card .view-request-dl .view-req-rejection-value,
+.request-detail-card .view-request-dl .sa-view-req-rejection-value {
+    color: #e2e8f0 !important;
+}
+
 .form-group {
     margin-bottom: 16px;
 }
@@ -215,42 +317,73 @@ button,
 }
 
 /* ========== Shared responsive modals (user, approver, superadmin) ========== */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
     .view-request-modal-wrap,
-    .view-request-modal-overlay {
+    .view-request-modal-overlay,
+    .user-view-request-modal-wrap {
         padding: 12px !important;
-        align-items: flex-start !important;
+        align-items: center !important;
+        justify-content: center !important;
+        box-sizing: border-box !important;
     }
     .view-request-modal-content,
     #viewRequestModal .view-request-modal-content,
-    #view-request-modal-overlay .view-request-modal {
-        width: 100% !important;
-        max-width: calc(100% - 24px) !important;
+    #view-request-modal-overlay .view-request-modal,
+    .user-view-request-modal-content,
+    #userViewRequestModal .user-view-request-modal-content {
         min-width: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
         max-height: calc(100vh - 24px) !important;
-        margin: 12px 0 !important;
+        max-height: calc(100dvh - 24px) !important;
+        margin: 0 !important;
         border-radius: 12px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        overflow: hidden !important;
+    }
+}
+@media (max-width: 768px) {
+    .view-request-modal-wrap,
+    .view-request-modal-overlay,
+    .user-view-request-modal-wrap {
+        padding: 10px !important;
+    }
+    .view-request-modal-content,
+    #viewRequestModal .view-request-modal-content,
+    #view-request-modal-overlay .view-request-modal,
+    .user-view-request-modal-content,
+    #userViewRequestModal .user-view-request-modal-content {
+        max-height: calc(100vh - 20px) !important;
+        max-height: calc(100dvh - 20px) !important;
     }
     .view-request-modal-header,
     #viewRequestModal .view-request-modal-header,
-    #view-request-modal-overlay .view-request-modal .modal-header {
+    #view-request-modal-overlay .view-request-modal .modal-header,
+    .user-view-request-modal-header {
         padding: 14px 16px !important;
+        flex-shrink: 0 !important;
     }
     .view-request-modal-title,
-    #view-request-modal-overlay .view-request-modal .modal-header h3 {
+    #view-request-modal-overlay .view-request-modal .modal-header h3,
+    .user-view-request-modal-title {
         font-size: 16px !important;
     }
     .view-request-modal-close,
     .view-request-modal-content .view-request-modal-close,
-    #view-request-modal-overlay .view-request-modal .modal-close {
+    #view-request-modal-overlay .view-request-modal .modal-close,
+    .user-view-request-modal-close {
         min-width: 44px !important;
         min-height: 44px !important;
     }
     .view-request-modal-body,
     #viewRequestModal .view-request-modal-body,
-    #view-request-modal-overlay .view-request-modal-body {
+    #view-request-modal-overlay .view-request-modal-body,
+    .user-view-request-modal-body {
         padding: 16px !important;
-        max-height: calc(100vh - 180px) !important;
+        flex: 1 !important;
+        min-height: 0 !important;
         overflow-y: auto !important;
         -webkit-overflow-scrolling: touch;
     }
@@ -258,15 +391,18 @@ button,
         grid-template-columns: 1fr !important;
         gap: 8px 0 !important;
     }
+    .user-view-request-modal-footer {
+        flex-shrink: 0 !important;
+    }
     .reject-modal-content,
     #rejectModal .reject-modal-content {
         width: calc(100% - 24px) !important;
         max-width: none !important;
-        left: 12px !important;
-        right: 12px !important;
-        transform: translateY(-50%) !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
         max-height: calc(100vh - 24px) !important;
         overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
         padding: 20px 16px 16px !important;
     }
     .reject-modal-actions,
@@ -287,7 +423,9 @@ button,
         max-width: none !important;
         margin: 12px !important;
         max-height: calc(100vh - 24px) !important;
-        overflow-y: auto !important;
+        overflow: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
         padding: 20px 16px 16px !important;
     }
     .approve-modal-actions,
@@ -312,7 +450,8 @@ button,
         flex-direction: column !important;
     }
     .modal-body {
-        max-height: 50vh !important;
+        flex: 1 !important;
+        min-height: 0 !important;
         overflow-y: auto !important;
         -webkit-overflow-scrolling: touch;
     }
@@ -324,20 +463,26 @@ button,
 
 @media (max-width: 576px) {
     .view-request-modal-wrap,
-    .view-request-modal-overlay {
+    .view-request-modal-overlay,
+    .user-view-request-modal-wrap {
         padding: 8px !important;
     }
     .view-request-modal-content,
     #viewRequestModal .view-request-modal-content,
-    #view-request-modal-overlay .view-request-modal {
+    #view-request-modal-overlay .view-request-modal,
+    .user-view-request-modal-content,
+    #userViewRequestModal .user-view-request-modal-content {
         max-width: calc(100% - 16px) !important;
         max-height: calc(100vh - 16px) !important;
+        max-height: calc(100dvh - 16px) !important;
     }
     .reject-modal-content,
     #rejectModal .reject-modal-content {
         width: calc(100% - 16px) !important;
-        left: 8px !important;
-        right: 8px !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        max-height: calc(100vh - 16px) !important;
+        max-height: calc(100dvh - 16px) !important;
         padding: 16px 12px 12px !important;
     }
     .approve-modal-content,
@@ -345,6 +490,7 @@ button,
         max-width: calc(100% - 16px) !important;
         margin: 8px !important;
         max-height: calc(100vh - 16px) !important;
+        max-height: calc(100dvh - 16px) !important;
         padding: 16px 12px 12px !important;
     }
     .reject-modal-actions,
@@ -370,17 +516,59 @@ button,
     }
 }
 
+/* Phone: whole modal fits on screen (see full modal) */
 @media (max-width: 480px) {
+    .view-request-modal-wrap,
+    .view-request-modal-overlay,
+    .user-view-request-modal-wrap {
+        padding: 6px !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    .view-request-modal-content,
+    #viewRequestModal .view-request-modal-content,
+    #view-request-modal-overlay .view-request-modal,
+    .user-view-request-modal-content,
+    #userViewRequestModal .user-view-request-modal-content {
+        max-width: calc(100% - 12px) !important;
+        max-height: calc(100vh - 12px) !important;
+        max-height: calc(100dvh - 12px) !important;
+    }
     .view-request-modal-header,
-    #viewRequestModal .view-request-modal-header {
+    #viewRequestModal .view-request-modal-header,
+    #view-request-modal-overlay .view-request-modal .modal-header,
+    .user-view-request-modal-header {
         padding: 12px 14px !important;
     }
-    .view-request-modal-title {
+    .view-request-modal-title,
+    #view-request-modal-overlay .view-request-modal .modal-header h3,
+    .user-view-request-modal-title {
         font-size: 15px !important;
     }
     .view-request-modal-body,
-    #viewRequestModal .view-request-modal-body {
+    #viewRequestModal .view-request-modal-body,
+    #view-request-modal-overlay .view-request-modal-body,
+    .user-view-request-modal-body {
         padding: 12px 14px !important;
+    }
+    .reject-modal-content,
+    #rejectModal .reject-modal-content {
+        width: calc(100% - 12px) !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        max-height: calc(100vh - 12px) !important;
+        max-height: calc(100dvh - 12px) !important;
+    }
+    .approve-modal-content,
+    #approveModal .approve-modal-content {
+        max-width: calc(100% - 12px) !important;
+        max-height: calc(100vh - 12px) !important;
+        max-height: calc(100dvh - 12px) !important;
+    }
+    .modal-box {
+        max-width: calc(100% - 12px) !important;
+        max-height: calc(100vh - 12px) !important;
+        max-height: calc(100dvh - 12px) !important;
     }
     #rejectModal .reject-modal-title { font-size: 18px !important; }
     #rejectModal .reject-modal-textarea { min-height: 80px !important; height: 80px !important; }
@@ -435,4 +623,19 @@ button,
         min-width: 0;
         flex: 0 0 auto;
     }
+}
+
+/* Global footer – no background, subtle top border */
+.footer {
+    background: transparent;
+    padding: 20px 24px;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.footer .copyright {
+    font-size: 12px;
+    color: #94a3b8;
+    margin: 0;
 }

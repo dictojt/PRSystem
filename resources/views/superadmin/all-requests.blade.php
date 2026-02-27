@@ -382,6 +382,21 @@
             padding-top: 10px;
         }
 
+        /* View request modal: fit on tablet/phone */
+        @media (max-width: 900px) {
+            #view-request-modal-overlay {
+                padding: 12px;
+                box-sizing: border-box;
+            }
+            #view-request-modal-overlay .view-request-modal {
+                min-width: 0 !important;
+                max-width: 100% !important;
+                width: 100% !important;
+                max-height: calc(100vh - 24px) !important;
+                max-height: calc(100dvh - 24px) !important;
+            }
+        }
+
         /* Edit modal */
         .edit-request-modal-overlay {
             position: fixed;
@@ -941,21 +956,27 @@
                 min-height: 40px;
             }
             #view-request-modal-overlay {
-                padding: 12px;
-                align-items: flex-end;
+                padding: 10px;
+                align-items: center;
+                justify-content: center;
+                box-sizing: border-box;
             }
             #view-request-modal-overlay .view-request-modal {
-                min-width: 0;
-                max-width: 100%;
-                max-height: 85vh;
-                border-radius: 12px 12px 0 0;
+                min-width: 0 !important;
+                max-width: 100% !important;
+                width: 100% !important;
+                max-height: calc(100vh - 20px) !important;
+                max-height: calc(100dvh - 20px) !important;
+                border-radius: 12px;
             }
             #view-request-modal-overlay .view-request-modal .modal-header {
                 padding: 14px 16px;
+                flex-shrink: 0;
             }
             #view-request-modal-overlay .view-request-modal-body {
                 padding: 16px;
-                max-height: calc(100vh - 160px);
+                flex: 1;
+                min-height: 0;
                 overflow-y: auto;
                 -webkit-overflow-scrolling: touch;
             }
@@ -1337,28 +1358,34 @@
             <div class="view-request-modal-body">
                 <section class="view-request-section">
                     <h3 class="view-request-section-title">Request Details</h3>
-                    <dl class="view-request-dl">
-                        <dt>Request ID</dt><dd id="sa-view-req-id">—</dd>
-                        <dt>Requestor</dt><dd id="sa-view-req-requestor">—</dd>
-                        <dt>Request date</dt><dd id="sa-view-req-date">—</dd>
-                    </dl>
+                    <div class="request-detail-card">
+                        <dl class="view-request-dl">
+                            <dt>Request ID</dt><dd id="sa-view-req-id">—</dd>
+                            <dt>Requestor</dt><dd id="sa-view-req-requestor">—</dd>
+                            <dt>Request date</dt><dd id="sa-view-req-date">—</dd>
+                        </dl>
+                    </div>
                 </section>
                 <section class="view-request-section">
                     <h3 class="view-request-section-title">Item Details</h3>
-                    <dl class="view-request-dl">
-                        <dt>Item name</dt><dd id="sa-view-req-item">—</dd>
-                        <dt>Quantity</dt><dd id="sa-view-req-quantity">—</dd>
-                        <dt>Description</dt><dd id="sa-view-req-description">—</dd>
-                    </dl>
+                    <div class="request-detail-card">
+                        <dl class="view-request-dl">
+                            <dt>Item name</dt><dd id="sa-view-req-item">—</dd>
+                            <dt>Quantity</dt><dd id="sa-view-req-quantity">—</dd>
+                            <dt>Description</dt><dd id="sa-view-req-description">—</dd>
+                        </dl>
+                    </div>
                 </section>
                 <section class="view-request-section">
                     <h3 class="view-request-section-title">Status &amp; Decision</h3>
-                    <dl class="view-request-dl">
-                        <dt>Status</dt><dd id="sa-view-req-status">—</dd>
-                        <dt>Decided</dt><dd id="sa-view-req-decided-at">—</dd>
-                        <dt>By</dt><dd id="sa-view-req-decided-by">—</dd>
-                        <dt class="sa-view-req-rejection-label">Rejection reason</dt><dd class="sa-view-req-rejection-value" id="sa-view-req-rejection-reason">—</dd>
-                    </dl>
+                    <div class="request-detail-card">
+                        <dl class="view-request-dl">
+                            <dt>Status</dt><dd id="sa-view-req-status">—</dd>
+                            <dt>Decided</dt><dd id="sa-view-req-decided-at">—</dd>
+                            <dt>By</dt><dd id="sa-view-req-decided-by">—</dd>
+                            <dt class="sa-view-req-rejection-label">Rejection reason</dt><dd class="sa-view-req-rejection-value" id="sa-view-req-rejection-reason">—</dd>
+                        </dl>
+                    </div>
                 </section>
             </div>
             <div class="view-request-modal-footer">
@@ -1554,7 +1581,11 @@
                             document.getElementById('sa-view-req-quantity').textContent = qty;
                             document.getElementById('sa-view-req-description').textContent = desc;
                             document.getElementById('sa-view-req-date').textContent = date;
-                            document.getElementById('sa-view-req-status').textContent = status;
+                            var statusEl = document.getElementById('sa-view-req-status');
+                            if (status === 'Rejected') statusEl.innerHTML = '<span class="badge-rejected">Rejected</span>';
+                            else if (status === 'Approved') statusEl.innerHTML = '<span class="badge-approved">Approved</span>';
+                            else if (status === 'Pending') statusEl.innerHTML = '<span class="badge-pending">Pending</span>';
+                            else statusEl.textContent = status;
                             document.getElementById('sa-view-req-decided-at').textContent = decidedAt;
                             document.getElementById('sa-view-req-decided-by').textContent = decidedBy;
                             document.getElementById('sa-view-req-rejection-reason').textContent = rejectionReason;

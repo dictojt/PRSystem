@@ -621,6 +621,25 @@ body.panel-approver .data-table tbody tr:hover {
 #viewRequestModal .view-request-btn-close:hover { background: #1d4ed8 !important; }
 #viewRequestModal .view-req-rejection-label { margin-top: 10px !important; padding-top: 10px !important; border-top: 1px solid #e2e8f0 !important; }
 #viewRequestModal .view-req-rejection-value { margin-top: 10px !important; padding-top: 10px !important; }
+
+/* Phone/small screen: modal must fit entirely on screen */
+@media (max-width: 900px) {
+    #viewRequestModal { padding: 12px !important; box-sizing: border-box !important; }
+    #viewRequestModal .view-request-modal-content {
+        min-width: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        max-height: calc(100vh - 24px) !important;
+        max-height: calc(100dvh - 24px) !important;
+    }
+}
+@media (max-width: 480px) {
+    #viewRequestModal { padding: 6px !important; }
+    #viewRequestModal .view-request-modal-content {
+        max-height: calc(100vh - 12px) !important;
+        max-height: calc(100dvh - 12px) !important;
+    }
+}
 </style>
 <div id="viewRequestModal" class="view-request-modal-wrap" role="dialog" aria-modal="true" aria-labelledby="viewRequestModalTitle" aria-hidden="true">
     <div class="view-request-modal-backdrop" id="viewRequestModalBackdrop"></div>
@@ -632,28 +651,34 @@ body.panel-approver .data-table tbody tr:hover {
         <div class="view-request-modal-body">
             <section class="view-request-section">
                 <h3 class="view-request-section-title">Request Details</h3>
-                <dl class="view-request-dl">
-                    <dt>Request ID</dt><dd id="view-req-id">—</dd>
-                    <dt>Requestor</dt><dd id="view-req-requestor">—</dd>
-                    <dt>Request date</dt><dd id="view-req-date">—</dd>
-                </dl>
+                <div class="request-detail-card">
+                    <dl class="view-request-dl">
+                        <dt>Request ID</dt><dd id="view-req-id">—</dd>
+                        <dt>Requestor</dt><dd id="view-req-requestor">—</dd>
+                        <dt>Request date</dt><dd id="view-req-date">—</dd>
+                    </dl>
+                </div>
             </section>
             <section class="view-request-section">
                 <h3 class="view-request-section-title">Item Details</h3>
-                <dl class="view-request-dl">
-                    <dt>Item name</dt><dd id="view-req-item">—</dd>
-                    <dt>Quantity</dt><dd id="view-req-quantity">—</dd>
-                    <dt>Description</dt><dd id="view-req-description">—</dd>
-                </dl>
+                <div class="request-detail-card">
+                    <dl class="view-request-dl">
+                        <dt>Item name</dt><dd id="view-req-item">—</dd>
+                        <dt>Quantity</dt><dd id="view-req-quantity">—</dd>
+                        <dt>Description</dt><dd id="view-req-description">—</dd>
+                    </dl>
+                </div>
             </section>
             <section class="view-request-section">
                 <h3 class="view-request-section-title">Status &amp; Decision</h3>
-                <dl class="view-request-dl">
-                    <dt>Status</dt><dd id="view-req-status">—</dd>
-                    <dt>Decided</dt><dd id="view-req-decided-at">—</dd>
-                    <dt>By</dt><dd id="view-req-decided-by">—</dd>
-                    <dt class="view-req-rejection-label">Rejection reason</dt><dd class="view-req-rejection-value" id="view-req-rejection-reason">—</dd>
-                </dl>
+                <div class="request-detail-card">
+                    <dl class="view-request-dl">
+                        <dt>Status</dt><dd id="view-req-status">—</dd>
+                        <dt>Decided</dt><dd id="view-req-decided-at">—</dd>
+                        <dt>By</dt><dd id="view-req-decided-by">—</dd>
+                        <dt class="view-req-rejection-label">Rejection reason</dt><dd class="view-req-rejection-value" id="view-req-rejection-reason">—</dd>
+                    </dl>
+                </div>
             </section>
         </div>
         <div class="view-request-modal-footer">
@@ -662,9 +687,7 @@ body.panel-approver .data-table tbody tr:hover {
     </div>
 </div>
 
-<footer class="footer">
-    <p class="copyright">© {{ date('Y') }} Product Request System - DICT</p>
-</footer>
+@include('partials.footer')
 
 {{-- Approve confirmation modal (approver) --}}
 <div id="approveModal" class="approve-modal-wrap" role="dialog" aria-modal="true" aria-labelledby="approveModalTitle" aria-hidden="true">
@@ -916,7 +939,11 @@ body.panel-approver .data-table tbody tr:hover {
         document.getElementById('view-req-quantity').textContent = qty;
         document.getElementById('view-req-description').textContent = desc;
         document.getElementById('view-req-date').textContent = date;
-        document.getElementById('view-req-status').textContent = status;
+        var statusEl = document.getElementById('view-req-status');
+        if (status === 'Rejected') statusEl.innerHTML = '<span class="badge-rejected">Rejected</span>';
+        else if (status === 'Approved') statusEl.innerHTML = '<span class="badge-approved">Approved</span>';
+        else if (status === 'Pending') statusEl.innerHTML = '<span class="badge-pending">Pending</span>';
+        else statusEl.textContent = status;
         document.getElementById('view-req-decided-at').textContent = decidedAt;
         document.getElementById('view-req-decided-by').textContent = decidedBy;
         document.getElementById('view-req-rejection-reason').textContent = rejectionReason;

@@ -487,15 +487,7 @@ body.panel-approver .table-card .data-table {
 }
 
 .panel-approver .footer {
-    background: transparent;
-    border-top: 1px solid #e2e8f0;
     margin-top: 40px;
-    padding: 16px 24px;
-}
-.panel-approver .footer .copyright {
-    font-size: 12px;
-    color: var(--text-muted);
-    margin: 0;
 }
 
 .panel-approver .stat-card {
@@ -1129,16 +1121,9 @@ body:not(.panel-approver) .data-table td {
     display: inline;
 }
 
-.footer {
-    padding: 16px 24px;
+/* Footer uses global .footer from components.css */
+.panel-approver .footer {
     margin-top: 40px;
-    text-align: center;
-}
-
-.footer .copyright {
-    font-size: 12px;
-    color: var(--text-muted);
-    margin: 0;
 }
 
 /* Reject modal - fixed to viewport, dialog centered with transform */

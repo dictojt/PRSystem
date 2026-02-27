@@ -229,6 +229,9 @@
         .quick-actions a.btn-secondary { background: #f3f4f6; color: #6b7280; border: none; }
         .quick-actions a.btn-secondary:hover { background: #e5e7eb; color: var(--text-dark); }
 
+        .footer { background: transparent; padding: 20px 24px; margin-top: 40px; text-align: center; width: 100%; box-sizing: border-box; border-top: 1px solid rgba(255,255,255,0.08); }
+        .footer .copyright { font-size: 12px; color: #94a3b8; margin: 0; }
+
         :root {
             --surface-strong: #ffffff;
             --surface-muted: #f8fafc;
@@ -318,7 +321,10 @@
         }
         .table-wrap {
             overflow-x: auto;
-            border: 1px solid #f1f5f9;
+            border-top: 1px solid #f1f5f9;
+            border-bottom: 1px solid #f1f5f9;
+            border-left: none;
+            border-right: none;
             border-radius: 12px;
         }
         .overview-table {
@@ -533,7 +539,10 @@
                 display: block;
                 margin-bottom: 12px;
                 padding: 14px;
-                border: 1px solid #e2e8f0;
+                border-top: 1px solid #e2e8f0;
+                border-bottom: 1px solid #e2e8f0;
+                border-left: none;
+                border-right: none;
                 border-radius: 12px;
                 background: #fff;
                 box-shadow: 0 1px 3px rgba(0,0,0,.06);
@@ -832,6 +841,8 @@
                 <a href="{{ route('user.support') }}" class="btn-secondary"><span class="material-icons" style="font-size:16px;">support</span> Support</a>
             </div>
         </div>
+
+        @include('partials.footer')
     </div>
 </div>
 
@@ -846,13 +857,15 @@
         <div class="user-view-request-modal-body" style="padding:24px;overflow-y:auto;flex:1;">
             <section class="user-view-request-section" style="margin-bottom:16px;">
                 <h3 style="font-size:12px;font-weight:600;color:#64748b;text-transform:uppercase;margin:0 0 8px 0;">Request Details</h3>
-                <dl style="margin:0;font-size:14px;">
-                    <dt style="margin:0;font-weight:600;color:#64748b;">Request ID</dt><dd id="user-view-req-id" style="margin:0 0 8px 0;color:#0f172a;">—</dd>
-                    <dt style="margin:0;font-weight:600;color:#64748b;">Item</dt><dd id="user-view-req-item" style="margin:0 0 8px 0;color:#0f172a;">—</dd>
-                    <dt style="margin:0;font-weight:600;color:#64748b;">Quantity</dt><dd id="user-view-req-quantity" style="margin:0 0 8px 0;color:#0f172a;">—</dd>
-                    <dt style="margin:0;font-weight:600;color:#64748b;">Date</dt><dd id="user-view-req-date" style="margin:0 0 8px 0;color:#0f172a;">—</dd>
-                    <dt style="margin:0;font-weight:600;color:#64748b;">Status</dt><dd id="user-view-req-status" style="margin:0;color:#0f172a;">—</dd>
-                </dl>
+                <div class="request-detail-card">
+                    <dl class="view-request-dl">
+                        <dt>Request ID</dt><dd id="user-view-req-id">—</dd>
+                        <dt>Item</dt><dd id="user-view-req-item">—</dd>
+                        <dt>Quantity</dt><dd id="user-view-req-quantity">—</dd>
+                        <dt>Date</dt><dd id="user-view-req-date">—</dd>
+                        <dt>Status</dt><dd id="user-view-req-status">—</dd>
+                    </dl>
+                </div>
             </section>
         </div>
         <div class="user-view-request-modal-footer" style="padding:16px 24px;border-top:1px solid #e2e8f0;flex-shrink:0;">
@@ -896,11 +909,16 @@
     var footerClose = document.getElementById('userViewRequestModalBtnClose');
     function openUserViewModal(btn) {
         if (!btn) return;
+        var status = btn.getAttribute('data-status') || '—';
         document.getElementById('user-view-req-id').textContent = btn.getAttribute('data-request-id') || '—';
         document.getElementById('user-view-req-item').textContent = btn.getAttribute('data-item') || '—';
         document.getElementById('user-view-req-quantity').textContent = btn.getAttribute('data-quantity') || '1';
         document.getElementById('user-view-req-date').textContent = btn.getAttribute('data-date') || '—';
-        document.getElementById('user-view-req-status').textContent = btn.getAttribute('data-status') || '—';
+        var statusEl = document.getElementById('user-view-req-status');
+        if (status === 'Rejected') statusEl.innerHTML = '<span class="badge-rejected">Rejected</span>';
+        else if (status === 'Approved' || status === 'Completed') statusEl.innerHTML = '<span class="badge-approved">' + status + '</span>';
+        else if (status === 'Pending') statusEl.innerHTML = '<span class="badge-pending">Pending</span>';
+        else statusEl.textContent = status;
         if (modal) { modal.classList.add('is-open'); modal.style.visibility = 'visible'; modal.style.opacity = '1'; modal.style.pointerEvents = 'auto'; modal.setAttribute('aria-hidden', 'false'); }
         document.body && document.body.classList.add('modal-open');
     }

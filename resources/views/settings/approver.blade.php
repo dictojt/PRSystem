@@ -20,9 +20,7 @@
             <p class="settings-theme-note">Your choice is saved in this browser only.</p>
         </div>
     </div>
-    <footer class="footer">
-        <p class="copyright">© {{ date('Y') }} Product Request System - DICT</p>
-    </footer>
+    @include('partials.footer')
 </div>
 @else
 <!DOCTYPE html>
@@ -128,9 +126,7 @@
                 <p class="settings-theme-note">Your choice is saved in this browser only.</p>
             </div>
         </div>
-        <footer class="footer">
-            <p class="copyright">© {{ date('Y') }} Product Request System - DICT</p>
-        </footer>
+        @include('partials.footer')
     </div>
 </div>
 </body>

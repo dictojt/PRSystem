@@ -91,7 +91,10 @@
 
     .sa-table-wrap {
         overflow-x: auto;
-        border: 1px solid #f1f5f9;
+        border-top: 1px solid #f1f5f9;
+        border-bottom: 1px solid #f1f5f9;
+        border-left: none;
+        border-right: none;
         border-radius: 12px;
     }
     .sa-table {
@@ -124,6 +127,13 @@
     }
     .sa-panel-recent .sa-table {
         min-width: 100%;
+    }
+    /* Remove default tbody styling in overview */
+    .sa-panel-recent .sa-table tbody {
+        display: contents;
+        vertical-align: unset;
+        unicode-bidi: unset;
+        border-color: unset;
     }
     .sa-panel-recent .sa-table thead th {
         background: #f3f4f6;
@@ -352,7 +362,10 @@
             display: block;
             margin-bottom: 12px;
             padding: 14px;
-            border: 1px solid #e2e8f0;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+            border-left: none;
+            border-right: none;
             border-radius: 12px;
             background: #fff;
             box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
@@ -502,36 +515,34 @@
                         <th>Status</th>
                     </tr>
                 </thead>
-                <tbody>
-                    @forelse($recentRequests ?? [] as $request)
-                    <tr class="sa-row-clickable" role="button" tabindex="0" title="Click to view details">
-                        <td data-label="Request ID">
-                            <button type="button" class="sa-btn-view-request" style="display:none;position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;"
-                                data-request-id="{{ e($request['id'] ?? '') }}"
-                                data-requestor="{{ e($request['requestor'] ?? '') }}"
-                                data-item="{{ e($request['item'] ?? '') }}"
-                                data-quantity="{{ $request['quantity'] ?? 1 }}"
-                                data-description="—"
-                                data-date="{{ e($request['date'] ?? '') }}"
-                                data-status="{{ e($request['status'] ?? '') }}"
-                                data-decided-at="—"
-                                data-decided-by="—"
-                                data-rejection-reason="—"
-                                data-approved-id="">View</button>
-                            {{ $request['id'] ?? '-' }}
-                        </td>
-                        <td data-label="Requestor">{{ $request['requestor'] ?? '-' }}</td>
-                        <td data-label="Item">{{ $request['item'] ?? '-' }}</td>
-                        <td data-label="Qty">{{ $request['quantity'] ?? 1 }}</td>
-                        <td data-label="Date">{{ $request['date'] ?? '-' }}</td>
-                        <td data-label="Status"><span class="sa-badge {{ $statusBadge($request['status'] ?? 'Pending') }}">{{ $request['status'] ?? 'Pending' }}</span></td>
-                    </tr>
-                    @empty
-                    <tr class="sa-empty-row">
-                        <td colspan="6"><div class="sa-empty">No request history available.</div></td>
-                    </tr>
-                    @endforelse
-                </tbody>
+                @forelse($recentRequests ?? [] as $request)
+                <tr class="sa-row-clickable" role="button" tabindex="0" title="Click to view details">
+                    <td data-label="Request ID">
+                        <button type="button" class="sa-btn-view-request" style="display:none;position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;"
+                            data-request-id="{{ e($request['id'] ?? '') }}"
+                            data-requestor="{{ e($request['requestor'] ?? '') }}"
+                            data-item="{{ e($request['item'] ?? '') }}"
+                            data-quantity="{{ $request['quantity'] ?? 1 }}"
+                            data-description="—"
+                            data-date="{{ e($request['date'] ?? '') }}"
+                            data-status="{{ e($request['status'] ?? '') }}"
+                            data-decided-at="—"
+                            data-decided-by="—"
+                            data-rejection-reason="—"
+                            data-approved-id="">View</button>
+                        {{ $request['id'] ?? '-' }}
+                    </td>
+                    <td data-label="Requestor">{{ $request['requestor'] ?? '-' }}</td>
+                    <td data-label="Item">{{ $request['item'] ?? '-' }}</td>
+                    <td data-label="Qty">{{ $request['quantity'] ?? 1 }}</td>
+                    <td data-label="Date">{{ $request['date'] ?? '-' }}</td>
+                    <td data-label="Status"><span class="sa-badge {{ $statusBadge($request['status'] ?? 'Pending') }}">{{ $request['status'] ?? 'Pending' }}</span></td>
+                </tr>
+                @empty
+                <tr class="sa-empty-row">
+                    <td colspan="6"><div class="sa-empty">No request history available.</div></td>
+                </tr>
+                @endforelse
             </table>
         </div>
     </div>

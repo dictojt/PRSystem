@@ -21,9 +21,7 @@
         </div>
     @endif
     @yield('content')
-    <footer class="footer">
-        <p class="copyright">© {{ date('Y') }} Product Request System - DICT</p>
-    </footer>
+    @include('partials.footer')
     @stack('scripts')
 </div>
 @else
@@ -154,9 +152,7 @@
                 </div>
             @endif
             @yield('content')
-            <footer class="footer">
-                <p class="copyright">© {{ date('Y') }} Product Request System - DICT</p>
-            </footer>
+            @include('partials.footer')
         </div>
     </div>
 

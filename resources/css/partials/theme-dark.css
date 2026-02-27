@@ -6,6 +6,11 @@ body.theme-dark {
     --text-dark: #f1f5f9;
     --text-muted: #94a3b8;
     --sidebar-border: rgba(255, 255, 255, 0.08);
+    /* User dashboard (standalone) custom vars */
+    --surface-strong: #1e293b;
+    --surface-muted: #0f172a;
+    --business-navy: #f1f5f9;
+    --soft-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
 }
 
 body.theme-dark .main {
@@ -200,12 +205,13 @@ body.theme-dark .alert-error {
     border-color: #b91c1c;
 }
 
-body.theme-dark .footer,
-body.theme-dark .footer .copyright {
-    color: var(--text-muted);
+/* Footer: no background, subtle top border */
+body.theme-dark .footer {
+    background: transparent !important;
+    border-top-color: rgba(255, 255, 255, 0.08) !important;
 }
-body.theme-dark.panel-approver .footer {
-    border-top-color: #334155;
+body.theme-dark .footer .copyright {
+    color: #94a3b8 !important;
 }
 
 /* Table cards (user, approver, superadmin) */
@@ -293,7 +299,10 @@ body.theme-dark .sa-subtle {
     color: var(--text-muted);
 }
 body.theme-dark .sa-table-wrap {
-    border-color: #334155;
+    border-top-color: #334155;
+    border-bottom-color: #334155;
+    border-left: none;
+    border-right: none;
 }
 body.theme-dark .sa-table th,
 body.theme-dark .sa-table td {
@@ -305,7 +314,10 @@ body.theme-dark .sa-table th {
     color: var(--text-muted);
 }
 body.theme-dark .sa-panel-recent .sa-table-wrap {
-    border-color: #334155;
+    border-top-color: #334155;
+    border-bottom-color: #334155;
+    border-left: none;
+    border-right: none;
     background: var(--card-white);
 }
 body.theme-dark .sa-panel-recent .sa-table thead th {
@@ -781,12 +793,162 @@ body.theme-dark.panel-user .view-requests-page .data-table tbody td::before {
     color: var(--text-muted) !important;
 }
 
+/* Support page: card and text in dark mode */
+body.theme-dark.panel-user .support-card {
+    background: var(--card-white) !important;
+    border-color: #334155 !important;
+}
+body.theme-dark.panel-user .support-card strong {
+    color: var(--text-dark);
+}
+body.theme-dark.panel-user .support-card-desc {
+    color: var(--text-muted) !important;
+}
+
+/* Create Request page: item rows and form in dark mode */
+body.theme-dark .create-request-card .item-row {
+    background: var(--card-white) !important;
+    border-color: #334155 !important;
+}
+body.theme-dark .create-request-card .item-row-header {
+    color: var(--text-dark) !important;
+}
+body.theme-dark .create-request-card .item-row-delete {
+    background: rgba(239, 68, 68, 0.25) !important;
+    color: #fca5a5 !important;
+}
+body.theme-dark .create-request-card .item-row-delete:hover:not(:disabled) {
+    background: rgba(239, 68, 68, 0.4) !important;
+    color: #fecaca !important;
+}
+body.theme-dark .create-request-card .item-row-delete:disabled {
+    background: #334155 !important;
+    color: #64748b !important;
+}
+body.theme-dark .create-request-card .form-group-qty .qty-hint {
+    color: var(--text-muted) !important;
+}
+
+/* User dashboard (standalone): panels, table, alerts, donut, quick actions – match second pic */
+body.theme-dark .overview-table {
+    background: var(--card-white) !important;
+}
+body.theme-dark .overview-table th,
+body.theme-dark .overview-table td {
+    border-color: #334155 !important;
+    color: var(--text-dark) !important;
+}
+body.theme-dark .overview-table th {
+    background: #0f172a !important;
+    color: var(--text-muted) !important;
+}
+/* Recent Requests card rows (mobile/responsive): dark card, white value text, muted labels */
+body.theme-dark .overview-table tbody tr {
+    background: var(--card-white) !important;
+    border-top-color: #334155 !important;
+    border-bottom-color: #334155 !important;
+    border-left: none !important;
+    border-right: none !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
+}
+body.theme-dark .overview-table tbody td {
+    color: var(--text-dark) !important;
+    border-bottom-color: rgba(148, 163, 184, 0.35) !important;
+}
+body.theme-dark .overview-table tbody td::before {
+    color: var(--text-muted) !important;
+}
+body.theme-dark .table-wrap {
+    border-top-color: #334155 !important;
+    border-bottom-color: #334155 !important;
+    border-left: none !important;
+    border-right: none !important;
+}
+body.theme-dark .user-overview-row-clickable:hover {
+    background: #334155 !important;
+}
+body.theme-dark .alert-item {
+    background: var(--card-white) !important;
+    border-color: #334155 !important;
+}
+body.theme-dark .alert-item-link:hover {
+    background: #334155 !important;
+}
+body.theme-dark .alert-item .alert-left {
+    color: var(--text-dark) !important;
+}
+body.theme-dark .alert-item .alert-meta {
+    color: var(--text-muted) !important;
+}
+body.theme-dark .donut-center {
+    background: var(--card-white) !important;
+    border-color: #334155 !important;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25) !important;
+}
+body.theme-dark .donut-center strong {
+    color: var(--text-dark) !important;
+}
+body.theme-dark .donut-center span {
+    color: var(--text-muted) !important;
+}
+body.theme-dark .legend-item {
+    background: #334155 !important;
+    color: var(--text-dark) !important;
+}
+body.theme-dark .empty-state {
+    color: var(--text-muted) !important;
+}
+body.theme-dark .overview-panel {
+    border-color: #334155 !important;
+}
+body.theme-dark .quick-actions {
+    background: var(--card-white) !important;
+    border-color: #334155 !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
+}
+body.theme-dark .quick-actions h3 {
+    color: var(--text-muted) !important;
+}
+/* Quick action buttons: like second pic – primary blue, outline/muted dark with white text & icons */
+body.theme-dark .quick-actions a.btn-primary {
+    background: var(--primary) !important;
+    color: #fff !important;
+    border: none !important;
+}
+body.theme-dark .quick-actions a.btn-primary:hover {
+    background: var(--primary-hover) !important;
+    color: #fff !important;
+}
+body.theme-dark .quick-actions a.btn-outline {
+    background: #334155 !important;
+    color: #93c5fd !important;
+    border: 1px solid #475569 !important;
+}
+body.theme-dark .quick-actions a.btn-outline:hover {
+    background: #475569 !important;
+    color: #f1f5f9 !important;
+}
+body.theme-dark .quick-actions a.btn-secondary {
+    background: #334155 !important;
+    color: #e2e8f0 !important;
+    border: none !important;
+}
+body.theme-dark .quick-actions a.btn-secondary:hover {
+    background: #475569 !important;
+    color: #f1f5f9 !important;
+}
+body.theme-dark .quick-actions a .material-icons {
+    color: inherit !important;
+}
+
 /* -------------------------------------------------------------------------
    Mobile: table rows as cards – override responsive background: #fff so
    cards are dark in dark mode (Overview, Admin Management, All Requests)
    ------------------------------------------------------------------------- */
 body.theme-dark .sa-table tbody tr {
     background: var(--card-white) !important;
+    border-left: none !important;
+    border-right: none !important;
 }
 body.theme-dark .sa-row-clickable:hover {
     background: #334155 !important;
@@ -909,6 +1071,13 @@ body.theme-dark #view-request-modal-overlay .view-request-dl dt {
 body.theme-dark .view-request-dl dd,
 body.theme-dark #view-request-modal-overlay .view-request-dl dd {
     color: var(--text-dark);
+}
+/* Keep dark request-detail-card styling unchanged in dark theme */
+body.theme-dark .request-detail-card .view-request-dl dt {
+    color: #94a3b8;
+}
+body.theme-dark .request-detail-card .view-request-dl dd {
+    color: #e2e8f0;
 }
 body.theme-dark #view-request-modal-overlay .view-request-modal-footer {
     border-top-color: rgba(148, 163, 184, 0.35) !important;

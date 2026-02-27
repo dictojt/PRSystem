@@ -288,7 +288,7 @@ body:not(.sidebar-collapsed).panel-user .sidebar-backdrop {
 
 .support-card {
     padding: 20px;
-    background: #f9fafb;
+    background: var(--card-white);
     border-radius: 10px;
     margin-bottom: 12px;
     border: 1px solid #e5e7eb;
@@ -296,6 +296,12 @@ body:not(.sidebar-collapsed).panel-user .sidebar-backdrop {
 
 .support-card:last-child {
     margin-bottom: 0;
+}
+
+.support-card-desc {
+    margin: 8px 0 0;
+    font-size: 14px;
+    color: var(--text-muted);
 }
 
 /* View Request - table */
@@ -560,14 +566,7 @@ body:not(.sidebar-collapsed).panel-user .sidebar-backdrop {
 .view-requests-page .card a { color: #2563eb; font-weight: 500; text-decoration: none; }
 .view-requests-page .card a:hover { text-decoration: underline; }
 
-/* Footer: space above "Product Request System" across user panel */
+/* Footer: space above footer bar across user panel */
 .panel-user .footer {
     margin-top: 40px;
-    padding: 16px 24px;
-    text-align: center;
-}
-.panel-user .footer .copyright {
-    font-size: 12px;
-    color: var(--text-muted);
-    margin: 0;
 }

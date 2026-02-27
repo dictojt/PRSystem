@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#2563eb">
     <link rel="manifest" href="/manifest.webmanifest">
-    <title>Product Request System | DICT</title>
+    <title>Product Request System | DICT</title>ER
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     @vite(['resources/css/home.css', 'resources/js/app.js'])
@@ -73,9 +73,7 @@
     </div>
 
     <!-- Footer -->
-    <footer class="footer">
-        <p class="copyright">© {{ date('Y') }} Product Request System - Department of Information and Communications Technology</p>
-    </footer>
+    @include('partials.footer')
 
 </body>
 </html>

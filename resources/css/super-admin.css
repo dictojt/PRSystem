@@ -614,15 +614,6 @@ body:not(.sidebar-collapsed).panel-superadmin .sidebar-backdrop {
     cursor: not-allowed;
 }
 
-.footer {
-    background: var(--card-white);
-    padding: 16px 24px;
+.panel-superadmin .footer {
     margin-top: 40px;
-    text-align: center;
-    border-top: 1px solid #e5e7eb;
-}
-
-.footer .copyright {
-    font-size: var(--text-sm);
-    color: var(--text-muted);
 }
