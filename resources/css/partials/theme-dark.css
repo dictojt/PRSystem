@@ -1030,57 +1030,187 @@ body.theme-dark .modal-overlay .modal-body,
 body.theme-dark .modal-box .modal-body {
     background: var(--card-white) !important;
 }
+
+/* Admin modals (Add User, Edit Role, Reauth): always light/white in dark mode */
+body.theme-dark .panel-superadmin .modal-overlay .modal-box {
+    background: #ffffff !important;
+    border-color: #e5e7eb !important;
+}
+body.theme-dark .panel-superadmin .modal-overlay .modal-header,
+body.theme-dark .panel-superadmin .modal-box .modal-header {
+    background: #f8fafc !important;
+    border-color: #e5e7eb !important;
+    color: #0f172a !important;
+}
+body.theme-dark .panel-superadmin .modal-overlay .modal-header h3 {
+    color: #0f172a !important;
+}
+body.theme-dark .panel-superadmin .modal-overlay .modal-close,
+body.theme-dark .panel-superadmin .modal-box .modal-close {
+    color: #64748b !important;
+}
+body.theme-dark .panel-superadmin .modal-overlay .modal-close:hover,
+body.theme-dark .panel-superadmin .modal-box .modal-close:hover {
+    color: #0f172a !important;
+}
+body.theme-dark .panel-superadmin .modal-overlay .modal-body,
+body.theme-dark .panel-superadmin .modal-box .modal-body {
+    background: #ffffff !important;
+    color: #1e293b !important;
+    border-color: #e5e7eb !important;
+}
+body.theme-dark .panel-superadmin .modal-overlay .modal-body label,
+body.theme-dark .panel-superadmin .modal-box .modal-body label {
+    color: #334155 !important;
+}
+body.theme-dark .panel-superadmin .modal-overlay .modal-body input,
+body.theme-dark .panel-superadmin .modal-overlay .modal-body select,
+body.theme-dark .panel-superadmin .modal-box .modal-body input,
+body.theme-dark .panel-superadmin .modal-box .modal-body select,
+body.theme-dark .panel-superadmin .modal-overlay .modal-body textarea,
+body.theme-dark .panel-superadmin .modal-box .modal-body textarea {
+    background: #ffffff !important;
+    border-color: #e5e7eb !important;
+    color: #1e293b !important;
+}
+body.theme-dark .panel-superadmin .modal-overlay .modal-body input::placeholder,
+body.theme-dark .panel-superadmin .modal-overlay .modal-body textarea::placeholder,
+body.theme-dark .panel-superadmin .modal-box .modal-body input::placeholder,
+body.theme-dark .panel-superadmin .modal-box .modal-body textarea::placeholder {
+    color: #94a3b8 !important;
+}
+body.theme-dark .panel-superadmin .modal-overlay .modal-footer,
+body.theme-dark .panel-superadmin .modal-box .modal-footer {
+    background: #ffffff !important;
+    border-color: #e5e7eb !important;
+    color: #1e293b !important;
+}
+body.theme-dark .panel-superadmin .modal-overlay .btn-secondary,
+body.theme-dark .panel-superadmin .modal-box .btn-secondary {
+    background: #f1f5f9 !important;
+    color: #334155 !important;
+    border-color: #e2e8f0 !important;
+}
+body.theme-dark .panel-superadmin .modal-overlay .btn-secondary:hover,
+body.theme-dark .panel-superadmin .modal-box .btn-secondary:hover {
+    background: #e2e8f0 !important;
+    color: #0f172a !important;
+}
+body.theme-dark .panel-superadmin .modal-overlay .btn-primary,
+body.theme-dark .panel-superadmin .modal-box .btn-primary {
+    background: #2563eb !important;
+    color: #ffffff !important;
+}
+body.theme-dark .panel-superadmin .modal-overlay .btn-primary:hover,
+body.theme-dark .panel-superadmin .modal-box .btn-primary:hover {
+    background: #1d4ed8 !important;
+    color: #ffffff !important;
+}
+body.theme-dark .panel-superadmin .modal-overlay p,
+body.theme-dark .panel-superadmin .modal-box p {
+    color: #475569 !important;
+}
+body.theme-dark .panel-superadmin .modal-overlay .send-otp-btn,
+body.theme-dark .panel-superadmin .modal-box .send-otp-btn {
+    background: #e2e8f0 !important;
+    color: #334155 !important;
+    border-color: #cbd5e1 !important;
+}
+body.theme-dark .panel-superadmin .modal-overlay .send-otp-btn:hover,
+body.theme-dark .panel-superadmin .modal-box .send-otp-btn:hover {
+    background: #cbd5e1 !important;
+    color: #0f172a !important;
+}
+/* Request details modal (approver + superadmin): always light/white in dark mode */
 body.theme-dark .view-request-modal-content,
 body.theme-dark #viewRequestModal .view-request-modal-content,
 body.theme-dark #view-request-modal-overlay .view-request-modal {
-    background: var(--card-white) !important;
-    border: 1px solid #334155 !important;
+    background: #ffffff !important;
+    border: 1px solid #e5e7eb !important;
 }
 body.theme-dark .view-request-modal-header,
 body.theme-dark #viewRequestModal .view-request-modal-header,
 body.theme-dark #view-request-modal-overlay .view-request-modal .modal-header {
-    background: #1e3a5f !important;
-    border-color: #334155 !important;
-    color: #f1f5f9 !important;
+    background: #2563eb !important;
+    border-color: #1d4ed8 !important;
+    color: #ffffff !important;
 }
 body.theme-dark .view-request-modal-title,
+body.theme-dark #viewRequestModal .view-request-modal-title,
 body.theme-dark #view-request-modal-overlay .view-request-modal .modal-header h3 {
-    color: #f1f5f9 !important;
+    color: #ffffff !important;
 }
 body.theme-dark .view-request-modal-close,
-body.theme-dark .view-request-modal-content .view-request-modal-close {
-    color: #94a3b8 !important;
+body.theme-dark .view-request-modal-content .view-request-modal-close,
+body.theme-dark #view-request-modal-overlay .view-request-modal .modal-close {
+    color: rgba(255, 255, 255, 0.95) !important;
+    background: rgba(255, 255, 255, 0.2) !important;
 }
-body.theme-dark .view-request-modal-close:hover {
-    color: #f1f5f9 !important;
+body.theme-dark .view-request-modal-close:hover,
+body.theme-dark .view-request-modal-content .view-request-modal-close:hover,
+body.theme-dark #view-request-modal-overlay .view-request-modal .modal-close:hover {
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.3) !important;
 }
 body.theme-dark .view-request-modal-body,
-body.theme-dark #viewRequestModal .view-request-modal-body {
-    background: var(--card-white) !important;
-    color: var(--text-dark) !important;
+body.theme-dark #viewRequestModal .view-request-modal-body,
+body.theme-dark #view-request-modal-overlay .view-request-modal-body {
+    background: #ffffff !important;
+    color: #1e293b !important;
 }
 body.theme-dark .view-request-section-title,
+body.theme-dark #viewRequestModal .view-request-section-title,
 body.theme-dark #view-request-modal-overlay .view-request-section-title {
-    color: var(--text-muted) !important;
-    border-bottom-color: rgba(148, 163, 184, 0.35) !important;
+    color: #64748b !important;
+    border-bottom-color: #e2e8f0 !important;
 }
-body.theme-dark .view-request-dl dt,
+body.theme-dark #viewRequestModal .view-request-dl dt,
 body.theme-dark #view-request-modal-overlay .view-request-dl dt {
-    color: var(--text-muted);
+    color: #64748b !important;
 }
-body.theme-dark .view-request-dl dd,
+body.theme-dark #viewRequestModal .view-request-dl dd,
 body.theme-dark #view-request-modal-overlay .view-request-dl dd {
-    color: var(--text-dark);
+    color: #1e293b !important;
 }
-/* Keep dark request-detail-card styling unchanged in dark theme */
-body.theme-dark .request-detail-card .view-request-dl dt {
-    color: #94a3b8;
+body.theme-dark #viewRequestModal .request-detail-card .view-request-dl dt,
+body.theme-dark #view-request-modal-overlay .request-detail-card .view-request-dl dt {
+    color: #64748b !important;
 }
-body.theme-dark .request-detail-card .view-request-dl dd {
-    color: #e2e8f0;
+body.theme-dark #viewRequestModal .request-detail-card .view-request-dl dd,
+body.theme-dark #view-request-modal-overlay .request-detail-card .view-request-dl dd {
+    color: #1e293b !important;
 }
+body.theme-dark #viewRequestModal .view-request-modal-footer,
 body.theme-dark #view-request-modal-overlay .view-request-modal-footer {
-    border-top-color: rgba(148, 163, 184, 0.35) !important;
+    background: #ffffff !important;
+    border-top-color: #e2e8f0 !important;
+}
+body.theme-dark #viewRequestModal .view-request-btn-close {
+    background: #2563eb !important;
+    color: #ffffff !important;
+}
+body.theme-dark #viewRequestModal .view-request-btn-close:hover {
+    background: #1d4ed8 !important;
+    color: #ffffff !important;
+}
+body.theme-dark #view-request-modal-overlay .view-request-btn-approve,
+body.theme-dark #view-request-modal-overlay .view-request-btn-reject,
+body.theme-dark #view-request-modal-overlay .view-request-btn-archive,
+body.theme-dark #view-request-modal-overlay .view-request-btn-restore {
+    color: #fff !important;
+}
+body.theme-dark #view-request-modal-overlay .view-request-btn-approve {
+    background: #10b981 !important;
+    color: #fff !important;
+}
+body.theme-dark #view-request-modal-overlay .view-request-btn-reject {
+    background: #ef4444 !important;
+    color: #fff !important;
+}
+body.theme-dark #view-request-modal-overlay .view-request-btn-archive,
+body.theme-dark #view-request-modal-overlay .view-request-btn-restore {
+    background: #64748b !important;
+    color: #fff !important;
 }
 body.theme-dark #rejectModal .reject-modal-content,
 body.theme-dark .reject-modal-content {
