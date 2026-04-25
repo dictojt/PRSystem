@@ -17,28 +17,96 @@
         @if(auth()->user()->role === 'superadmin')
             <div class="table-card admin-management-card" style="margin-bottom: 24px;">
                 <div class="card-title-bar admin-management-header">
-                    <div class="admin-management-filters">
+                    <div class="admin-management-controls">
+                        <div class="admin-search-row">
                         <label class="admin-search-wrap" for="adminSearchInput">
                             <span class="material-icons">search</span>
                             <input id="adminSearchInput" type="text" placeholder="Search">
                         </label>
-                        <select id="adminRoleFilter" class="admin-filter-select" aria-label="Filter by role">
-                            <option value="all">Role</option>
-                            <option value="superadmin">Superadmin</option>
-                            <option value="approver">Approver</option>
-                            <option value="user">User</option>
-                        </select>
-                        <select id="adminStatusFilter" class="admin-filter-select" aria-label="Filter by status">
-                            <option value="all">Status</option>
-                            <option value="active">Active</option>
-                            <option value="deactivated">Deactivated</option>
-                        </select>
-                        <select id="adminDateFilter" class="admin-filter-select" aria-label="Filter by date">
-                            <option value="all">Date</option>
-                            <option value="last30">Last 30 days</option>
-                            <option value="thisYear">This year</option>
-                            <option value="older">Older</option>
-                        </select>
+                        </div>
+                        <div class="admin-management-filters">
+                        <div class="admin-filter-block">
+                            <div class="admin-filter-dropdown" data-filter-dropdown>
+                                <button type="button" class="admin-filter-trigger" id="adminRoleFilterTrigger"
+                                    aria-haspopup="listbox" aria-expanded="false" aria-controls="adminRoleFilterMenu"
+                                    aria-label="Filter by role">
+                                    <span class="admin-filter-trigger-text">Role</span>
+                                    <span class="material-icons admin-filter-chevron" aria-hidden="true">expand_more</span>
+                                </button>
+                                <ul id="adminRoleFilterMenu" class="admin-filter-menu" role="listbox" aria-label="Filter by role"
+                                    hidden>
+                                    <li class="admin-filter-option" role="option" data-value="all" aria-selected="true" tabindex="0">
+                                        <span class="admin-filter-option-dot admin-dot-all"></span>Role</li>
+                                    <li class="admin-filter-option" role="option" data-value="superadmin" aria-selected="false"
+                                        tabindex="-1"><span class="admin-filter-option-dot admin-dot-superadmin"></span>Superadmin</li>
+                                    <li class="admin-filter-option" role="option" data-value="approver" aria-selected="false"
+                                        tabindex="-1"><span class="admin-filter-option-dot admin-dot-approver"></span>Approver</li>
+                                    <li class="admin-filter-option" role="option" data-value="user" aria-selected="false"
+                                        tabindex="-1"><span class="admin-filter-option-dot admin-dot-user"></span>User</li>
+                                </ul>
+                                <select id="adminRoleFilter" class="admin-filter-native-select" aria-label="Filter by role"
+                                    tabindex="-1">
+                                    <option value="all">Role</option>
+                                    <option value="superadmin">Superadmin</option>
+                                    <option value="approver">Approver</option>
+                                    <option value="user">User</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="admin-filter-block">
+                            <div class="admin-filter-dropdown" data-filter-dropdown>
+                                <button type="button" class="admin-filter-trigger" id="adminStatusFilterTrigger"
+                                    aria-haspopup="listbox" aria-expanded="false" aria-controls="adminStatusFilterMenu"
+                                    aria-label="Filter by status">
+                                    <span class="admin-filter-trigger-text">Status</span>
+                                    <span class="material-icons admin-filter-chevron" aria-hidden="true">expand_more</span>
+                                </button>
+                                <ul id="adminStatusFilterMenu" class="admin-filter-menu" role="listbox"
+                                    aria-label="Filter by status" hidden>
+                                    <li class="admin-filter-option" role="option" data-value="all" aria-selected="true" tabindex="0">
+                                        <span class="admin-filter-option-dot admin-dot-all"></span>Status</li>
+                                    <li class="admin-filter-option" role="option" data-value="active" aria-selected="false"
+                                        tabindex="-1"><span class="admin-filter-option-dot admin-dot-active"></span>Active</li>
+                                    <li class="admin-filter-option" role="option" data-value="deactivated" aria-selected="false"
+                                        tabindex="-1"><span class="admin-filter-option-dot admin-dot-deactivated"></span>Deactivated</li>
+                                </ul>
+                                <select id="adminStatusFilter" class="admin-filter-native-select" aria-label="Filter by status"
+                                    tabindex="-1">
+                                    <option value="all">Status</option>
+                                    <option value="active">Active</option>
+                                    <option value="deactivated">Deactivated</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="admin-filter-block">
+                            <div class="admin-filter-dropdown" data-filter-dropdown>
+                                <button type="button" class="admin-filter-trigger" id="adminDateFilterTrigger"
+                                    aria-haspopup="listbox" aria-expanded="false" aria-controls="adminDateFilterMenu"
+                                    aria-label="Filter by date">
+                                    <span class="admin-filter-trigger-text">Date</span>
+                                    <span class="material-icons admin-filter-chevron" aria-hidden="true">expand_more</span>
+                                </button>
+                                <ul id="adminDateFilterMenu" class="admin-filter-menu" role="listbox" aria-label="Filter by date"
+                                    hidden>
+                                    <li class="admin-filter-option" role="option" data-value="all" aria-selected="true" tabindex="0">
+                                        <span class="admin-filter-option-dot admin-dot-all"></span>Date</li>
+                                    <li class="admin-filter-option" role="option" data-value="last30" aria-selected="false"
+                                        tabindex="-1"><span class="admin-filter-option-dot admin-dot-all"></span>Last 30 days</li>
+                                    <li class="admin-filter-option" role="option" data-value="thisYear" aria-selected="false"
+                                        tabindex="-1"><span class="admin-filter-option-dot admin-dot-all"></span>This year</li>
+                                    <li class="admin-filter-option" role="option" data-value="older" aria-selected="false"
+                                        tabindex="-1"><span class="admin-filter-option-dot admin-dot-all"></span>Older</li>
+                                </ul>
+                                <select id="adminDateFilter" class="admin-filter-native-select" aria-label="Filter by date"
+                                    tabindex="-1">
+                                    <option value="all">Date</option>
+                                    <option value="last30">Last 30 days</option>
+                                    <option value="thisYear">This year</option>
+                                    <option value="older">Older</option>
+                                </select>
+                            </div>
+                        </div>
+                        </div>
                     </div>
                     <button type="button" class="admin-add-user-btn" onclick="openAddUserModal()">
                         <span>Add User</span>
@@ -76,20 +144,20 @@
                                 data-role="{{ strtolower((string) ($admin->role ?? 'user')) }}"
                                 data-status="{{ $statusValue }}"
                                 data-joined-ts="{{ $joinedAt?->timestamp ?? 0 }}">
-                                <td>{{ $admin->name }}</td>
-                                <td>{{ $admin->email }}</td>
-                                <td>{{ $username !== '' ? $username : '-' }}</td>
-                                <td>
+                                <td data-label="Full Name">{{ $admin->name }}</td>
+                                <td data-label="Email">{{ $admin->email }}</td>
+                                <td data-label="Username">{{ $username !== '' ? $username : '-' }}</td>
+                                <td data-label="Status">
                                     <span class="admin-status-badge {{ $statusValue === 'active' ? 'status-active' : 'status-deactivated' }}">
                                         {{ $statusLabel }}
                                     </span>
                                 </td>
-                                <td><span
-                                        class="badge {{ $admin->role === 'superadmin' ? 'badge-approved' : ($admin->role === 'approver' ? 'badge-pending' : '') }}">{{ ucfirst($admin->role ?? 'user') }}</span>
+                                <td data-label="Role"><span
+                                        class="badge {{ $admin->role === 'superadmin' ? 'badge-approved' : ($admin->role === 'approver' ? 'badge-pending' : 'badge-info') }}">{{ ucfirst($admin->role ?? 'user') }}</span>
                                 </td>
-                                <td>{{ $joinedAt?->format('M d, Y') }}</td>
-                                <td>{{ $lastActiveAt?->diffForHumans() ?? '-' }}</td>
-                                <td>
+                                <td data-label="Joined Date">{{ $joinedAt?->format('M d, Y') }}</td>
+                                <td data-label="Last Active">{{ $lastActiveAt?->diffForHumans() ?? '-' }}</td>
+                                <td data-label="Actions">
                                     @if(auth()->id() !== $admin->id)
                                         <div class="action-buttons">
                                             <button type="button" class="btn-sm btn-action-icon"
@@ -125,7 +193,7 @@
                                 </td>
                             </tr>
                         @empty
-                            <tr>
+                            <tr class="admin-empty-row">
                                 <td colspan="8" style="text-align: center; padding: 40px; color: #94a3b8;">No users found.</td>
                             </tr>
                         @endforelse
@@ -135,9 +203,9 @@
             </div>
 
         @else
-            <div class="table-card">
+            <div class="table-card admin-simple-table-card">
                 <div class="card-title-bar">All Users</div>
-                <table class="data-table">
+                <table class="data-table admin-simple-table">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -149,15 +217,15 @@
                     <tbody>
                         @forelse($admins ?? [] as $admin)
                             <tr>
-                                <td>{{ $admin->name }}</td>
-                                <td>{{ $admin->email }}</td>
-                                <td><span
-                                        class="badge {{ $admin->role === 'superadmin' ? 'badge-approved' : ($admin->role === 'approver' ? 'badge-pending' : '') }}">{{ ucfirst($admin->role ?? 'user') }}</span>
+                                <td data-label="Name">{{ $admin->name }}</td>
+                                <td data-label="Email">{{ $admin->email }}</td>
+                                <td data-label="Role"><span
+                                        class="badge {{ $admin->role === 'superadmin' ? 'badge-approved' : ($admin->role === 'approver' ? 'badge-pending' : 'badge-info') }}">{{ ucfirst($admin->role ?? 'user') }}</span>
                                 </td>
-                                <td>{{ $admin->created_at?->format('M d, Y') }}</td>
+                                <td data-label="Joined">{{ $admin->created_at?->format('M d, Y') }}</td>
                             </tr>
                         @empty
-                            <tr>
+                            <tr class="admin-empty-row">
                                 <td colspan="4" style="text-align: center; padding: 40px; color: #94a3b8;">No users found.</td>
                             </tr>
                         @endforelse
@@ -166,9 +234,9 @@
             </div>
         @endif
     @else
-        <div class="table-card">
+        <div class="table-card admin-simple-table-card">
             <div class="card-title-bar">All Users</div>
-            <table class="data-table">
+            <table class="data-table admin-simple-table">
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -180,17 +248,17 @@
                 <tbody>
                     @forelse($admins ?? [] as $admin)
                         <tr>
-                            <td>{{ $admin->name }}</td>
-                            <td>{{ $admin->email }}</td>
-                            <td><span
-                                    class="badge {{ $admin->role === 'superadmin' ? 'badge-approved' : ($admin->role === 'approver' ? 'badge-pending' : '') }}">{{ ucfirst($admin->role ?? 'user') }}</span>
+                            <td data-label="Name">{{ $admin->name }}</td>
+                            <td data-label="Email">{{ $admin->email }}</td>
+                            <td data-label="Role"><span
+                                    class="badge {{ $admin->role === 'superadmin' ? 'badge-approved' : ($admin->role === 'approver' ? 'badge-pending' : 'badge-info') }}">{{ ucfirst($admin->role ?? 'user') }}</span>
                             </td>
-                            <td>{{ $admin->created_at?->format('M d, Y') }}</td>
+                            <td data-label="Joined">{{ $admin->created_at?->format('M d, Y') }}</td>
                         </tr>
                     @empty
-                        <tr>
-                            <td colspan="4" style="text-align: center; padding: 40px; color: #94a3b8;">No users found.</td>
-                        </tr>
+                            <tr class="admin-empty-row">
+                                <td colspan="4" style="text-align: center; padding: 40px; color: #94a3b8;">No users found.</td>
+                            </tr>
                     @endforelse
                 </tbody>
             </table>
@@ -352,30 +420,68 @@
 
         .admin-management-header {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: space-between;
             gap: 12px;
             flex-wrap: wrap;
             padding: 16px;
+            position: relative;
+            z-index: 40;
+            overflow: visible;
+        }
+
+        .admin-management-controls {
+            display: grid;
+            gap: 10px;
+            flex: 0 1 560px;
+            width: 100%;
+            max-width: 560px;
+            min-width: 0;
+            position: relative;
+            z-index: 45;
+        }
+
+        .admin-search-row {
+            display: block;
+            width: 100%;
         }
 
         .admin-management-filters {
-            display: flex;
-            align-items: center;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 10px;
-            flex-wrap: wrap;
-            flex: 1;
+            width: 100%;
+            align-items: stretch;
+        }
+
+        .admin-filter-block {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
         }
 
         .admin-search-wrap {
-            display: inline-flex;
+            display: flex;
             align-items: center;
-            gap: 6px;
-            min-width: 220px;
+            gap: 8px;
+            width: 100%;
+            min-width: 0;
+            min-height: 36px;
             background: #fff;
-            border: 1px solid #d7deea;
-            border-radius: 10px;
-            padding: 8px 10px;
+            border: 1px solid #bcc7d6;
+            border-radius: 8px;
+            padding: 8px 14px;
+            transition: border-color 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease;
+        }
+
+        .admin-search-wrap:hover {
+            border-color: #95a3b8;
+            background: #fcfdff;
+        }
+
+        .admin-search-wrap:focus-within {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.16);
         }
 
         .admin-search-wrap .material-icons {
@@ -392,69 +498,167 @@
             color: #0f172a;
         }
 
-        .admin-filter-select {
-            min-width: 120px;
-            border: 1px solid #d7deea;
-            border-radius: 10px;
-            background: #fff;
-            padding: 8px 10px;
-            font-size: 13px;
-            color: #334155;
-            outline: none;
-            transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+        .admin-filter-dropdown {
+            position: relative;
+            min-width: 0;
+            z-index: 1;
         }
 
-        .admin-filter-select:hover {
-            border-color: #93c5fd;
-            background: #f8fbff;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+        .admin-filter-dropdown.is-open {
+            z-index: 80;
         }
 
-        .admin-filter-select:focus {
-            border-color: #2563eb;
-            background: #f8fbff;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
-        }
-
-        .admin-filter-select option {
-            color: #1e293b;
+        .admin-filter-trigger {
+            width: 100%;
+            min-height: 36px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
             background: #ffffff;
+            padding: 8px 12px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            box-shadow: 0 1px 2px rgba(16, 24, 40, 0.06);
+            cursor: pointer;
+            transition: border-color 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease;
         }
 
-        .admin-filter-select option:hover,
-        .admin-filter-select option:focus {
-            background: #eff6ff;
+        .admin-filter-trigger:hover {
+            border-color: #b8c2d3;
+            background: #fcfdff;
+        }
+
+        .admin-filter-trigger:focus-visible {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 1px 2px rgba(16, 24, 40, 0.08), 0 0 0 3px rgba(59, 130, 246, 0.22);
+        }
+
+        .admin-filter-trigger-text {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .admin-filter-chevron {
+            font-size: 18px !important;
+            color: #64748b;
+            transition: transform 0.16s ease;
+        }
+        /* Override global .card-title-bar .material-icons to match Add User button height */
+        .card-title-bar .admin-filter-trigger .admin-filter-chevron {
+            font-size: 18px !important;
+            padding: 2px;
+            border-radius: 6px;
+        }
+
+        .admin-filter-menu {
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            right: auto;
+            margin: 0;
+            padding: 6px;
+            list-style: none;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            background: #ffffff;
+            box-shadow: 0 10px 28px rgba(15, 23, 42, 0.14);
+            z-index: 1200;
+            min-width: 160px;
+            max-height: 280px;
+            overflow-y: auto;
+        }
+
+        .admin-filter-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            color: #334155;
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 1.25;
+            cursor: pointer;
+            transition: background-color 0.14s ease, color 0.14s ease;
+        }
+
+        .admin-filter-option:hover,
+        .admin-filter-option:focus-visible {
+            background: #f1f5f9;
+            outline: none;
+        }
+
+        .admin-filter-option[aria-selected="true"] {
+            background: transparent;
             color: #1d4ed8;
+            font-weight: 600;
         }
 
-        .admin-filter-select option:checked {
-            background: #dbeafe;
-            color: #1e3a8a;
+        .admin-filter-option-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .admin-dot-all { background: #94a3b8; }
+        .admin-dot-superadmin { background: #7c3aed; }
+        .admin-dot-approver { background: #2563eb; }
+        .admin-dot-user { background: #64748b; }
+        .admin-dot-active { background: #10b981; }
+        .admin-dot-deactivated { background: #ef4444; }
+
+        .admin-filter-dropdown.is-open .admin-filter-trigger {
+            border-color: #3b82f6;
+            box-shadow: 0 1px 2px rgba(16, 24, 40, 0.08), 0 0 0 3px rgba(59, 130, 246, 0.12);
         }
 
-        #adminStatusFilter option[value="deactivated"] {
-            color: #b91c1c;
+        .admin-filter-dropdown.is-open .admin-filter-chevron {
+            transform: rotate(180deg);
         }
 
-        #adminStatusFilter option[value="deactivated"]:hover,
-        #adminStatusFilter option[value="deactivated"]:focus,
-        #adminStatusFilter option[value="deactivated"]:checked {
-            background: #fee2e2;
-            color: #991b1b;
+        .admin-filter-dropdown.is-disabled .admin-filter-trigger {
+            background: #f8fafc;
+            border-color: #e2e8f0;
+            color: #94a3b8;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+
+        .admin-filter-dropdown.is-disabled .admin-filter-chevron {
+            color: #94a3b8;
+        }
+
+        .admin-filter-native-select {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            opacity: 0;
+            pointer-events: none;
         }
 
         .admin-add-user-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
+            align-self: flex-start;
+            margin-left: auto;
             border: 1px solid #2748c8;
             background: linear-gradient(180deg, #5b7bff 0%, #4169e1 100%);
             color: #ffffff;
-            padding: 0 24px;
-            min-height: 44px;
+            padding: 0 18px;
+            min-height: 36px;
             border-radius: 999px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             letter-spacing: 0.01em;
             cursor: pointer;
@@ -472,21 +676,27 @@
         }
 
         .admin-add-user-btn .material-icons {
-            font-size: 19px;
+            font-size: 17px;
             color: #ffffff;
             opacity: 1;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 28px;
-            height: 28px;
-            border-radius: 9px;
+            width: 24px;
+            height: 24px;
+            border-radius: 8px;
             background: rgba(18, 52, 172, 0.45);
             border: 1px solid rgba(255, 255, 255, 0.32);
         }
 
         .admin-table-wrap {
+            position: relative;
+            z-index: 1;
             overflow-x: auto;
+        }
+
+        .admin-management-card {
+            overflow: visible !important;
         }
 
         .admin-management-table th {
@@ -544,7 +754,7 @@
         .action-buttons {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 6px;
         }
 
         .btn-sm {
@@ -556,9 +766,21 @@
             font-weight: 500;
         }
 
+        /* Square icon buttons in admin management (override global min-height) */
+        .action-buttons .btn-sm.btn-action-icon {
+            width: 32px;
+            height: 32px;
+            min-width: 32px;
+            min-height: 32px;
+            padding: 0;
+            border-radius: 6px;
+        }
+
         .btn-action-icon {
-            width: 30px;
-            height: 30px;
+            width: 32px;
+            height: 32px;
+            min-width: 32px;
+            min-height: 32px;
             border: 1px solid #dbe4f0;
             background: #ffffff;
             color: #475569;
@@ -573,7 +795,7 @@
         }
 
         .btn-action-icon .material-icons {
-            font-size: 16px;
+            font-size: 18px;
         }
 
         .btn-action-icon.deactivate {
@@ -628,18 +850,221 @@
         }
 
         @media (max-width: 860px) {
+            .admin-management-controls {
+                max-width: none;
+                flex: 1 1 100%;
+            }
+
             .admin-search-wrap {
                 min-width: 100%;
             }
 
-            .admin-filter-select {
-                min-width: 100%;
+            .admin-management-filters {
+                grid-template-columns: 1fr;
             }
 
             .admin-add-user-btn {
                 width: 100%;
                 justify-content: center;
             }
+        }
+
+        /* ========== Mobile responsive: Admin Management ========== */
+        @media (max-width: 768px) {
+            .header-section h1 { font-size: 20px; }
+            .header-section p { font-size: 13px; }
+            .admin-management-card,
+            .table-card.admin-management-card {
+                padding: 14px;
+                border-radius: 14px;
+                max-width: 100%;
+                min-width: 0;
+                overflow-x: hidden;
+                box-sizing: border-box;
+            }
+            .admin-management-header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+            }
+            .admin-management-controls {
+                order: 1;
+            }
+            .admin-add-user-btn {
+                order: 2;
+                margin-left: 0;
+            }
+            .admin-search-row {
+                width: 100%;
+            }
+            .admin-management-filters {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .admin-filter-block {
+                flex: 1 1 auto;
+                min-width: 0;
+            }
+            .admin-table-wrap {
+                overflow-x: hidden;
+                margin: 0 -14px;
+                padding: 0 14px;
+                max-width: 100%;
+            }
+            .admin-management-table {
+                width: 100%;
+                max-width: 100%;
+                min-width: 0;
+                box-sizing: border-box;
+            }
+            .admin-management-table thead {
+                display: none;
+            }
+            .admin-management-table tbody tr {
+                display: block;
+                margin-bottom: 12px;
+                padding: 14px;
+                border: 1px solid #e2e8f0;
+                border-radius: 12px;
+                background: #fff;
+                box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+                max-width: 100%;
+                box-sizing: border-box;
+            }
+            .admin-management-table tbody tr:last-child { margin-bottom: 0; }
+            .admin-management-table tbody td {
+                display: block;
+                padding: 6px 0 8px;
+                border: none;
+                border-bottom: 1px solid #f1f5f9;
+                font-size: 13px;
+                text-align: left;
+                max-width: 100%;
+                min-width: 0;
+                box-sizing: border-box;
+                word-break: break-word;
+                overflow-wrap: break-word;
+            }
+            .admin-management-table tbody td:last-child { border-bottom: none; padding-bottom: 0; }
+            .admin-management-table tbody td::before {
+                content: attr(data-label);
+                display: block;
+                font-size: 10px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.04em;
+                color: #64748b;
+                margin-bottom: 2px;
+            }
+            .admin-management-table tbody tr.admin-empty-row,
+            .admin-management-table tbody tr:has(td[colspan]) { padding: 14px; }
+            .admin-management-table tbody tr.admin-empty-row td,
+            .admin-management-table tbody tr:has(td[colspan]) td { display: block; padding: 0; border: none; }
+            .admin-management-table tbody tr.admin-empty-row td::before,
+            .admin-management-table tbody tr:has(td[colspan]) td::before { display: none; }
+            /* Role contents size only (compact) */
+            .admin-management-table tbody td[data-label="Role"] .badge {
+                padding: 2px 6px !important;
+                font-size: 10px !important;
+                border-radius: 4px !important;
+                line-height: 1.2 !important;
+                min-width: 0 !important;
+            }
+            .action-buttons {
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+            .action-buttons .btn-sm.btn-action-icon,
+            .btn-action-icon {
+                width: 32px;
+                height: 32px;
+                min-width: 32px;
+                min-height: 32px;
+            }
+            .btn-action-icon .material-icons {
+                font-size: 18px;
+            }
+            /* Simple table (non-superadmin / guest) */
+            .admin-simple-table-card {
+                padding: 14px;
+                overflow-x: hidden;
+                max-width: 100%;
+            }
+            .admin-simple-table thead { display: none; }
+            .admin-simple-table tbody tr {
+                display: block;
+                margin-bottom: 12px;
+                padding: 14px;
+                border: 1px solid #e2e8f0;
+                border-radius: 12px;
+                background: #fff;
+                box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+            }
+            .admin-simple-table tbody td {
+                display: block;
+                padding: 6px 0 8px;
+                border: none;
+                border-bottom: 1px solid #f1f5f9;
+                font-size: 13px;
+            }
+            .admin-simple-table tbody td:last-child { border-bottom: none; }
+            .admin-simple-table tbody td::before {
+                content: attr(data-label);
+                display: block;
+                font-size: 10px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.04em;
+                color: #64748b;
+                margin-bottom: 2px;
+            }
+            .admin-simple-table tbody td[data-label="Role"] .badge {
+                padding: 2px 6px !important;
+                font-size: 10px !important;
+                border-radius: 4px !important;
+                line-height: 1.2 !important;
+                min-width: 0 !important;
+            }
+            .admin-simple-table tbody tr.admin-empty-row td,
+            .admin-simple-table tbody tr:has(td[colspan]) td { display: block; padding: 0; border: none; }
+            .admin-simple-table tbody tr.admin-empty-row td::before,
+            .admin-simple-table tbody tr:has(td[colspan]) td::before { display: none; }
+            /* Modals */
+            .modal-overlay {
+                padding: 12px;
+                align-items: flex-end;
+            }
+            .modal-overlay .modal-box {
+                max-width: 100%;
+                max-height: 90vh;
+                overflow-y: auto;
+                border-radius: 12px 12px 0 0;
+            }
+            .modal-overlay .modal-header,
+            .modal-overlay .modal-body,
+            .modal-overlay .modal-footer {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+            .modal-overlay .modal-footer {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .modal-overlay .btn-primary,
+            .modal-overlay .btn-secondary {
+                min-height: 44px;
+            }
+        }
+        @media (max-width: 480px) {
+            .header-section h1 { font-size: 18px; }
+            .admin-management-card,
+            .table-card.admin-management-card { padding: 12px; }
+            .admin-management-table tbody tr { padding: 12px; }
+            .admin-management-table tbody td { font-size: 12px; }
+            .admin-simple-table-card { padding: 12px; }
+            .admin-simple-table tbody tr { padding: 12px; }
+            .admin-simple-table tbody td { font-size: 12px; }
         }
     </style>
 @endpush
@@ -725,9 +1150,129 @@
                 });
             }
 
+            function getDropdownParts(dropdown) {
+                if (!dropdown) return null;
+                return {
+                    trigger: dropdown.querySelector('.admin-filter-trigger'),
+                    menu: dropdown.querySelector('.admin-filter-menu'),
+                    options: Array.prototype.slice.call(dropdown.querySelectorAll('.admin-filter-option')),
+                    select: dropdown.querySelector('.admin-filter-native-select')
+                };
+            }
+
+            function syncFilterDropdown(dropdown) {
+                var parts = getDropdownParts(dropdown);
+                if (!parts || !parts.trigger || !parts.select) return;
+
+                var selectedValue = parts.select.value || 'all';
+                var selectedOption = parts.options.find(function (option) {
+                    return option.getAttribute('data-value') === selectedValue;
+                }) || parts.options[0];
+
+                parts.options.forEach(function (option) {
+                    var isSelected = option === selectedOption;
+                    option.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+                    option.setAttribute('tabindex', isSelected ? '0' : '-1');
+                });
+
+                var textNode = parts.trigger.querySelector('.admin-filter-trigger-text');
+                if (textNode && selectedOption) {
+                    textNode.textContent = selectedOption.textContent.trim();
+                }
+
+                var isDisabled = !!parts.select.disabled;
+                dropdown.classList.toggle('is-disabled', isDisabled);
+                parts.trigger.disabled = isDisabled;
+            }
+
+            function closeFilterDropdown(dropdown, focusTrigger) {
+                var parts = getDropdownParts(dropdown);
+                if (!parts || !parts.trigger || !parts.menu) return;
+                dropdown.classList.remove('is-open');
+                parts.trigger.setAttribute('aria-expanded', 'false');
+                parts.menu.hidden = true;
+                if (focusTrigger) {
+                    parts.trigger.focus();
+                }
+            }
+
+            function closeAllFilterDropdowns(exceptDropdown) {
+                document.querySelectorAll('[data-filter-dropdown]').forEach(function (dropdown) {
+                    if (!exceptDropdown || dropdown !== exceptDropdown) {
+                        closeFilterDropdown(dropdown, false);
+                    }
+                });
+            }
+
+            function openFilterDropdown(dropdown) {
+                var parts = getDropdownParts(dropdown);
+                if (!parts || !parts.trigger || !parts.menu || !parts.options.length || dropdown.classList.contains('is-disabled')) {
+                    return;
+                }
+                closeAllFilterDropdowns(dropdown);
+                dropdown.classList.add('is-open');
+                parts.trigger.setAttribute('aria-expanded', 'true');
+                parts.menu.hidden = false;
+                var selectedOption = parts.options.find(function (option) {
+                    return option.getAttribute('aria-selected') === 'true';
+                }) || parts.options[0];
+                if (selectedOption) selectedOption.focus();
+            }
+
+            function selectFilterOption(optionEl) {
+                var dropdown = optionEl.closest('[data-filter-dropdown]');
+                var parts = getDropdownParts(dropdown);
+                if (!parts || !parts.select) return;
+                var nextValue = optionEl.getAttribute('data-value') || 'all';
+                parts.select.value = nextValue;
+                syncFilterDropdown(dropdown);
+                parts.select.dispatchEvent(new Event('change', { bubbles: true }));
+                closeFilterDropdown(dropdown, true);
+            }
+
+            function moveDropdownOptionFocus(optionEl, direction) {
+                var dropdown = optionEl.closest('[data-filter-dropdown]');
+                var parts = getDropdownParts(dropdown);
+                if (!parts || !parts.options.length) return;
+                var currentIndex = parts.options.indexOf(optionEl);
+                if (currentIndex < 0) return;
+                var nextIndex = currentIndex + direction;
+                if (nextIndex < 0) nextIndex = 0;
+                if (nextIndex > parts.options.length - 1) nextIndex = parts.options.length - 1;
+                parts.options[nextIndex].focus();
+            }
+
+            function initializeFilterDropdowns() {
+                document.querySelectorAll('[data-filter-dropdown]').forEach(function (dropdown) {
+                    syncFilterDropdown(dropdown);
+                    closeFilterDropdown(dropdown, false);
+                });
+            }
+
             document.addEventListener('click', function (event) {
                 var target = event.target;
                 if (!target || typeof target.closest !== 'function') return;
+
+                var trigger = target.closest('.admin-filter-trigger');
+                if (trigger) {
+                    var triggerDropdown = trigger.closest('[data-filter-dropdown]');
+                    if (triggerDropdown && triggerDropdown.classList.contains('is-open')) {
+                        closeFilterDropdown(triggerDropdown, false);
+                    } else {
+                        openFilterDropdown(triggerDropdown);
+                    }
+                    return;
+                }
+
+                var option = target.closest('.admin-filter-option');
+                if (option) {
+                    selectFilterOption(option);
+                    return;
+                }
+
+                if (!target.closest('[data-filter-dropdown]')) {
+                    closeAllFilterDropdowns(null);
+                }
 
                 var otpButton = target.closest('.send-otp-btn');
                 if (otpButton) {
@@ -787,6 +1332,40 @@
                 }
             });
 
+            document.addEventListener('keydown', function (event) {
+                var target = event.target;
+                if (!target || typeof target.closest !== 'function') return;
+
+                var trigger = target.closest('.admin-filter-trigger');
+                if (trigger) {
+                    var triggerDropdown = trigger.closest('[data-filter-dropdown]');
+                    if (event.key === 'ArrowDown' || event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        openFilterDropdown(triggerDropdown);
+                    } else if (event.key === 'Escape') {
+                        closeFilterDropdown(triggerDropdown, true);
+                    }
+                    return;
+                }
+
+                var option = target.closest('.admin-filter-option');
+                if (!option) return;
+
+                if (event.key === 'ArrowDown') {
+                    event.preventDefault();
+                    moveDropdownOptionFocus(option, 1);
+                } else if (event.key === 'ArrowUp') {
+                    event.preventDefault();
+                    moveDropdownOptionFocus(option, -1);
+                } else if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    selectFilterOption(option);
+                } else if (event.key === 'Escape') {
+                    event.preventDefault();
+                    closeFilterDropdown(option.closest('[data-filter-dropdown]'), true);
+                }
+            });
+
             document.addEventListener('input', function (event) {
                 var t = event.target;
                 if (!t) return;
@@ -797,10 +1376,13 @@
                 var t = event.target;
                 if (!t) return;
                 if (t.id === 'adminRoleFilter' || t.id === 'adminStatusFilter' || t.id === 'adminDateFilter') {
+                    var dropdown = t.closest('[data-filter-dropdown]');
+                    if (dropdown) syncFilterDropdown(dropdown);
                     applyAdminFilters();
                 }
             });
 
+            initializeFilterDropdowns();
             applyAdminFilters();
 
             @if($errors->has('email'))

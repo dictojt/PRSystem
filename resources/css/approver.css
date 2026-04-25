@@ -4,8 +4,358 @@
 @import './partials/sidebar.css';
 @import './partials/panel-layout.css';
 @import './partials/components.css';
+@import './partials/theme-dark.css';
 
-/* Approver uses shared light sidebar (same as user panel / super admin) - no dark overrides */
+/* Approver: sidebar same look as User (first pic) - dark blue gradient, profile card, labels */
+.panel-approver .sidebar,
+.panel-approver #sidebar,
+.panel-approver .container .sidebar {
+    background: #1a365d !important;
+}
+.panel-approver .sidebar .profile-card {
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.panel-approver .sidebar .menu-top a.active {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+}
+.panel-approver .sidebar .logout button,
+.panel-approver .sidebar .logout .logout-link-get {
+    background: #1e40af;
+}
+.panel-approver .sidebar .logout button:hover,
+.panel-approver .sidebar .logout .logout-link-get:hover {
+    background: #1e3a8a;
+}
+
+/* Mobile: same as Superadmin – sidebar only (no hamburger). Collapsed = icon bar; expanded = overlay + backdrop. */
+.sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 998;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+.panel-approver .sidebar-backdrop {
+    display: none;
+    z-index: 999;
+}
+body:not(.sidebar-collapsed).panel-approver .sidebar-backdrop {
+    display: block;
+    opacity: 1;
+}
+@media (min-width: 993px) {
+    .panel-approver .sidebar-backdrop { display: none !important; }
+}
+
+/* At 992px and below: COLLAPSED = icon-only bar */
+@media (max-width: 992px) {
+    body.sidebar-collapsed.panel-approver .sidebar {
+        width: 72px !important;
+        min-width: 72px !important;
+        max-width: 72px !important;
+        padding: 12px 8px;
+        transform: none;
+    }
+    body.sidebar-collapsed.panel-approver .sidebar .sidebar-label,
+    body.sidebar-collapsed.panel-approver .sidebar .menu-top a .sidebar-label,
+    body.sidebar-collapsed.panel-approver .sidebar .logout button .sidebar-label,
+    body.sidebar-collapsed.panel-approver .sidebar .logout .logout-link-get .sidebar-label,
+    body.sidebar-collapsed.panel-approver .sidebar .profile-card .profile-name,
+    body.sidebar-collapsed.panel-approver .sidebar .profile-card .profile-email {
+        display: none !important;
+    }
+    body.sidebar-collapsed.panel-approver .sidebar .sidebar-header {
+        flex-direction: column-reverse;
+        gap: 6px;
+        justify-content: flex-start;
+        margin-bottom: 10px;
+    }
+    body.sidebar-collapsed.panel-approver .sidebar .sidebar-header h2 {
+        justify-content: center;
+        margin-bottom: 0;
+    }
+    body.sidebar-collapsed.panel-approver .sidebar .profile-card {
+        justify-content: center;
+        padding: 10px;
+    }
+    body.sidebar-collapsed.panel-approver .sidebar .profile-avatar {
+        margin-right: 0;
+    }
+    body.sidebar-collapsed.panel-approver .sidebar .menu-top a,
+    body.sidebar-collapsed.panel-approver .sidebar .logout button,
+    body.sidebar-collapsed.panel-approver .sidebar .logout .logout-link-get {
+        justify-content: center;
+        padding: 12px;
+    }
+    body.sidebar-collapsed.panel-approver .main {
+        margin-left: 72px !important;
+        width: calc(100% - 72px) !important;
+    }
+
+    /* EXPANDED = full sidebar overlay with labels */
+    body:not(.sidebar-collapsed).panel-approver .sidebar {
+        width: 280px !important;
+        min-width: 280px !important;
+        max-width: 280px !important;
+        padding: 16px 12px;
+        transform: none;
+        box-shadow: 4px 0 24px rgba(0, 0, 0, 0.25);
+    }
+    body:not(.sidebar-collapsed).panel-approver .sidebar .sidebar-label,
+    body:not(.sidebar-collapsed).panel-approver .sidebar .menu-top a .sidebar-label,
+    body:not(.sidebar-collapsed).panel-approver .sidebar .logout button .sidebar-label,
+    body:not(.sidebar-collapsed).panel-approver .sidebar .logout .logout-link-get .sidebar-label,
+    body:not(.sidebar-collapsed).panel-approver .sidebar .profile-card .profile-name,
+    body:not(.sidebar-collapsed).panel-approver .sidebar .profile-card .profile-email {
+        display: block !important;
+    }
+    body:not(.sidebar-collapsed).panel-approver .sidebar .sidebar-header {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    body:not(.sidebar-collapsed).panel-approver .sidebar .profile-card {
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+    body:not(.sidebar-collapsed).panel-approver .sidebar .profile-avatar {
+        margin-right: 12px;
+    }
+    body:not(.sidebar-collapsed).panel-approver .sidebar .menu-top a,
+    body:not(.sidebar-collapsed).panel-approver .sidebar .logout button,
+    body:not(.sidebar-collapsed).panel-approver .sidebar .logout .logout-link-get {
+        justify-content: flex-start;
+    }
+    body:not(.sidebar-collapsed).panel-approver .main {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+}
+
+@media (max-width: 768px) {
+    body.sidebar-collapsed.panel-approver .sidebar {
+        padding: 10px 6px;
+    }
+    body.sidebar-collapsed.panel-approver .sidebar .sidebar-toggle {
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+        min-height: 36px;
+    }
+    body.sidebar-collapsed.panel-approver .sidebar .profile-avatar {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+    }
+    body.sidebar-collapsed.panel-approver .sidebar .menu-top a,
+    body.sidebar-collapsed.panel-approver .sidebar .logout button,
+    body.sidebar-collapsed.panel-approver .sidebar .logout .logout-link-get {
+        padding: 10px;
+        min-height: 44px;
+    }
+}
+
+@media (max-width: 480px) {
+    body.sidebar-collapsed.panel-approver .sidebar {
+        width: 72px !important;
+        min-width: 72px !important;
+        max-width: 72px !important;
+        padding: 8px 4px;
+    }
+    body.sidebar-collapsed.panel-approver .main {
+        margin-left: 72px !important;
+        width: calc(100% - 72px) !important;
+    }
+    body.sidebar-collapsed.panel-approver .sidebar .sidebar-toggle {
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+        min-height: 32px;
+    }
+    body.sidebar-collapsed.panel-approver .sidebar .profile-avatar {
+        width: 32px;
+        height: 32px;
+        font-size: 13px;
+    }
+    body.sidebar-collapsed.panel-approver .sidebar .menu-top a,
+    body.sidebar-collapsed.panel-approver .sidebar .logout button,
+    body.sidebar-collapsed.panel-approver .sidebar .logout .logout-link-get {
+        padding: 8px;
+        min-height: 40px;
+    }
+}
+
+@media (max-width: 400px) {
+    body.sidebar-collapsed.panel-approver .sidebar {
+        width: 72px !important;
+        min-width: 72px !important;
+        max-width: 72px !important;
+        padding: 7px 4px;
+    }
+    body.sidebar-collapsed.panel-approver .main {
+        margin-left: 72px !important;
+        width: calc(100% - 72px) !important;
+    }
+}
+
+@media (max-width: 360px) {
+    body.sidebar-collapsed.panel-approver .sidebar {
+        width: 72px !important;
+        min-width: 72px !important;
+        max-width: 72px !important;
+        padding: 6px 4px;
+    }
+    body.sidebar-collapsed.panel-approver .main {
+        margin-left: 72px !important;
+        width: calc(100% - 72px) !important;
+    }
+}
+
+/* Approver content - responsive (tables, stat-cards, filters, overview) */
+@media (max-width: 992px) {
+    .panel-approver .header-section h1 { font-size: 22px !important; }
+    .panel-approver .table-card,
+    body.panel-approver .approver-all-request-card {
+        padding: 18px !important;
+    }
+    body.panel-approver .stat-cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 12px !important;
+    }
+    .approver-overview-kpis {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 12px !important;
+    }
+    .approver-overview-layout {
+        grid-template-columns: 1fr !important;
+    }
+    .approver-overview-stack {
+        max-width: 100% !important;
+        justify-self: stretch !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .panel-approver .header-section { margin-bottom: 20px !important; }
+    .panel-approver .header-section h1 { font-size: 20px !important; }
+    .panel-approver .header-section p { font-size: 13px !important; }
+    .panel-approver .table-card,
+    body.panel-approver .approver-all-request-card {
+        padding: 16px !important;
+    }
+    .panel-approver .table-card .card-title-bar,
+    body.panel-approver .approver-all-request-card .card-title-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .panel-approver .data-table th,
+    .panel-approver .data-table td {
+        padding: 10px 12px !important;
+        font-size: 13px !important;
+    }
+    body.panel-approver .stat-cards {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+        margin-bottom: 18px !important;
+    }
+    body.panel-approver .stat-cards .stat-card {
+        padding: 14px !important;
+    }
+    .approver-overview-kpis {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+        margin-bottom: 16px !important;
+    }
+    .approver-overview-kpi {
+        padding: 14px !important;
+    }
+    .approver-overview-kpi-value { font-size: 20px !important; }
+    .approver-overview-table-wrap { margin: 0 -4px !important; border-radius: 10px !important; }
+    .approver-overview-table { min-width: 520px !important; }
+    .approver-overview-table th,
+    .approver-overview-table td {
+        padding: 10px 12px !important;
+        font-size: 12px !important;
+    }
+    .approver-all-request-card .status-filter-trigger {
+        min-width: 140px !important;
+        padding: 8px 12px !important;
+        font-size: 13px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .panel-approver .table-card,
+    body.panel-approver .approver-all-request-card {
+        padding: 14px !important;
+    }
+    .panel-approver .data-table th,
+    .panel-approver .data-table td {
+        padding: 8px 10px !important;
+        font-size: 12px !important;
+    }
+    .approver-overview-table { min-width: 460px !important; }
+    .approver-overview-table th,
+    .approver-overview-table td {
+        padding: 8px 10px !important;
+        font-size: 11px !important;
+    }
+    .panel-approver .btn-sm {
+        min-height: 44px !important;
+        padding: 10px 14px !important;
+    }
+    .panel-approver .btn-icon-view,
+    .panel-approver .btn-icon-approve,
+    .panel-approver .btn-icon-reject {
+        min-width: 26px !important;
+        min-height: 26px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .panel-approver .header-section h1 { font-size: 18px !important; }
+    .panel-approver .table-card .card-title-bar h2,
+    body.panel-approver .approver-all-request-card .card-title-bar h2 {
+        font-size: 14px !important;
+    }
+    .approver-all-request-card .status-filter-wrap {
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+    .approver-all-request-card .status-filter-trigger {
+        min-width: 0 !important;
+        width: 100% !important;
+    }
+}
+
+@media (max-width: 400px) {
+    .panel-approver .table-card,
+    body.panel-approver .approver-all-request-card {
+        padding: 12px !important;
+    }
+    .panel-approver .data-table th,
+    .panel-approver .data-table td {
+        padding: 6px 8px !important;
+        font-size: 11px !important;
+    }
+    .approver-overview-kpi-value { font-size: 18px !important; }
+}
+
+@media (max-width: 360px) {
+    .panel-approver .header-section h1 { font-size: 16px !important; }
+}
+
+@media (max-width: 320px) {
+    .panel-approver .table-card,
+    body.panel-approver .approver-all-request-card {
+        padding: 10px !important;
+    }
+}
 
 /* Main content polish - approver (clean like user View Request) */
 .panel-approver .main {
@@ -62,6 +412,18 @@
     overflow-x: auto;
     border: 1px solid #e5e7eb;
     border-radius: 8px;
+    margin-bottom: 0;
+}
+.panel-approver .table-card .table-responsive {
+    margin-bottom: 16px;
+}
+
+/* Same data-table style for both Pending and All request (approver-all-request-card) */
+body.panel-approver .table-card .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    background: #ffffff00;
 }
 
 .panel-approver .data-table {
@@ -125,8 +487,7 @@
 }
 
 .panel-approver .footer {
-    background: transparent;
-    border-top: 1px solid #e2e8f0;
+    margin-top: 40px;
 }
 
 .panel-approver .stat-card {
@@ -199,12 +560,13 @@
     cursor: pointer;
     text-decoration: none;
     color: inherit;
+    border: 1px solid #e2e8f0;
 }
 .approver-all-request-card .status-filter-option:hover {
     background: #f1f5f9;
 }
 .approver-all-request-card .status-filter-option.selected {
-    background: #eff6ff;
+    background: transparent;
     color: #1d4ed8;
 }
 .approver-all-request-card .status-filter-option-dot {
@@ -212,6 +574,8 @@
     height: 8px;
     border-radius: 50%;
     flex-shrink: 0;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
 }
 .approver-all-request-card .status-dot-all { background: #94a3b8; }
 .approver-all-request-card .status-dot-approved { background: #10b981; }
@@ -265,7 +629,7 @@ body.panel-approver .approver-all-request-card .data-table {
     width: 100%;
     border-collapse: collapse;
     font-size: 14px;
-    background: #ffffff;
+    background: #ffffff00;
 }
 
 body.panel-approver .approver-all-request-card .data-table th,
@@ -337,7 +701,7 @@ body.panel-approver .stat-cards .stat-card {
     width: 44px;
     height: 44px;
     border-radius: 10px;
-    background: #eff6ff;
+    background: transparent;
     color: var(--primary);
     display: flex;
     align-items: center;
@@ -382,7 +746,7 @@ body.panel-approver .stat-cards .stat-card {
 }
 
 .card-title-bar .material-icons {
-    background: #eff6ff;
+    background: transparent;
     color: var(--primary);
     padding: 8px;
     border-radius: 8px;
@@ -453,13 +817,13 @@ body:not(.panel-approver) .data-table td {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
+    width: 22px;
+    height: 22px;
     padding: 0;
     border: none;
     background: #f1f5f9;
     color: #475569;
-    border-radius: 8px;
+    border-radius: 6px;
     cursor: pointer;
     transition: background 0.2s, color 0.2s;
 }
@@ -470,7 +834,7 @@ body:not(.panel-approver) .data-table td {
 }
 
 .btn-icon-view .material-icons {
-    font-size: 18px;
+    font-size: 14px;
 }
 
 /* Approver pending table - icon-only action buttons (Approve / Reject) */
@@ -495,20 +859,20 @@ body:not(.panel-approver) .data-table td {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 38px;
-    height: 38px;
-    min-width: 38px;
-    min-height: 38px;
+    width: 26px;
+    height: 26px;
+    min-width: 26px;
+    min-height: 26px;
     padding: 0;
     border: none;
-    border-radius: 10px;
+    border-radius: 6px;
     cursor: pointer;
     transition: background 0.2s, color 0.2s, transform 0.15s;
     box-sizing: border-box;
 }
 
 .panel-approver .btn-icon-action .material-icons {
-    font-size: 22px;
+    font-size: 16px;
     flex-shrink: 0;
     line-height: 1;
 }
@@ -650,7 +1014,7 @@ body:not(.panel-approver) .data-table td {
 }
 
 .view-request-modal-body {
-    padding: 24px;
+    padding: 24px 24px 28px 24px;
     flex: 1;
     min-height: 0;
 }
@@ -705,7 +1069,7 @@ body:not(.panel-approver) .data-table td {
 .badge {
     padding: 4px 10px;
     border-radius: 6px;
-    font-size: 12px;
+    font-size: var(--text-sm);
     font-weight: 600;
 }
 
@@ -725,9 +1089,9 @@ body:not(.panel-approver) .data-table td {
 }
 
 .btn-sm {
-    padding: 8px 14px;
+    padding: 8px 12px;
     border-radius: 8px;
-    font-size: 13px;
+    font-size: var(--text-btn);
     font-weight: 500;
     cursor: pointer;
     border: none;
@@ -757,16 +1121,9 @@ body:not(.panel-approver) .data-table td {
     display: inline;
 }
 
-.footer {
-    padding: 16px 24px;
-    margin-top: 24px;
-    text-align: center;
-    border-top: 1px solid #e5e7eb;
-}
-
-.footer .copyright {
-    font-size: 12px;
-    color: var(--text-muted);
+/* Footer uses global .footer from components.css */
+.panel-approver .footer {
+    margin-top: 40px;
 }
 
 /* Reject modal - fixed to viewport, dialog centered with transform */
@@ -1066,20 +1423,20 @@ body:not(.panel-approver) .data-table td {
         gap: 6px;
     }
     .panel-approver .btn-icon-action {
-        width: 34px;
-        height: 34px;
-        min-width: 34px;
-        min-height: 34px;
+        width: 24px;
+        height: 24px;
+        min-width: 24px;
+        min-height: 24px;
     }
     .panel-approver .btn-icon-action .material-icons {
-        font-size: 20px;
+        font-size: 14px;
     }
     .panel-approver .btn-icon-view {
-        width: 28px;
-        height: 28px;
+        width: 22px;
+        height: 22px;
     }
     .panel-approver .btn-icon-view .material-icons {
-        font-size: 16px;
+        font-size: 12px;
     }
 }
 

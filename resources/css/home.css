@@ -241,32 +241,96 @@ body {
 }
 
 .footer {
-    background: #fff;
+    background: transparent;
     padding: 20px 24px;
     text-align: center;
-    border-top: 1px solid #e2e8f0;
+    width: 100%;
+    box-sizing: border-box;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .footer .copyright {
     font-size: 12px;
-    color: #64748b;
-    margin-bottom: 8px;
+    color: #94a3b8;
+    margin: 0;
 }
 
-.footer .footer-links {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
+/* Mobile: home page fits small screens */
+@media (max-width: 768px) {
+    .gov-bar {
+        padding: 8px 16px;
+        font-size: 11px;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .gov-bar .sep {
+        display: none;
+    }
+    .branding {
+        padding: 16px 20px;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+    .branding .system-name h1 {
+        font-size: 1.2rem;
+    }
+    .branding .system-name p {
+        font-size: 0.8rem;
+    }
+    .main-wrap {
+        padding: 24px 16px 32px;
+        align-items: flex-start;
+        padding-top: max(24px, env(safe-area-inset-top));
+        padding-bottom: max(32px, env(safe-area-inset-bottom));
+    }
+    .signin-card {
+        max-width: 100%;
+    }
+    .signin-card .card-body {
+        padding: 28px 20px;
+    }
+    .signin-card .building-icon {
+        width: 56px;
+        height: 56px;
+        margin-bottom: 14px;
+    }
+    .signin-card .building-icon .material-icons {
+        font-size: 28px;
+    }
+    .signin-card h2 {
+        font-size: 1.25rem;
+    }
+    .signin-card .welcome-text {
+        font-size: 13px;
+        margin-bottom: 20px;
+    }
+    .btn-gmail {
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+    .footer {
+        padding: 16px;
+        padding-bottom: max(16px, env(safe-area-inset-bottom));
+    }
+    .footer .copyright {
+        font-size: 11px;
+    }
 }
 
-.footer .footer-links a {
-    font-size: 13px;
-    color: var(--gov-blue);
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.footer .footer-links a:hover {
-    text-decoration: underline;
+@media (max-width: 480px) {
+    .branding {
+        padding: 12px 16px;
+    }
+    .branding .dict-logo {
+        font-size: 1rem;
+    }
+    .branding .system-name h1 {
+        font-size: 1rem;
+    }
+    .main-wrap {
+        padding: 16px 12px 24px;
+    }
+    .signin-card .card-body {
+        padding: 24px 16px;
+    }
 }

@@ -4,6 +4,261 @@
 @import './partials/sidebar.css';
 @import './partials/panel-layout.css';
 @import './partials/components.css';
+@import './partials/theme-dark.css';
+
+/* Sidebar: same look across User, Super Admin, Approver - dark blue, profile card, logout */
+.panel-user .sidebar,
+.panel-user #sidebar,
+.panel-user .container .sidebar {
+    background: #1a365d !important;
+}
+.panel-user .sidebar .profile-card {
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.panel-user .sidebar .menu-top a.active {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+}
+.panel-user .sidebar .logout button,
+.panel-user .sidebar .logout .logout-link-get {
+    background: #1e40af;
+}
+.panel-user .sidebar .logout button:hover,
+.panel-user .sidebar .logout .logout-link-get:hover {
+    background: #1e3a8a;
+}
+
+/* Mobile: same as Superadmin – sidebar only (no hamburger). Collapsed = icon bar; expanded = overlay + backdrop. */
+.sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 998;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+.panel-user .sidebar-backdrop {
+    display: none;
+    z-index: 999;
+}
+body:not(.sidebar-collapsed).panel-user .sidebar-backdrop {
+    display: block;
+    opacity: 1;
+}
+@media (min-width: 993px) {
+    .panel-user .sidebar-backdrop { display: none !important; }
+}
+
+/* Mobile: COLLAPSED = icon-only bar (72px). Main content beside it. */
+@media (max-width: 992px) {
+    body.sidebar-collapsed.panel-user .sidebar {
+        width: 72px !important;
+        min-width: 72px !important;
+        max-width: 72px !important;
+        padding: 12px 8px;
+        transform: none;
+    }
+    body.sidebar-collapsed.panel-user .sidebar .sidebar-label,
+    body.sidebar-collapsed.panel-user .sidebar .menu-top a .sidebar-label,
+    body.sidebar-collapsed.panel-user .sidebar .logout button .sidebar-label,
+    body.sidebar-collapsed.panel-user .sidebar .logout .logout-link-get .sidebar-label,
+    body.sidebar-collapsed.panel-user .sidebar .profile-card .profile-name,
+    body.sidebar-collapsed.panel-user .sidebar .profile-card .profile-email {
+        display: none !important;
+    }
+    body.sidebar-collapsed.panel-user .sidebar .sidebar-header {
+        flex-direction: column-reverse;
+        gap: 6px;
+        justify-content: flex-start;
+        margin-bottom: 10px;
+    }
+    body.sidebar-collapsed.panel-user .sidebar .sidebar-header h2 {
+        justify-content: center;
+        margin-bottom: 0;
+    }
+    body.sidebar-collapsed.panel-user .sidebar .profile-card {
+        justify-content: center;
+        padding: 10px;
+    }
+    body.sidebar-collapsed.panel-user .sidebar .profile-avatar {
+        margin-right: 0;
+    }
+    body.sidebar-collapsed.panel-user .sidebar .menu-top a,
+    body.sidebar-collapsed.panel-user .sidebar .logout button,
+    body.sidebar-collapsed.panel-user .sidebar .logout .logout-link-get {
+        justify-content: center;
+        padding: 12px;
+    }
+    body.sidebar-collapsed.panel-user .main {
+        margin-left: 72px !important;
+        width: calc(100% - 72px) !important;
+    }
+
+    /* Mobile: EXPANDED = full sidebar (280px) as overlay. Labels visible. Main full width. */
+    body:not(.sidebar-collapsed).panel-user .sidebar {
+        width: 280px !important;
+        min-width: 280px !important;
+        max-width: 280px !important;
+        padding: 16px 12px;
+        transform: none;
+        box-shadow: 4px 0 24px rgba(0, 0, 0, 0.25);
+    }
+    body:not(.sidebar-collapsed).panel-user .sidebar .sidebar-label,
+    body:not(.sidebar-collapsed).panel-user .sidebar .menu-top a .sidebar-label,
+    body:not(.sidebar-collapsed).panel-user .sidebar .logout button .sidebar-label,
+    body:not(.sidebar-collapsed).panel-user .sidebar .logout .logout-link-get .sidebar-label,
+    body:not(.sidebar-collapsed).panel-user .sidebar .profile-card .profile-name,
+    body:not(.sidebar-collapsed).panel-user .sidebar .profile-card .profile-email {
+        display: block !important;
+    }
+    body:not(.sidebar-collapsed).panel-user .sidebar .sidebar-header {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    body:not(.sidebar-collapsed).panel-user .sidebar .profile-card {
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+    body:not(.sidebar-collapsed).panel-user .sidebar .profile-avatar {
+        margin-right: 12px;
+    }
+    body:not(.sidebar-collapsed).panel-user .sidebar .menu-top a,
+    body:not(.sidebar-collapsed).panel-user .sidebar .logout button,
+    body:not(.sidebar-collapsed).panel-user .sidebar .logout .logout-link-get {
+        justify-content: flex-start;
+    }
+    body:not(.sidebar-collapsed).panel-user .main {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+}
+
+/* Refined mobile COLLAPSED: tighter, cleaner */
+@media (max-width: 768px) {
+    body.sidebar-collapsed.panel-user .sidebar {
+        padding: 10px 6px;
+    }
+    body.sidebar-collapsed.panel-user .sidebar .menu-top {
+        gap: 2px;
+    }
+    body.sidebar-collapsed.panel-user .sidebar .sidebar-header {
+        margin-bottom: 8px;
+    }
+    body.sidebar-collapsed.panel-user .sidebar .sidebar-toggle {
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+        min-height: 36px;
+    }
+    body.sidebar-collapsed.panel-user .sidebar .profile-card {
+        padding: 8px;
+        margin-bottom: 12px;
+    }
+    body.sidebar-collapsed.panel-user .sidebar .profile-avatar {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+    }
+    body.sidebar-collapsed.panel-user .sidebar .menu-top a,
+    body.sidebar-collapsed.panel-user .sidebar .logout button,
+    body.sidebar-collapsed.panel-user .sidebar .logout .logout-link-get {
+        padding: 10px;
+        min-height: 44px;
+        border-radius: 10px;
+    }
+    body.sidebar-collapsed.panel-user .sidebar .menu-top a .material-icons,
+    body.sidebar-collapsed.panel-user .sidebar .logout button .material-icons,
+    body.sidebar-collapsed.panel-user .sidebar .logout .logout-link-get .material-icons {
+        font-size: 22px;
+    }
+}
+
+/* Very small screens: same COLLAPSED width as super admin (72px) */
+@media (max-width: 480px) {
+    body.sidebar-collapsed.panel-user .sidebar {
+        width: 72px !important;
+        min-width: 72px !important;
+        max-width: 72px !important;
+        padding: 8px 4px;
+    }
+    body.sidebar-collapsed.panel-user .main {
+        margin-left: 72px !important;
+        width: calc(100% - 72px) !important;
+    }
+    body.sidebar-collapsed.panel-user .sidebar .sidebar-toggle {
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+        min-height: 32px;
+    }
+    body.sidebar-collapsed.panel-user .sidebar .profile-avatar {
+        width: 32px;
+        height: 32px;
+        font-size: 13px;
+    }
+    body.sidebar-collapsed.panel-user .sidebar .menu-top a,
+    body.sidebar-collapsed.panel-user .sidebar .logout button,
+    body.sidebar-collapsed.panel-user .sidebar .logout .logout-link-get {
+        padding: 8px;
+        min-height: 40px;
+    }
+    body.sidebar-collapsed.panel-user .sidebar .menu-top a .material-icons,
+    body.sidebar-collapsed.panel-user .sidebar .logout button .material-icons,
+    body.sidebar-collapsed.panel-user .sidebar .logout .logout-link-get .material-icons {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 400px) {
+    body.sidebar-collapsed.panel-user .sidebar {
+        width: 72px !important;
+        min-width: 72px !important;
+        max-width: 72px !important;
+        padding: 7px 4px;
+    }
+    body.sidebar-collapsed.panel-user .main {
+        margin-left: 72px !important;
+        width: calc(100% - 72px) !important;
+    }
+    body.sidebar-collapsed.panel-user .sidebar .sidebar-toggle {
+        width: 30px;
+        height: 30px;
+        min-width: 30px;
+        min-height: 30px;
+    }
+    body.sidebar-collapsed.panel-user .sidebar .profile-avatar {
+        width: 30px;
+        height: 30px;
+        font-size: 12px;
+    }
+    body.sidebar-collapsed.panel-user .sidebar .menu-top a,
+    body.sidebar-collapsed.panel-user .sidebar .logout button,
+    body.sidebar-collapsed.panel-user .sidebar .logout .logout-link-get {
+        padding: 7px;
+        min-height: 38px;
+    }
+    body.sidebar-collapsed.panel-user .sidebar .menu-top a .material-icons,
+    body.sidebar-collapsed.panel-user .sidebar .logout button .material-icons,
+    body.sidebar-collapsed.panel-user .sidebar .logout .logout-link-get .material-icons {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 360px) {
+    body.sidebar-collapsed.panel-user .sidebar {
+        width: 72px !important;
+        min-width: 72px !important;
+        max-width: 72px !important;
+        padding: 6px 4px;
+    }
+    body.sidebar-collapsed.panel-user .main {
+        margin-left: 72px !important;
+        width: calc(100% - 72px) !important;
+    }
+}
 
 /* User panel specific */
 .track-result {
@@ -33,7 +288,7 @@
 
 .support-card {
     padding: 20px;
-    background: #f9fafb;
+    background: var(--card-white);
     border-radius: 10px;
     margin-bottom: 12px;
     border: 1px solid #e5e7eb;
@@ -41,6 +296,12 @@
 
 .support-card:last-child {
     margin-bottom: 0;
+}
+
+.support-card-desc {
+    margin: 8px 0 0;
+    font-size: 14px;
+    color: var(--text-muted);
 }
 
 /* View Request - table */
@@ -92,7 +353,7 @@
 .badge {
     padding: 4px 10px;
     border-radius: 6px;
-    font-size: 12px;
+    font-size: var(--text-sm);
     font-weight: 600;
 }
 
@@ -118,8 +379,8 @@
 
 /* View Request page - inlined so they are always in the build */
 .view-requests-page .header-section { margin-bottom: 24px; }
-.view-requests-page .header-section h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; color: #1e293b; }
-.view-requests-page .header-section p { font-size: 14px; color: #6b7280; margin: 0; }
+.view-requests-page .header-section h1 { font-size: 20px; font-weight: 700; margin-bottom: 4px; color: #1e293b; }
+.view-requests-page .header-section p { font-size: var(--text-base); color: #6b7280; margin: 0; }
 
 .view-requests-page .table-card {
     background: #ffffff;
@@ -161,8 +422,8 @@
     justify-content: space-between;
     gap: 12px;
     min-width: 150px;
-    padding: 10px 14px;
-    font-size: 14px;
+    padding: 8px 12px;
+    font-size: var(--text-input);
     font-weight: 500;
     color: #1e293b;
     background: #ffffff;
@@ -220,12 +481,13 @@
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.15s;
+    border: 1px solid #e2e8f0;
 }
 .view-requests-page .status-filter-option:hover {
     background: #f1f5f9;
 }
 .view-requests-page .status-filter-option[aria-selected="true"] {
-    background: #eff6ff;
+    background: transparent;
     color: #1d4ed8;
 }
 .view-requests-page .status-filter-option-dot {
@@ -233,6 +495,8 @@
     height: 8px;
     border-radius: 50%;
     flex-shrink: 0;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
 }
 .view-requests-page .status-dot-all {
     background: #94a3b8;
@@ -301,3 +565,8 @@
 .view-requests-page .card p { font-size: 14px; line-height: 1.5; }
 .view-requests-page .card a { color: #2563eb; font-weight: 500; text-decoration: none; }
 .view-requests-page .card a:hover { text-decoration: underline; }
+
+/* Footer: space above footer bar across user panel */
+.panel-user .footer {
+    margin-top: 40px;
+}

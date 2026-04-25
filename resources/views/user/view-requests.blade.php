@@ -28,17 +28,19 @@
 .view-requests-page .status-filter-option {
     display: flex; align-items: center; gap: 10px; padding: 10px 12px;
     font-size: 14px; font-weight: 500; color: #334155; border-radius: 8px; cursor: pointer;
+    border: 1px solid #e2e8f0;
 }
 .view-requests-page .status-filter-option:hover { background: #f1f5f9; }
-.view-requests-page .status-filter-option[aria-selected="true"] { background: #eff6ff; color: #1d4ed8; }
+.view-requests-page .status-filter-option[aria-selected="true"] { background: transparent; color: #1d4ed8; }
 .view-requests-page .status-filter-option-dot {
     width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+    border: 1px solid rgba(0, 0, 0, 0.15); box-sizing: border-box;
 }
 .view-requests-page .status-dot-all { background: #94a3b8; }
 .view-requests-page .status-dot-pending { background: #f59e0b; }
 .view-requests-page .status-dot-completed { background: #10b981; }
 .view-requests-page .status-dot-rejected { background: #ef4444; }
-.view-requests-page .status-filter-option.selected { background: #eff6ff; color: #1d4ed8; }
+.view-requests-page .status-filter-option.selected { background: transparent; color: #1d4ed8; }
 .view-requests-page .status-filter-menu a.status-filter-option { text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px; }
 .view-requests-page .status-filter-label {
     font-size: 12px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: .05em;
@@ -46,6 +48,134 @@
 .view-requests-page .request-row-highlight {
     background: #dbeafe !important;
     box-shadow: inset 0 0 0 1px #60a5fa;
+}
+
+/* Mobile responsive – standardized breakpoints: 992, 768, 576, 480, 360, 320 */
+@media (max-width: 992px) {
+    .view-requests-page .header-section h1 { font-size: 20px; }
+    .view-requests-page .table-card .card-title-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+    .view-requests-page .status-filter-wrap {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .view-requests-page .status-filter-dropdown { width: 100%; }
+    .view-requests-page .status-filter-trigger { width: 100%; min-width: 0; }
+    .view-requests-page .status-filter-menu { left: 0; right: 0; min-width: 0; }
+}
+
+@media (max-width: 768px) {
+    .view-requests-page .header-section { margin-bottom: 16px; }
+    .view-requests-page .header-section h1 { font-size: 18px; }
+    .view-requests-page .table-card { padding: 16px; }
+    .view-requests-page .table-responsive {
+        overflow-x: visible;
+        border: none;
+        margin: 0 -4px;
+    }
+    .view-requests-page .data-table thead { display: none; }
+    .view-requests-page .data-table tbody tr {
+        display: block;
+        margin-bottom: 16px;
+        padding: 14px;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        background: #fff;
+        box-shadow: 0 1px 3px rgba(0,0,0,.06);
+    }
+    .view-requests-page .data-table tbody tr:nth-child(even) { background: #fafafa; }
+    .view-requests-page .data-table tbody tr:hover { background: #f0f9ff; }
+    .view-requests-page .data-table tbody td {
+        display: block;
+        padding: 8px 0 10px;
+        border: none;
+        border-bottom: 1px solid #f1f5f9;
+        text-align: left;
+    }
+    .view-requests-page .data-table tbody td:last-child { border-bottom: none; padding-bottom: 0; }
+    .view-requests-page .data-table tbody td::before {
+        content: attr(data-label);
+        display: block;
+        font-size: 11px;
+        font-weight: 600;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: .04em;
+        margin-bottom: 4px;
+    }
+    .view-requests-page .data-table tbody td {
+        word-break: break-word;
+        overflow-wrap: break-word;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+    .view-requests-page .data-table .description-cell { max-width: none; }
+    .view-requests-page .rejection-reason-text { max-width: none; }
+    .view-requests-page .data-table tbody td .badge,
+    .view-requests-page .data-table tbody td[data-label="Status"] .badge {
+        max-width: 100% !important;
+        display: inline-block !important;
+        box-sizing: border-box !important;
+        padding: 2px 6px !important;
+        font-size: 10px !important;
+        border-radius: 4px !important;
+        line-height: 1.2 !important;
+        min-width: 0 !important;
+    }
+    /* Role contents size only (compact) */
+    .view-requests-page .data-table tbody td[data-label="Role"] .badge {
+        padding: 2px 6px !important;
+        font-size: 10px !important;
+        border-radius: 4px !important;
+        line-height: 1.2 !important;
+        min-width: 0 !important;
+    }
+    .view-requests-page .table-card,
+    .view-requests-page .table-responsive {
+        max-width: 100%;
+        min-width: 0;
+        overflow-x: hidden;
+        box-sizing: border-box;
+    }
+    .view-requests-page .data-table { width: 100%; max-width: 100%; min-width: 0; box-sizing: border-box; }
+}
+
+@media (max-width: 576px) {
+    .view-requests-page .table-card { padding: 14px; }
+    .view-requests-page .data-table tbody tr { padding: 12px; margin-bottom: 14px; }
+}
+
+@media (max-width: 480px) {
+    .view-requests-page .table-card { padding: 12px; }
+    .view-requests-page .data-table tbody tr { padding: 12px; margin-bottom: 12px; }
+    .view-requests-page .data-table tbody td { font-size: 13px; }
+    .view-requests-page .status-filter-trigger { padding: 10px 12px; font-size: 13px; }
+}
+
+@media (max-width: 400px) {
+    .view-requests-page .table-card { padding: 10px; }
+    .view-requests-page .data-table tbody tr { padding: 10px; margin-bottom: 10px; }
+    .view-requests-page .data-table tbody td { font-size: 12px; }
+    .view-requests-page .data-table tbody td::before { font-size: 10px; }
+    .view-requests-page .status-filter-trigger { padding: 9px 10px; font-size: 12px; min-height: 44px; }
+}
+
+@media (max-width: 360px) {
+    .view-requests-page .table-card { padding: 10px; }
+    .view-requests-page .data-table tbody tr { padding: 10px; margin-bottom: 10px; }
+    .view-requests-page .data-table tbody td { font-size: 12px; }
+    .view-requests-page .data-table tbody td::before { font-size: 10px; }
+    .view-requests-page .status-filter-trigger { padding: 8px 10px; font-size: 12px; min-height: 44px; }
+}
+
+@media (max-width: 320px) {
+    .view-requests-page .table-card { padding: 8px; }
+    .view-requests-page .data-table tbody tr { padding: 8px; margin-bottom: 8px; border-radius: 8px; }
+    .view-requests-page .status-filter-label { font-size: 11px; }
 }
 </style>
 @endpush
@@ -115,9 +245,9 @@
             <tbody>
                 @foreach($requests as $req)
                 <tr data-request-row-id="{{ e($req['request_id']) }}">
-                    <td><strong>{{ ($req['status'] ?? '') === 'Approved' && !empty($req['approved_id'] ?? null) ? $req['approved_id'] : $req['request_id'] }}</strong></td>
-                    <td>{{ $req['item_name'] }}</td>
-                    <td class="description-cell">
+                    <td data-label="ID"><strong>{{ ($req['status'] ?? '') === 'Approved' && !empty($req['approved_id'] ?? null) ? $req['approved_id'] : $req['request_id'] }}</strong></td>
+                    <td data-label="Item">{{ $req['item_name'] }}</td>
+                    <td class="description-cell" data-label="Description">
                         @if(!empty($req['description'] ?? null))
                             @php
                                 $desc = $req['description'];
@@ -136,8 +266,8 @@
                             <span class="text-muted">—</span>
                         @endif
                     </td>
-                    <td>{{ $req['quantity'] }}</td>
-                    <td>
+                    <td data-label="Qty">{{ $req['quantity'] }}</td>
+                    <td data-label="Status">
                         @if($req['status'] === 'Pending')
                             <span class="badge badge-pending">Pending</span>
                         @elseif($req['status'] === 'Approved')
@@ -148,14 +278,14 @@
                             <span class="badge badge-info">{{ $req['status'] }}</span>
                         @endif
                     </td>
-                    <td>
+                    <td data-label="Rejection reason">
                         @if(($req['status'] ?? '') === 'Rejected' && !empty($req['rejection_reason'] ?? null))
                             <span class="rejection-reason-text" title="{{ e($req['rejection_reason']) }}">{{ Str::limit($req['rejection_reason'], 50) }}</span>
                         @else
                             <span class="text-muted">—</span>
                         @endif
                     </td>
-                    <td>{{ $req['created_at'] }}</td>
+                    <td data-label="Date">{{ $req['created_at'] }}</td>
                 </tr>
                 @endforeach
             </tbody>

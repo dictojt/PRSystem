@@ -43,6 +43,8 @@
         justify-content: center;
         color: #fff;
         flex-shrink: 0;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-sizing: border-box;
     }
     .approver-overview-kpi-icon.total { background: linear-gradient(135deg, #1d4ed8, #3b82f6); }
     .approver-overview-kpi-icon.pending { background: linear-gradient(135deg, #d97706, #f59e0b); }
@@ -143,6 +145,8 @@
         width: 92px;
         text-align: center;
     }
+    .approver-overview-row-clickable { cursor: pointer; }
+    .approver-overview-row-clickable:hover { background: #f8fafc !important; }
     .ov-badge {
         display: inline-flex;
         align-items: center;
@@ -227,13 +231,90 @@
         .approver-overview-layout { grid-template-columns: 1fr; }
     }
     @media (max-width: 768px) {
-        .approver-overview-kpis { grid-template-columns: 1fr; }
-        .approver-overview-panel { padding: 14px; border-radius: 14px; }
-        .approver-overview-table { min-width: 540px; }
-        .approver-overview-table th,
-        .approver-overview-table td { padding: 10px 10px; font-size: 12px; }
-        .approver-overview-actions { flex-direction: row; justify-content: flex-start; }
+        .approver-overview-kpis { grid-template-columns: 1fr; max-width: 100%; min-width: 0; }
+        .approver-overview-kpi { padding: 14px; min-width: 0; }
+        .approver-overview-kpi-value { font-size: 20px; }
+        .approver-overview-panel { padding: 14px; border-radius: 14px; max-width: 100%; min-width: 0; overflow-x: hidden; box-sizing: border-box; }
+        .approver-overview-layout { gap: 14px; max-width: 100%; min-width: 0; }
+        .approver-overview-stack { max-width: 100%; justify-self: stretch; min-width: 0; }
+        /* Card-style table: fits in viewport, no horizontal scroll */
+        .approver-overview-table-wrap {
+            overflow-x: hidden;
+            border: none;
+            margin: 0;
+            max-width: 100%;
+            min-width: 0;
+            box-sizing: border-box;
+        }
+        .approver-overview-table {
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            box-sizing: border-box;
+        }
+        .approver-overview-table thead { display: none; }
+        .approver-overview-table tbody tr {
+            display: block;
+            margin-bottom: 12px;
+            padding: 14px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            background: #fff;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+        .approver-overview-table tbody tr:last-child { margin-bottom: 0; }
+        .approver-overview-table tbody td {
+            display: block;
+            padding: 6px 0 8px;
+            border: none;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 13px;
+            text-align: left;
+            max-width: 100%;
+            min-width: 0;
+            box-sizing: border-box;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+        .approver-overview-table tbody td:last-child { border-bottom: none; padding-bottom: 0; }
+        .approver-overview-table tbody td::before {
+            content: attr(data-label);
+            display: block;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: #64748b;
+            margin-bottom: 2px;
+        }
+        .approver-overview-table tbody tr.approver-overview-empty-row,
+        .approver-overview-table tbody tr:has(td[colspan]) { padding: 14px; }
+        .approver-overview-table tbody tr.approver-overview-empty-row td,
+        .approver-overview-table tbody tr:has(td[colspan]) td { display: block; padding: 0; border: none; }
+        .approver-overview-table tbody tr.approver-overview-empty-row td::before,
+        .approver-overview-table tbody tr:has(td[colspan]) td::before { display: none; }
+        .approver-overview-table tbody tr.approver-overview-empty-row .approver-overview-empty,
+        .approver-overview-table tbody tr:has(td[colspan]) .approver-overview-empty { margin: 0; }
+        .approver-overview-table tbody td .ov-badge,
+        .approver-overview-table tbody td[data-label="Status"] .ov-badge {
+            padding: 2px 6px !important;
+            font-size: 10px !important;
+            border-radius: 4px !important;
+            line-height: 1.2 !important;
+            min-width: 0 !important;
+        }
+        .approver-overview-actions { flex-direction: row; justify-content: flex-start; flex-wrap: wrap; }
         .approver-overview-actions a { justify-content: center; }
+    }
+    @media (max-width: 480px) {
+        .approver-overview-kpi { padding: 12px; gap: 10px; }
+        .approver-overview-kpi-icon { width: 40px; height: 40px; font-size: 20px; }
+        .approver-overview-kpi-value { font-size: 18px; }
+        .approver-overview-panel { padding: 12px; }
+        .approver-overview-table tbody tr { padding: 12px; }
+        .approver-overview-table tbody td { font-size: 12px; }
     }
 </style>
 
@@ -288,16 +369,30 @@
                 </thead>
                 <tbody>
                     @forelse($recentRequests ?? [] as $request)
-                    <tr>
-                        <td>{{ $request['id'] ?? '-' }}</td>
-                        <td>{{ $request['requestor'] ?? '-' }}</td>
-                        <td>{{ $request['item'] ?? '-' }}</td>
-                        <td>{{ $request['quantity'] ?? 1 }}</td>
-                        <td>{{ $request['date'] ?? '-' }}</td>
-                        <td><span class="ov-badge {{ $statusBadge($request['status'] ?? 'Pending') }}">{{ $request['status'] ?? 'Pending' }}</span></td>
+                    <tr class="approver-overview-row-clickable" role="button" tabindex="0" title="Click to view details">
+                        <td data-label="Request ID">
+                            <button type="button" class="btn-view-request approver-overview-view-btn" style="display:none;position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;"
+                                data-request-id="{{ e($request['id'] ?? '') }}"
+                                data-requestor="{{ e($request['requestor'] ?? '') }}"
+                                data-item="{{ e($request['item'] ?? '') }}"
+                                data-quantity="{{ $request['quantity'] ?? 1 }}"
+                                data-description="—"
+                                data-date="{{ e($request['date'] ?? '') }}"
+                                data-status="{{ e($request['status'] ?? '') }}"
+                                data-decided-at="—"
+                                data-decided-by="—"
+                                data-rejection-reason="—"
+                                data-approved-id="">View</button>
+                            {{ $request['id'] ?? '-' }}
+                        </td>
+                        <td data-label="Requestor">{{ $request['requestor'] ?? '-' }}</td>
+                        <td data-label="Item">{{ $request['item'] ?? '-' }}</td>
+                        <td data-label="Qty">{{ $request['quantity'] ?? 1 }}</td>
+                        <td data-label="Date">{{ $request['date'] ?? '-' }}</td>
+                        <td data-label="Status"><span class="ov-badge {{ $statusBadge($request['status'] ?? 'Pending') }}">{{ $request['status'] ?? 'Pending' }}</span></td>
                     </tr>
                     @empty
-                    <tr>
+                    <tr class="approver-overview-empty-row">
                         <td colspan="6"><div class="approver-overview-empty">No request history available.</div></td>
                     </tr>
                     @endforelse

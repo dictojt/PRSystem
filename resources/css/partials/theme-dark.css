@@ -1,0 +1,1372 @@
+/* Dark theme – applied when body has class theme-dark */
+
+body.theme-dark {
+    --bg-main: #0f172a;
+    --card-white: #1e293b;
+    --text-dark: #f1f5f9;
+    --text-muted: #94a3b8;
+    --sidebar-border: rgba(255, 255, 255, 0.08);
+    /* User dashboard (standalone) custom vars */
+    --surface-strong: #1e293b;
+    --surface-muted: #0f172a;
+    --business-navy: #f1f5f9;
+    --soft-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+}
+
+body.theme-dark .main {
+    background: var(--bg-main);
+}
+
+body.theme-dark .header-section h1 {
+    color: var(--text-dark);
+}
+
+body.theme-dark .header-section p {
+    color: var(--text-muted);
+}
+
+/* Approver panel: override .panel-approver light rules so main, header, and content are dark */
+body.theme-dark .panel-approver .main {
+    background: var(--bg-main) !important;
+}
+body.theme-dark .panel-approver .header-section h1 {
+    color: var(--text-dark) !important;
+}
+body.theme-dark .panel-approver .header-section p {
+    color: var(--text-muted) !important;
+}
+body.theme-dark .panel-approver .table-card {
+    background: var(--card-white) !important;
+    border-color: #334155 !important;
+}
+body.theme-dark .panel-approver .table-card .card-title-bar,
+body.theme-dark .panel-approver .table-card .card-title-bar h2 {
+    color: var(--text-dark) !important;
+    border-bottom-color: #334155 !important;
+}
+body.theme-dark .panel-approver .stat-card {
+    background: var(--card-white) !important;
+    border-color: #334155 !important;
+}
+body.theme-dark .panel-approver .stat-card .stat-label {
+    color: var(--text-muted) !important;
+}
+body.theme-dark .panel-approver .stat-card .stat-value {
+    color: var(--text-dark) !important;
+}
+body.theme-dark .panel-approver .data-table {
+    background: var(--card-white) !important;
+}
+body.theme-dark .panel-approver .data-table th {
+    background: #0f172a !important;
+    color: var(--text-muted) !important;
+    border-color: #334155 !important;
+}
+body.theme-dark .panel-approver .data-table td {
+    color: var(--text-dark) !important;
+    border-color: #334155 !important;
+}
+body.theme-dark .panel-approver .data-table tbody tr {
+    background: var(--card-white) !important;
+    border-color: #334155 !important;
+}
+body.theme-dark .panel-approver .data-table tbody tr:nth-child(even) {
+    background: var(--card-white) !important;
+}
+body.theme-dark .panel-approver .data-table tbody tr:hover {
+    background: #334155 !important;
+}
+body.theme-dark .panel-approver .table-card .data-table tbody tr {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
+}
+body.theme-dark .panel-approver .table-card .data-table tbody td::before {
+    color: var(--text-muted) !important;
+}
+
+/* Approver Dashboard Overview – KPI cards and Recent Requests (override inline #fff in approver-overview.blade.php) */
+body.theme-dark .approver-overview-kpi {
+    background: var(--card-white) !important;
+    border-color: #334155 !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
+}
+body.theme-dark .approver-overview-kpi-label {
+    color: var(--text-muted) !important;
+}
+body.theme-dark .approver-overview-kpi-value {
+    color: var(--text-dark) !important;
+}
+body.theme-dark .approver-overview-panel {
+    background: var(--card-white) !important;
+    border-color: #334155 !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
+}
+body.theme-dark .approver-overview-panel-head h2 {
+    color: var(--text-dark) !important;
+}
+body.theme-dark .approver-overview-subtitle {
+    color: var(--text-muted) !important;
+}
+body.theme-dark .approver-overview-table-wrap {
+    border-color: #334155 !important;
+}
+body.theme-dark .approver-overview-table th,
+body.theme-dark .approver-overview-table td {
+    border-color: #334155 !important;
+    color: var(--text-dark) !important;
+}
+body.theme-dark .approver-overview-table th {
+    background: #0f172a !important;
+    color: var(--text-muted) !important;
+}
+body.theme-dark .approver-overview-table tbody tr {
+    background: var(--card-white) !important;
+    border-color: #334155 !important;
+}
+body.theme-dark .approver-overview-row-clickable:hover {
+    background: #334155 !important;
+}
+body.theme-dark .approver-overview-table tbody td::before {
+    color: var(--text-muted) !important;
+}
+body.theme-dark .approver-overview-alert {
+    background: #334155 !important;
+    border-color: #475569 !important;
+}
+body.theme-dark .approver-overview-alert-link {
+    color: var(--text-dark) !important;
+}
+body.theme-dark .approver-overview-empty {
+    background: #334155 !important;
+    border-color: #475569 !important;
+    color: var(--text-muted) !important;
+}
+body.theme-dark .approver-overview-actions .ov-outline {
+    background: #334155 !important;
+    color: #93c5fd !important;
+    border-color: #475569 !important;
+}
+
+body.theme-dark .card {
+    background: var(--card-white);
+    border-color: #334155;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+body.theme-dark .card-title-bar,
+body.theme-dark .card-title-bar h2 {
+    color: var(--text-dark);
+}
+
+body.theme-dark .card-title-bar .material-icons {
+    color: var(--text-muted);
+}
+
+body.theme-dark .form-group label {
+    color: var(--text-dark);
+}
+
+body.theme-dark .form-group input,
+body.theme-dark .form-group textarea,
+body.theme-dark .form-group select {
+    background: #0f172a;
+    border-color: #475569;
+    color: #f1f5f9;
+}
+
+body.theme-dark .form-group input::placeholder,
+body.theme-dark .form-group textarea::placeholder {
+    color: #64748b;
+}
+
+body.theme-dark .breadcrumb {
+    color: var(--text-muted);
+}
+
+body.theme-dark .guest-notice {
+    background: #1e3a5f;
+    border-color: #2563eb;
+    color: #93c5fd;
+}
+
+body.theme-dark .guest-notice a {
+    color: #93c5fd;
+}
+
+body.theme-dark .alert-success {
+    background: #064e3b;
+    color: #6ee7b7;
+    border-color: #047857;
+}
+
+body.theme-dark .alert-danger,
+body.theme-dark .alert-error {
+    background: #450a0a;
+    color: #fca5a5;
+    border-color: #b91c1c;
+}
+
+/* Footer: no background, subtle top border */
+body.theme-dark .footer {
+    background: transparent !important;
+    border-top-color: rgba(255, 255, 255, 0.08) !important;
+}
+body.theme-dark .footer .copyright {
+    color: #94a3b8 !important;
+}
+
+/* Table cards (user, approver, superadmin) */
+body.theme-dark .table-card,
+body.theme-dark .table-card .card-title-bar {
+    background: var(--card-white);
+    border-color: #334155;
+}
+
+body.theme-dark .table-card th,
+body.theme-dark .table-card td {
+    border-color: #334155;
+    color: var(--text-dark);
+}
+
+body.theme-dark .table-card thead th {
+    background: #0f172a;
+    color: var(--text-muted);
+}
+
+body.theme-dark .table-card tbody tr:hover {
+    background: #334155;
+}
+
+/* KPI / stat cards */
+body.theme-dark .kpi-card,
+body.theme-dark .stat-card {
+    background: var(--card-white);
+    border-color: #334155;
+}
+
+body.theme-dark .kpi-card .kpi-value,
+body.theme-dark .kpi-card .kpi-label,
+body.theme-dark .stat-card .stat-value,
+body.theme-dark .stat-card .stat-label {
+    color: var(--text-dark);
+}
+
+body.theme-dark .btn-outline {
+    background: transparent;
+    color: #93c5fd;
+    border-color: #475569;
+}
+
+body.theme-dark .btn-outline:hover {
+    background: #334155;
+    color: #f1f5f9;
+}
+
+body.theme-dark .btn-secondary {
+    background: #334155;
+    color: #e2e8f0;
+}
+
+body.theme-dark .btn-secondary:hover {
+    background: #475569;
+    color: #f1f5f9;
+}
+
+/* -------------------------------------------------------------------------
+   Superadmin Overview: stat cards (sa-kpi), panels, table, chart, quick links
+   ------------------------------------------------------------------------- */
+body.theme-dark .sa-overview-kpis,
+body.theme-dark .sa-kpi {
+    background: var(--card-white);
+    border-color: #334155;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+body.theme-dark .sa-kpi-label {
+    color: var(--text-muted);
+}
+body.theme-dark .sa-kpi-value {
+    color: var(--text-dark);
+}
+body.theme-dark .sa-panel,
+body.theme-dark .sa-panel-recent {
+    background: var(--card-white);
+    border-color: #334155;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+body.theme-dark .sa-panel-head h2 {
+    color: var(--text-dark);
+}
+body.theme-dark .sa-subtle {
+    color: var(--text-muted);
+}
+body.theme-dark .sa-table-wrap {
+    border-top-color: #334155;
+    border-bottom-color: #334155;
+    border-left: none;
+    border-right: none;
+}
+body.theme-dark .sa-table th,
+body.theme-dark .sa-table td {
+    border-color: #334155;
+    color: var(--text-dark);
+}
+body.theme-dark .sa-table th {
+    background: #0f172a;
+    color: var(--text-muted);
+}
+body.theme-dark .sa-panel-recent .sa-table-wrap {
+    border-top-color: #334155;
+    border-bottom-color: #334155;
+    border-left: none;
+    border-right: none;
+    background: var(--card-white);
+}
+body.theme-dark .sa-panel-recent .sa-table thead th {
+    background: #0f172a;
+    color: var(--text-muted);
+    border-color: #334155;
+}
+body.theme-dark .sa-panel-recent .sa-table tbody td {
+    border-color: #334155;
+    color: var(--text-dark);
+}
+body.theme-dark .sa-approved,
+body.theme-dark .sa-panel-recent .sa-approved {
+    background: rgba(16, 185, 129, 0.2);
+    color: #6ee7b7;
+}
+body.theme-dark .sa-pending,
+body.theme-dark .sa-panel-recent .sa-pending {
+    background: rgba(245, 158, 11, 0.25);
+    color: #fcd34d;
+}
+body.theme-dark .sa-rejected,
+body.theme-dark .sa-panel-recent .sa-rejected {
+    background: rgba(239, 68, 68, 0.25);
+    color: #fca5a5;
+}
+body.theme-dark .sa-quick-outline {
+    background: #334155;
+    color: #93c5fd;
+    border-color: #475569;
+}
+body.theme-dark .sa-quick-outline:hover {
+    background: #475569;
+    color: #f1f5f9;
+}
+body.theme-dark .sa-quick-muted {
+    background: #334155;
+    color: #e2e8f0;
+}
+body.theme-dark .sa-quick-muted:hover {
+    background: #475569;
+    color: #f1f5f9;
+}
+body.theme-dark .sa-donut-wrap {
+    background: var(--card-white);
+    border-color: #334155;
+}
+body.theme-dark .sa-donut-center {
+    background: #1e293b;
+    border-color: #334155;
+}
+body.theme-dark .sa-donut-center strong {
+    color: var(--text-dark);
+}
+body.theme-dark .sa-donut-center span {
+    color: var(--text-muted);
+}
+body.theme-dark .sa-quote-table {
+    border-color: #334155;
+}
+body.theme-dark .sa-quote-table th,
+body.theme-dark .sa-quote-table td {
+    border-color: #334155;
+    color: var(--text-dark);
+}
+body.theme-dark .sa-quote-table th {
+    background: #0f172a;
+    color: var(--text-muted);
+}
+body.theme-dark .sa-alert {
+    background: #334155;
+    border-color: #475569;
+}
+body.theme-dark .sa-alert-link:hover {
+    background: #475569;
+}
+body.theme-dark .sa-alert-left {
+    color: var(--text-dark);
+}
+body.theme-dark .sa-alert-meta {
+    color: var(--text-muted);
+}
+body.theme-dark .sa-empty {
+    background: #1e293b;
+    border-color: #475569;
+    color: var(--text-muted);
+}
+
+/* -------------------------------------------------------------------------
+   Admin Management: search, filter dropdowns, table, badges, action buttons
+   ------------------------------------------------------------------------- */
+body.theme-dark .admin-search-wrap {
+    background: #0f172a;
+    border-color: #475569;
+}
+body.theme-dark .admin-search-wrap:hover {
+    background: #1e293b;
+    border-color: #64748b;
+}
+body.theme-dark .admin-search-wrap input {
+    color: #f1f5f9;
+}
+body.theme-dark .admin-search-wrap input::placeholder {
+    color: #64748b;
+}
+body.theme-dark .admin-search-wrap .material-icons {
+    color: var(--text-muted);
+}
+body.theme-dark .admin-filter-trigger {
+    background: #0f172a;
+    border-color: #475569;
+    color: #f1f5f9;
+}
+body.theme-dark .admin-filter-trigger:hover {
+    background: #1e293b;
+    border-color: #64748b;
+}
+body.theme-dark .admin-filter-chevron {
+    color: var(--text-muted);
+}
+body.theme-dark .admin-filter-menu {
+    background: #1e293b;
+    border-color: #475569;
+}
+body.theme-dark .admin-filter-option {
+    color: #e2e8f0;
+}
+body.theme-dark .admin-filter-option:hover,
+body.theme-dark .admin-filter-option:focus-visible {
+    background: #334155;
+}
+body.theme-dark .admin-filter-option[aria-selected="true"] {
+    background: #1e3a5f;
+    color: #93c5fd;
+}
+body.theme-dark .admin-management-table th,
+body.theme-dark .admin-management-table thead th {
+    background: #0f172a;
+    color: var(--text-muted);
+    border-color: #334155;
+}
+body.theme-dark .admin-management-table td {
+    color: var(--text-dark);
+    border-color: #334155;
+}
+body.theme-dark .admin-management-table tbody tr:hover {
+    background: #334155;
+}
+body.theme-dark .table-card.admin-management-card {
+    background: var(--card-white);
+    border-color: #334155;
+}
+body.theme-dark .panel-superadmin .badge-pending,
+body.theme-dark .badge-pending {
+    background: rgba(245, 158, 11, 0.25);
+    color: #fcd34d;
+    border-color: #b45309;
+}
+body.theme-dark .panel-superadmin .badge-approved,
+body.theme-dark .badge-approved {
+    background: rgba(16, 185, 129, 0.2);
+    color: #6ee7b7;
+    border-color: #047857;
+}
+body.theme-dark .panel-superadmin .badge-rejected,
+body.theme-dark .badge-rejected {
+    background: rgba(239, 68, 68, 0.25);
+    color: #fca5a5;
+    border-color: #b91c1c;
+}
+body.theme-dark .btn-action-icon {
+    background: #334155;
+    border-color: #475569;
+    color: #e2e8f0;
+}
+body.theme-dark .btn-action-icon:hover {
+    background: #475569;
+    color: #f1f5f9;
+}
+body.theme-dark .btn-action-icon.deactivate {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: #7f1d1d;
+    color: #fca5a5;
+}
+body.theme-dark .btn-action-icon.deactivate:hover {
+    background: rgba(239, 68, 68, 0.35);
+    border-color: #b91c1c;
+    color: #fecaca;
+}
+
+/* -------------------------------------------------------------------------
+   All Requests (superadmin): status filter dropdown visible in dark mode
+   ------------------------------------------------------------------------- */
+body.theme-dark .all-requests-page .status-filter-label {
+    color: var(--text-muted);
+}
+body.theme-dark .all-requests-page .status-filter-trigger {
+    background: #1e293b;
+    border-color: #475569;
+    color: #f1f5f9;
+}
+body.theme-dark .all-requests-page .status-filter-trigger:hover {
+    border-color: #64748b;
+    background: #334155;
+}
+body.theme-dark .all-requests-page .status-filter-menu {
+    background: #1e293b;
+    border-color: #475569;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+}
+body.theme-dark .all-requests-page .status-filter-option {
+    color: #e2e8f0;
+}
+body.theme-dark .all-requests-page .status-filter-option:hover {
+    background: #334155;
+}
+body.theme-dark .all-requests-page .status-filter-option.selected {
+    background: #1e3a5f;
+    color: #93c5fd;
+}
+body.theme-dark .all-requests-page .status-filter-option {
+    border-color: #475569 !important;
+}
+
+/* Approver All Requests: status filter dark (same pattern) */
+body.theme-dark .approver-all-request-card .status-filter-trigger {
+    background: #1e293b !important;
+    border-color: #475569 !important;
+    color: #f1f5f9 !important;
+}
+body.theme-dark .approver-all-request-card .status-filter-menu {
+    background: #1e293b !important;
+    border-color: #475569 !important;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4) !important;
+}
+body.theme-dark .approver-all-request-card .status-filter-label {
+    color: var(--text-muted) !important;
+}
+body.theme-dark .approver-all-request-card .status-filter-option {
+    color: #e2e8f0 !important;
+}
+body.theme-dark .approver-all-request-card .status-filter-option:hover {
+    background: #334155 !important;
+}
+body.theme-dark .approver-all-request-card .status-filter-option.selected {
+    background: #1e3a5f !important;
+    color: #93c5fd !important;
+}
+body.theme-dark .approver-all-request-card .status-filter-option {
+    border-color: #475569 !important;
+}
+body.theme-dark .approver-all-request-card .status-filter-option-dot {
+    border-color: rgba(255, 255, 255, 0.25) !important;
+}
+body.theme-dark .approver-overview-kpi-icon {
+    border-color: rgba(255, 255, 255, 0.35) !important;
+}
+body.theme-dark .all-requests-page .status-filter-option-dot {
+    border-color: rgba(255, 255, 255, 0.25) !important;
+}
+body.theme-dark.panel-user .view-requests-page .status-filter-option-dot {
+    border-color: rgba(255, 255, 255, 0.25) !important;
+}
+body.theme-dark .approver-all-request-card .reject-reason-view-btn {
+    background: #334155 !important;
+    color: #94a3b8 !important;
+}
+body.theme-dark .approver-all-request-card .reject-reason-view-btn:hover {
+    background: #475569 !important;
+    color: #e2e8f0 !important;
+}
+body.theme-dark .reject-reason-popover {
+    background: var(--card-white) !important;
+    border-color: #334155 !important;
+    color: var(--text-dark) !important;
+}
+body.theme-dark .reject-reason-popover .reject-reason-popover-title {
+    color: var(--text-muted) !important;
+}
+body.theme-dark .reject-reason-popover .reject-reason-popover-close {
+    color: #94a3b8 !important;
+}
+body.theme-dark .reject-reason-popover .reject-reason-popover-close:hover {
+    background: #334155 !important;
+    color: #e2e8f0 !important;
+}
+
+/* Pending Requests & All request: beat inline body.panel-approver !important (use body.theme-dark.panel-approver for higher specificity) */
+body.theme-dark.panel-approver .main {
+    background: var(--bg-main) !important;
+}
+body.theme-dark.panel-approver .header-section h1 {
+    color: var(--text-dark) !important;
+}
+body.theme-dark.panel-approver .header-section p {
+    color: var(--text-muted) !important;
+}
+body.theme-dark.panel-approver .table-card {
+    background: var(--card-white) !important;
+    border: 1px solid #334155 !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
+}
+body.theme-dark.panel-approver .table-card .card-title-bar {
+    border-bottom-color: #334155 !important;
+    background: transparent !important;
+}
+body.theme-dark.panel-approver .table-card .card-title-bar h2 {
+    color: var(--text-dark) !important;
+}
+body.theme-dark.panel-approver .stat-cards .stat-card {
+    background: var(--card-white) !important;
+    border-color: #334155 !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
+}
+body.theme-dark.panel-approver .stat-cards .stat-card .stat-label {
+    color: var(--text-muted) !important;
+}
+body.theme-dark.panel-approver .stat-cards .stat-card .stat-value {
+    color: var(--text-dark) !important;
+}
+body.theme-dark.panel-approver .table-responsive {
+    border: 1px solid #334155 !important;
+}
+body.theme-dark.panel-approver .data-table thead th {
+    background: #0f172a !important;
+    color: var(--text-muted) !important;
+    border-color: #334155 !important;
+}
+body.theme-dark.panel-approver .data-table tbody td {
+    color: var(--text-dark) !important;
+    border-color: #334155 !important;
+    border-bottom-color: rgba(148, 163, 184, 0.4) !important;
+}
+body.theme-dark.panel-approver .table-card .data-table tbody td {
+    border-bottom-color: rgba(148, 163, 184, 0.4) !important;
+}
+body.theme-dark.panel-approver .approver-all-request-card .data-table {
+    background: #ffffff00 !important;
+}
+body.theme-dark.panel-approver .data-table tbody tr:nth-child(even) {
+    background: var(--card-white) !important;
+}
+body.theme-dark.panel-approver .data-table tbody tr:hover {
+    background: #334155 !important;
+}
+body.theme-dark.panel-approver .data-table tbody tr {
+    background: var(--card-white) !important;
+    border-color: #334155 !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
+}
+body.theme-dark.panel-approver .table-card .data-table tbody td::before {
+    color: var(--text-muted) !important;
+}
+
+/* -------------------------------------------------------------------------
+   User panel – same dark mode as super admin / approver
+   ------------------------------------------------------------------------- */
+body.theme-dark.panel-user .main {
+    background: var(--bg-main) !important;
+}
+body.theme-dark.panel-user .header-section h1 {
+    color: var(--text-dark) !important;
+}
+body.theme-dark.panel-user .header-section p {
+    color: var(--text-muted) !important;
+}
+body.theme-dark.panel-user .table-card,
+body.theme-dark.panel-user .card {
+    background: var(--card-white) !important;
+    border: 1px solid #334155 !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
+}
+body.theme-dark.panel-user .table-card .card-title-bar,
+body.theme-dark.panel-user .card .card-title-bar {
+    border-bottom-color: #334155 !important;
+    background: transparent !important;
+}
+body.theme-dark.panel-user .table-card .card-title-bar h2,
+body.theme-dark.panel-user .card .card-title-bar h2 {
+    color: var(--text-dark) !important;
+}
+body.theme-dark.panel-user .stat-cards .stat-card,
+body.theme-dark.panel-user .stat-card,
+body.theme-dark.panel-user .kpi-card {
+    background: var(--card-white) !important;
+    border-color: #334155 !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
+}
+body.theme-dark.panel-user .stat-card .stat-label,
+body.theme-dark.panel-user .kpi-card .kpi-label {
+    color: var(--text-muted) !important;
+}
+body.theme-dark.panel-user .stat-card .stat-value,
+body.theme-dark.panel-user .kpi-card .kpi-value {
+    color: var(--text-dark) !important;
+}
+body.theme-dark.panel-user .table-responsive {
+    border: 1px solid #334155 !important;
+}
+body.theme-dark.panel-user .data-table thead th {
+    background: #0f172a !important;
+    color: var(--text-muted) !important;
+    border-color: #334155 !important;
+}
+body.theme-dark.panel-user .data-table tbody td {
+    color: var(--text-dark) !important;
+    border-color: #334155 !important;
+    border-bottom-color: rgba(148, 163, 184, 0.4) !important;
+}
+body.theme-dark.panel-user .table-card .data-table tbody td {
+    border-bottom: 1px solid rgba(148, 163, 184, 0.4) !important;
+}
+body.theme-dark.panel-user .data-table tbody tr,
+body.theme-dark.panel-user .data-table tbody tr:nth-child(even) {
+    background: var(--card-white) !important;
+    border-color: #334155 !important;
+}
+body.theme-dark.panel-user .data-table tbody tr:hover {
+    background: #334155 !important;
+}
+body.theme-dark.panel-user .user-overview-row-clickable:hover {
+    background: #334155 !important;
+}
+body.theme-dark.panel-user .table-card .data-table tbody td::before {
+    color: var(--text-muted) !important;
+}
+/* User View Requests: status filter (same as super admin all-requests / approver) */
+body.theme-dark.panel-user .view-requests-page .status-filter-label {
+    color: var(--text-muted) !important;
+}
+body.theme-dark.panel-user .view-requests-page .status-filter-trigger {
+    background: #1e293b !important;
+    border-color: #475569 !important;
+    color: #f1f5f9 !important;
+}
+body.theme-dark.panel-user .view-requests-page .status-filter-trigger:hover {
+    border-color: #64748b !important;
+    background: #334155 !important;
+}
+body.theme-dark.panel-user .view-requests-page .status-filter-menu {
+    background: #1e293b !important;
+    border-color: #475569 !important;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4) !important;
+}
+body.theme-dark.panel-user .view-requests-page .status-filter-option {
+    color: #e2e8f0 !important;
+}
+body.theme-dark.panel-user .view-requests-page .status-filter-option:hover {
+    background: #334155 !important;
+}
+body.theme-dark.panel-user .view-requests-page .status-filter-option.selected {
+    background: #1e3a5f !important;
+    color: #93c5fd !important;
+}
+body.theme-dark.panel-user .view-requests-page .status-filter-option {
+    border-color: #475569 !important;
+}
+/* User View Requests: mobile card rows */
+body.theme-dark.panel-user .view-requests-page .data-table tbody tr {
+    background: var(--card-white) !important;
+    border-color: #334155 !important;
+}
+body.theme-dark.panel-user .view-requests-page .data-table tbody tr:nth-child(even) {
+    background: var(--card-white) !important;
+}
+body.theme-dark.panel-user .view-requests-page .data-table tbody tr:hover {
+    background: #334155 !important;
+}
+body.theme-dark.panel-user .view-requests-page .data-table tbody td {
+    color: var(--text-dark) !important;
+}
+body.theme-dark.panel-user .view-requests-page .data-table tbody td::before {
+    color: var(--text-muted) !important;
+}
+
+/* Support page: card and text in dark mode */
+body.theme-dark.panel-user .support-card {
+    background: var(--card-white) !important;
+    border-color: #334155 !important;
+}
+body.theme-dark.panel-user .support-card strong {
+    color: var(--text-dark);
+}
+body.theme-dark.panel-user .support-card-desc {
+    color: var(--text-muted) !important;
+}
+
+/* Create Request page: item rows and form in dark mode */
+body.theme-dark .create-request-card .item-row {
+    background: var(--card-white) !important;
+    border-color: #334155 !important;
+}
+body.theme-dark .create-request-card .item-row-header {
+    color: var(--text-dark) !important;
+}
+body.theme-dark .create-request-card .item-row-delete {
+    background: rgba(239, 68, 68, 0.25) !important;
+    color: #fca5a5 !important;
+}
+body.theme-dark .create-request-card .item-row-delete:hover:not(:disabled) {
+    background: rgba(239, 68, 68, 0.4) !important;
+    color: #fecaca !important;
+}
+body.theme-dark .create-request-card .item-row-delete:disabled {
+    background: #334155 !important;
+    color: #64748b !important;
+}
+body.theme-dark .create-request-card .form-group-qty .qty-hint {
+    color: var(--text-muted) !important;
+}
+
+/* User dashboard (standalone): panels, table, alerts, donut, quick actions – match second pic */
+body.theme-dark .overview-table {
+    background: var(--card-white) !important;
+}
+body.theme-dark .overview-table th,
+body.theme-dark .overview-table td {
+    border-color: #334155 !important;
+    color: var(--text-dark) !important;
+}
+body.theme-dark .overview-table th {
+    background: #0f172a !important;
+    color: var(--text-muted) !important;
+}
+/* Recent Requests card rows (mobile/responsive): dark card, white value text, muted labels */
+body.theme-dark .overview-table tbody tr {
+    background: var(--card-white) !important;
+    border-top-color: #334155 !important;
+    border-bottom-color: #334155 !important;
+    border-left: none !important;
+    border-right: none !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
+}
+body.theme-dark .overview-table tbody td {
+    color: var(--text-dark) !important;
+    border-bottom-color: rgba(148, 163, 184, 0.35) !important;
+}
+body.theme-dark .overview-table tbody td::before {
+    color: var(--text-muted) !important;
+}
+body.theme-dark .table-wrap {
+    border-top-color: #334155 !important;
+    border-bottom-color: #334155 !important;
+    border-left: none !important;
+    border-right: none !important;
+}
+body.theme-dark .user-overview-row-clickable:hover {
+    background: #334155 !important;
+}
+body.theme-dark .alert-item {
+    background: var(--card-white) !important;
+    border-color: #334155 !important;
+}
+body.theme-dark .alert-item-link:hover {
+    background: #334155 !important;
+}
+body.theme-dark .alert-item .alert-left {
+    color: var(--text-dark) !important;
+}
+body.theme-dark .alert-item .alert-meta {
+    color: var(--text-muted) !important;
+}
+body.theme-dark .donut-center {
+    background: var(--card-white) !important;
+    border-color: #334155 !important;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25) !important;
+}
+body.theme-dark .donut-center strong {
+    color: var(--text-dark) !important;
+}
+body.theme-dark .donut-center span {
+    color: var(--text-muted) !important;
+}
+body.theme-dark .legend-item {
+    background: #334155 !important;
+    color: var(--text-dark) !important;
+}
+body.theme-dark .empty-state {
+    color: var(--text-muted) !important;
+}
+body.theme-dark .overview-panel {
+    border-color: #334155 !important;
+}
+body.theme-dark .quick-actions {
+    background: var(--card-white) !important;
+    border-color: #334155 !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
+}
+body.theme-dark .quick-actions h3 {
+    color: var(--text-muted) !important;
+}
+/* Quick action buttons: like second pic – primary blue, outline/muted dark with white text & icons */
+body.theme-dark .quick-actions a.btn-primary {
+    background: var(--primary) !important;
+    color: #fff !important;
+    border: none !important;
+}
+body.theme-dark .quick-actions a.btn-primary:hover {
+    background: var(--primary-hover) !important;
+    color: #fff !important;
+}
+body.theme-dark .quick-actions a.btn-outline {
+    background: #334155 !important;
+    color: #93c5fd !important;
+    border: 1px solid #475569 !important;
+}
+body.theme-dark .quick-actions a.btn-outline:hover {
+    background: #475569 !important;
+    color: #f1f5f9 !important;
+}
+body.theme-dark .quick-actions a.btn-secondary {
+    background: #334155 !important;
+    color: #e2e8f0 !important;
+    border: none !important;
+}
+body.theme-dark .quick-actions a.btn-secondary:hover {
+    background: #475569 !important;
+    color: #f1f5f9 !important;
+}
+body.theme-dark .quick-actions a .material-icons {
+    color: inherit !important;
+}
+
+/* -------------------------------------------------------------------------
+   Mobile: table rows as cards – override responsive background: #fff so
+   cards are dark in dark mode (Overview, Admin Management, All Requests)
+   ------------------------------------------------------------------------- */
+body.theme-dark .sa-table tbody tr {
+    background: var(--card-white) !important;
+    border-left: none !important;
+    border-right: none !important;
+}
+body.theme-dark .sa-row-clickable:hover {
+    background: #334155 !important;
+    border-color: #334155 !important;
+}
+body.theme-dark .sa-table tbody tr td {
+    color: var(--text-dark);
+}
+body.theme-dark .sa-table tbody tr td::before {
+    color: var(--text-muted);
+}
+body.theme-dark .admin-management-table tbody tr,
+body.theme-dark .admin-simple-table tbody tr {
+    background: var(--card-white) !important;
+    border-color: #334155 !important;
+}
+body.theme-dark .admin-management-table tbody tr td,
+body.theme-dark .admin-simple-table tbody tr td {
+    color: var(--text-dark);
+}
+body.theme-dark .admin-management-table tbody tr td::before,
+body.theme-dark .admin-simple-table tbody tr td::before {
+    color: var(--text-muted);
+}
+body.theme-dark .table-card.all-requests-table .data-table tbody tr {
+    background: var(--card-white) !important;
+    border-color: #334155 !important;
+}
+body.theme-dark .table-card.all-requests-table .data-table tbody tr td {
+    color: var(--text-dark);
+}
+body.theme-dark .table-card.all-requests-table .data-table tbody tr td::before {
+    color: var(--text-muted);
+}
+/* All Requests: readable "Requests" header and lightened divider lines in dark mode */
+body.theme-dark .table-card.all-requests-table .card-title-bar h2 {
+    color: var(--text-dark) !important;
+}
+body.theme-dark .all-requests-page .status-filter-label {
+    color: var(--text-muted) !important;
+}
+body.theme-dark .table-card.all-requests-table .data-table tbody td {
+    border-bottom: 1px solid rgba(148, 163, 184, 0.4) !important;
+}
+body.theme-dark .table-card.all-requests-table,
+body.theme-dark.panel-superadmin .table-card.all-requests-table {
+    border: 1px solid #334155 !important;
+}
+body.theme-dark .table-card.all-requests-table .table-responsive,
+body.theme-dark.panel-superadmin .table-card .table-responsive {
+    border: 1px solid #334155 !important;
+}
+
+/* -------------------------------------------------------------------------
+   Modals – dark overlay and content in dark mode
+   ------------------------------------------------------------------------- */
+body.theme-dark .modal-overlay {
+    background: rgba(15, 23, 42, 0.85) !important;
+}
+body.theme-dark .modal-box {
+    background: var(--card-white) !important;
+    border: 1px solid #334155 !important;
+}
+body.theme-dark .modal-overlay .modal-header,
+body.theme-dark .modal-box .modal-header {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+    color: var(--text-dark) !important;
+}
+body.theme-dark .modal-overlay .modal-header h3,
+body.theme-dark .modal-overlay .modal-body,
+body.theme-dark .modal-overlay .modal-footer,
+body.theme-dark .modal-box .modal-body,
+body.theme-dark .modal-box .modal-footer {
+    color: var(--text-dark) !important;
+    border-color: #334155 !important;
+}
+body.theme-dark .modal-overlay .modal-body,
+body.theme-dark .modal-box .modal-body {
+    background: var(--card-white) !important;
+}
+
+/* Admin modals (Add User, Edit Role, Reauth): always light/white in dark mode */
+body.theme-dark .panel-superadmin .modal-overlay .modal-box {
+    background: #ffffff !important;
+    border-color: #e5e7eb !important;
+}
+body.theme-dark .panel-superadmin .modal-overlay .modal-header,
+body.theme-dark .panel-superadmin .modal-box .modal-header {
+    background: #f8fafc !important;
+    border-color: #e5e7eb !important;
+    color: #0f172a !important;
+}
+body.theme-dark .panel-superadmin .modal-overlay .modal-header h3 {
+    color: #0f172a !important;
+}
+body.theme-dark .panel-superadmin .modal-overlay .modal-close,
+body.theme-dark .panel-superadmin .modal-box .modal-close {
+    color: #64748b !important;
+}
+body.theme-dark .panel-superadmin .modal-overlay .modal-close:hover,
+body.theme-dark .panel-superadmin .modal-box .modal-close:hover {
+    color: #0f172a !important;
+}
+body.theme-dark .panel-superadmin .modal-overlay .modal-body,
+body.theme-dark .panel-superadmin .modal-box .modal-body {
+    background: #ffffff !important;
+    color: #1e293b !important;
+    border-color: #e5e7eb !important;
+}
+body.theme-dark .panel-superadmin .modal-overlay .modal-body label,
+body.theme-dark .panel-superadmin .modal-box .modal-body label {
+    color: #334155 !important;
+}
+body.theme-dark .panel-superadmin .modal-overlay .modal-body input,
+body.theme-dark .panel-superadmin .modal-overlay .modal-body select,
+body.theme-dark .panel-superadmin .modal-box .modal-body input,
+body.theme-dark .panel-superadmin .modal-box .modal-body select,
+body.theme-dark .panel-superadmin .modal-overlay .modal-body textarea,
+body.theme-dark .panel-superadmin .modal-box .modal-body textarea {
+    background: #ffffff !important;
+    border-color: #e5e7eb !important;
+    color: #1e293b !important;
+}
+body.theme-dark .panel-superadmin .modal-overlay .modal-body input::placeholder,
+body.theme-dark .panel-superadmin .modal-overlay .modal-body textarea::placeholder,
+body.theme-dark .panel-superadmin .modal-box .modal-body input::placeholder,
+body.theme-dark .panel-superadmin .modal-box .modal-body textarea::placeholder {
+    color: #94a3b8 !important;
+}
+body.theme-dark .panel-superadmin .modal-overlay .modal-footer,
+body.theme-dark .panel-superadmin .modal-box .modal-footer {
+    background: #ffffff !important;
+    border-color: #e5e7eb !important;
+    color: #1e293b !important;
+}
+body.theme-dark .panel-superadmin .modal-overlay .btn-secondary,
+body.theme-dark .panel-superadmin .modal-box .btn-secondary {
+    background: #f1f5f9 !important;
+    color: #334155 !important;
+    border-color: #e2e8f0 !important;
+}
+body.theme-dark .panel-superadmin .modal-overlay .btn-secondary:hover,
+body.theme-dark .panel-superadmin .modal-box .btn-secondary:hover {
+    background: #e2e8f0 !important;
+    color: #0f172a !important;
+}
+body.theme-dark .panel-superadmin .modal-overlay .btn-primary,
+body.theme-dark .panel-superadmin .modal-box .btn-primary {
+    background: #2563eb !important;
+    color: #ffffff !important;
+}
+body.theme-dark .panel-superadmin .modal-overlay .btn-primary:hover,
+body.theme-dark .panel-superadmin .modal-box .btn-primary:hover {
+    background: #1d4ed8 !important;
+    color: #ffffff !important;
+}
+body.theme-dark .panel-superadmin .modal-overlay p,
+body.theme-dark .panel-superadmin .modal-box p {
+    color: #475569 !important;
+}
+body.theme-dark .panel-superadmin .modal-overlay .send-otp-btn,
+body.theme-dark .panel-superadmin .modal-box .send-otp-btn {
+    background: #e2e8f0 !important;
+    color: #334155 !important;
+    border-color: #cbd5e1 !important;
+}
+body.theme-dark .panel-superadmin .modal-overlay .send-otp-btn:hover,
+body.theme-dark .panel-superadmin .modal-box .send-otp-btn:hover {
+    background: #cbd5e1 !important;
+    color: #0f172a !important;
+}
+/* Request details modal (approver + superadmin): always light/white in dark mode */
+body.theme-dark .view-request-modal-content,
+body.theme-dark #viewRequestModal .view-request-modal-content,
+body.theme-dark #view-request-modal-overlay .view-request-modal {
+    background: #ffffff !important;
+    border: 1px solid #e5e7eb !important;
+}
+body.theme-dark .view-request-modal-header,
+body.theme-dark #viewRequestModal .view-request-modal-header,
+body.theme-dark #view-request-modal-overlay .view-request-modal .modal-header {
+    background: #2563eb !important;
+    border-color: #1d4ed8 !important;
+    color: #ffffff !important;
+}
+body.theme-dark .view-request-modal-title,
+body.theme-dark #viewRequestModal .view-request-modal-title,
+body.theme-dark #view-request-modal-overlay .view-request-modal .modal-header h3 {
+    color: #ffffff !important;
+}
+body.theme-dark .view-request-modal-close,
+body.theme-dark .view-request-modal-content .view-request-modal-close,
+body.theme-dark #view-request-modal-overlay .view-request-modal .modal-close {
+    color: rgba(255, 255, 255, 0.95) !important;
+    background: rgba(255, 255, 255, 0.2) !important;
+}
+body.theme-dark .view-request-modal-close:hover,
+body.theme-dark .view-request-modal-content .view-request-modal-close:hover,
+body.theme-dark #view-request-modal-overlay .view-request-modal .modal-close:hover {
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.3) !important;
+}
+body.theme-dark .view-request-modal-body,
+body.theme-dark #viewRequestModal .view-request-modal-body,
+body.theme-dark #view-request-modal-overlay .view-request-modal-body {
+    background: #ffffff !important;
+    color: #1e293b !important;
+}
+body.theme-dark .view-request-section-title,
+body.theme-dark #viewRequestModal .view-request-section-title,
+body.theme-dark #view-request-modal-overlay .view-request-section-title {
+    color: #64748b !important;
+    border-bottom-color: #e2e8f0 !important;
+}
+body.theme-dark #viewRequestModal .view-request-dl dt,
+body.theme-dark #view-request-modal-overlay .view-request-dl dt {
+    color: #64748b !important;
+}
+body.theme-dark #viewRequestModal .view-request-dl dd,
+body.theme-dark #view-request-modal-overlay .view-request-dl dd {
+    color: #1e293b !important;
+}
+body.theme-dark #viewRequestModal .request-detail-card .view-request-dl dt,
+body.theme-dark #view-request-modal-overlay .request-detail-card .view-request-dl dt {
+    color: #64748b !important;
+}
+body.theme-dark #viewRequestModal .request-detail-card .view-request-dl dd,
+body.theme-dark #view-request-modal-overlay .request-detail-card .view-request-dl dd {
+    color: #1e293b !important;
+}
+body.theme-dark #viewRequestModal .view-request-modal-footer,
+body.theme-dark #view-request-modal-overlay .view-request-modal-footer {
+    background: #ffffff !important;
+    border-top-color: #e2e8f0 !important;
+}
+body.theme-dark #viewRequestModal .view-request-btn-close {
+    background: #2563eb !important;
+    color: #ffffff !important;
+}
+body.theme-dark #viewRequestModal .view-request-btn-close:hover {
+    background: #1d4ed8 !important;
+    color: #ffffff !important;
+}
+body.theme-dark #view-request-modal-overlay .view-request-btn-approve,
+body.theme-dark #view-request-modal-overlay .view-request-btn-reject,
+body.theme-dark #view-request-modal-overlay .view-request-btn-archive,
+body.theme-dark #view-request-modal-overlay .view-request-btn-restore {
+    color: #fff !important;
+}
+body.theme-dark #view-request-modal-overlay .view-request-btn-approve {
+    background: #10b981 !important;
+    color: #fff !important;
+}
+body.theme-dark #view-request-modal-overlay .view-request-btn-reject {
+    background: #ef4444 !important;
+    color: #fff !important;
+}
+body.theme-dark #view-request-modal-overlay .view-request-btn-archive,
+body.theme-dark #view-request-modal-overlay .view-request-btn-restore {
+    background: #64748b !important;
+    color: #fff !important;
+}
+body.theme-dark #rejectModal .reject-modal-content,
+body.theme-dark .reject-modal-content {
+    background: var(--card-white) !important;
+    border-color: #334155 !important;
+}
+body.theme-dark #rejectModal .reject-modal-title,
+body.theme-dark .reject-modal-title {
+    color: var(--text-dark) !important;
+}
+body.theme-dark #rejectModal .reject-modal-desc,
+body.theme-dark .reject-modal-desc {
+    color: var(--text-muted) !important;
+}
+body.theme-dark #rejectModal .reject-modal-label,
+body.theme-dark .reject-modal-label {
+    color: var(--text-dark) !important;
+}
+body.theme-dark #rejectModal .reject-modal-textarea,
+body.theme-dark .reject-modal-textarea {
+    background: #0f172a !important;
+    border-color: #475569 !important;
+    color: #f1f5f9 !important;
+}
+body.theme-dark #rejectModal .reject-modal-actions,
+body.theme-dark .reject-modal-actions {
+    border-color: #334155 !important;
+}
+body.theme-dark #approveModal .approve-modal-content,
+body.theme-dark .approve-modal-content {
+    background: var(--card-white) !important;
+    border-color: #334155 !important;
+}
+body.theme-dark #approveModal .approve-modal-header,
+body.theme-dark .approve-modal-header {
+    border-color: #334155 !important;
+}
+body.theme-dark #approveModal .approve-modal-title,
+body.theme-dark .approve-modal-title {
+    color: var(--text-dark) !important;
+}
+body.theme-dark #approveModal .approve-modal-desc,
+body.theme-dark .approve-modal-desc {
+    color: var(--text-muted) !important;
+}
+body.theme-dark #approveModal .approve-modal-actions,
+body.theme-dark .approve-modal-actions {
+    border-color: #334155 !important;
+}
+
+/* Edit Request modal – dark theme */
+body.theme-dark .edit-request-modal-overlay {
+    background: rgba(15, 23, 42, 0.85) !important;
+}
+body.theme-dark .edit-request-modal {
+    background: var(--card-white) !important;
+    border: 1px solid #334155 !important;
+}
+body.theme-dark .edit-request-modal .modal-header {
+    background: #1e3a5f !important;
+    border-bottom-color: #334155 !important;
+    color: #f1f5f9 !important;
+}
+body.theme-dark .edit-request-modal .modal-header h3 {
+    color: #f1f5f9 !important;
+}
+body.theme-dark .edit-request-modal .modal-close {
+    color: #94a3b8 !important;
+}
+body.theme-dark .edit-request-modal .modal-close:hover {
+    color: #f1f5f9 !important;
+}
+body.theme-dark .edit-request-modal .modal-body {
+    background: var(--card-white) !important;
+    color: var(--text-dark) !important;
+}
+body.theme-dark .edit-request-modal .form-group label {
+    color: var(--text-dark) !important;
+}
+body.theme-dark .edit-request-modal .form-group input,
+body.theme-dark .edit-request-modal .form-group textarea {
+    background: #0f172a !important;
+    border-color: #475569 !important;
+    color: #f1f5f9 !important;
+}
+body.theme-dark .edit-request-modal .form-group input::placeholder,
+body.theme-dark .edit-request-modal .form-group textarea::placeholder {
+    color: #94a3b8 !important;
+}
+body.theme-dark .edit-request-modal .modal-footer {
+    background: var(--card-white) !important;
+    border-top-color: rgba(148, 163, 184, 0.35) !important;
+}
+body.theme-dark .edit-request-modal .btn-secondary {
+    background: #334155 !important;
+    color: #e2e8f0 !important;
+    border-color: #475569 !important;
+}
+body.theme-dark .edit-request-modal .btn-secondary:hover {
+    background: #475569 !important;
+    color: #f1f5f9 !important;
+}
+
+/* icon buttons  */
+body.theme-dark .all-requests-actions .btn-icon,
+body.theme-dark .all-requests-actions .btn-view-request-sa {
+    background: #334155 !important;
+    color: #e2e8f0 !important;
+    border: 1px solid #475569 !important;
+}
+body.theme-dark .all-requests-actions .btn-icon:hover,
+body.theme-dark .all-requests-actions .btn-view-request-sa:hover {
+    background: #475569 !important;
+    color: #f1f5f9 !important;
+}
+body.theme-dark .all-requests-actions .btn-icon .material-icons {
+    color: inherit;
+}
+body.theme-dark .btn-icon-view,
+body.theme-dark .btn-icon-action {
+    background: #334155 !important;
+    color: #e2e8f0 !important;
+    border-color: #475569 !important;
+}
+body.theme-dark .btn-icon-view:hover,
+body.theme-dark .btn-icon-action:hover {
+    background: #475569 !important;
+    color: #f1f5f9 !important;
+}
+body.theme-dark .btn-icon-view .material-icons,
+body.theme-dark .btn-icon-action .material-icons {
+    color: inherit;
+}
+body.theme-dark .btn-icon-approve {
+    background: rgba(16, 185, 129, 0.25) !important;
+    color: #6ee7b7 !important;
+    border-color: #047857 !important;
+}
+body.theme-dark .btn-icon-approve:hover {
+    background: rgba(16, 185, 129, 0.4) !important;
+    color: #a7f3d0 !important;
+}
+body.theme-dark .btn-icon-reject {
+    background: rgba(239, 68, 68, 0.25) !important;
+    color: #fca5a5 !important;
+    border-color: #b91c1c !important;
+}
+body.theme-dark .btn-icon-reject:hover {
+    background: rgba(239, 68, 68, 0.4) !important;
+    color: #fecaca !important;
+}
+body.theme-dark .all-requests-pagination {
+    background: var(--card-white) !important;
+    border-color: #334155 !important;
+}
+body.theme-dark .all-requests-pagination a,
+body.theme-dark .all-requests-pagination span {
+    color: var(--text-dark) !important;
+}

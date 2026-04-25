@@ -25,7 +25,16 @@ export function initSidebar(storageKey) {
         toggle.addEventListener('click', () => setCollapsed(!sidebar.classList.contains('collapsed')));
     }
 
+    /* If sidebar is already collapsed (e.g. server-set for superadmin content pages), keep it and persist */
+    if (sidebar && sidebar.classList.contains('collapsed')) {
+        try { localStorage.setItem(storageKey, '1'); } catch (e) {}
+        return;
+    }
+    /* Otherwise start expanded; clear any saved collapsed state */
     try {
-        if (localStorage.getItem(storageKey) === '1') setCollapsed(true);
+        localStorage.removeItem(storageKey);
     } catch (e) {}
+    if (sidebar) {
+        setCollapsed(false);
+    }
 }

@@ -22,6 +22,7 @@ export function initSidebarAjaxNav() {
 
   function shouldIntercept(link) {
     if (link.hasAttribute('data-full-reload')) return false;
+    if (link.getAttribute('aria-haspopup') === 'true') return false; /* dropdown toggle (e.g. All Requests) */
     if (link.classList.contains('logout-link-get') || link.classList.contains('logout-link')) return false;
     if (link.target === '_blank') return false;
     const origin = isSameOrigin(link.href);
@@ -73,6 +74,8 @@ export function initSidebarAjaxNav() {
     main.innerHTML = root ? root.innerHTML : html;
     runScripts(main);
     setActiveLink();
+    /* So user-panel can expand sidebar and show labels after nav */
+    window.dispatchEvent(new CustomEvent('sidebar-ajax-nav-applied'));
   }
 
   function loadPartial(href) {

@@ -73,9 +73,7 @@
     </div>
 
     <!-- Footer -->
-    <footer class="footer">
-        <p class="copyright">© {{ date('Y') }} Product Request System - Department of Information and Communications Technology</p>
-    </footer>
+    @include('partials.footer')
 
 </body>
 </html>

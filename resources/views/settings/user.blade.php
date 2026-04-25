@@ -1,12 +1,14 @@
-@extends('layouts.superadmin')
-@section('title', 'System Settings')
-@section('content')
+@extends('layouts.user-panel')
+
+@section('title', 'Settings')
+
+@section('main')
 <div class="header-section">
-    <h1>System Settings</h1>
-    <p>Configure system options.</p>
+    <h1>Settings</h1>
+    <p>Manage your preferences.</p>
 </div>
 
-<div class="card settings-card-appearance">
+<div class="card settings-card-appearance" style="max-width: 560px;">
     <div class="card-title-bar">
         <h2>Appearance</h2>
     </div>
@@ -20,12 +22,5 @@
         </div>
         <p class="settings-theme-note">Your choice is saved in this browser only.</p>
     </div>
-</div>
-
-<div class="card">
-    <div class="card-title-bar">
-        <h2>General</h2>
-    </div>
-    <p style="padding: 0 24px 24px; color: #64748b;">Additional system settings (notifications, defaults) will be available in a future update.</p>
 </div>
 @endsection

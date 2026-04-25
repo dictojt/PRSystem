@@ -136,9 +136,9 @@
 /* Badges */
 .view-requests-page .badge {
     display: inline-block;
-    padding: 5px 12px;
+    padding: 4px 10px;
     border-radius: 6px;
-    font-size: 12px;
+    font-size: var(--text-sm);
     font-weight: 600;
     white-space: nowrap;
 }
@@ -169,7 +169,7 @@
 
 /* Empty state and guest message */
 .view-requests-page .card p {
-    font-size: 14px;
+    font-size: var(--text-base);
     line-height: 1.5;
 }
 

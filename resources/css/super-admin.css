@@ -4,10 +4,33 @@
 @import './partials/sidebar.css';
 @import './partials/panel-layout.css';
 @import './partials/components.css';
+@import './partials/theme-dark.css';
 
-/* Super admin uses shared light sidebar (same as user panel) - no dark overrides */
+/* Sidebar: same look as User (first pic) - dark blue gradient, profile card, labels */
+.panel-superadmin .sidebar,
+.panel-superadmin #sidebar,
+.panel-superadmin .container .sidebar {
+    background: #1a365d !important;
+}
+.panel-superadmin .sidebar .profile-card {
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.panel-superadmin .sidebar .menu-top a.active {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+}
+.panel-superadmin .sidebar .logout button,
+.panel-superadmin .sidebar .logout .logout-link-get {
+    background: #1e40af;
+}
+.panel-superadmin .sidebar .logout button:hover,
+.panel-superadmin .sidebar .logout .logout-link-get:hover {
+    background: #1e3a8a;
+}
 
-/* Sidebar: All Requests submenu (hover) */
+/* Sidebar: All Requests submenu (matches dark blue sidebar) */
 .panel-superadmin .sidebar .menu-top .menu-item.has-submenu {
     position: relative;
 }
@@ -19,7 +42,7 @@
 .panel-superadmin .sidebar .menu-top .menu-item.has-submenu .sidebar-submenu-chevron {
     margin-left: auto;
     font-size: 18px;
-    color: var(--sidebar-text);
+    color: rgba(255, 255, 255, 0.9);
     transition: transform 0.2s ease;
 }
 .panel-superadmin .sidebar .menu-top .menu-item.has-submenu:hover .sidebar-submenu-chevron {
@@ -32,31 +55,184 @@
     padding: 4px 0 4px 12px;
     margin-left: 32px;
     margin-top: 4px;
-    border-left: 2px solid var(--sidebar-border);
+    border-left: 2px solid rgba(255, 255, 255, 0.2);
 }
-.panel-superadmin .sidebar .menu-item.has-submenu:hover .sidebar-submenu {
+.panel-superadmin .sidebar .menu-item.has-submenu:hover .sidebar-submenu,
+.panel-superadmin .sidebar .menu-item.has-submenu.submenu-open .sidebar-submenu {
     display: flex;
+}
+.panel-superadmin .sidebar .menu-item.has-submenu.submenu-open .sidebar-submenu-chevron {
+    transform: rotate(-180deg);
 }
 .panel-superadmin .sidebar .sidebar-submenu a {
     padding: 8px 12px;
     font-size: 13px;
     font-weight: 500;
-    color: var(--sidebar-text);
+    color: rgba(255, 255, 255, 0.9);
     text-decoration: none;
     border-radius: 6px;
     transition: background 0.2s, color 0.2s;
 }
 .panel-superadmin .sidebar .sidebar-submenu a:hover {
-    background: #e5e7eb;
-    color: var(--sidebar-text-dark);
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
 }
 .panel-superadmin .sidebar .sidebar-submenu a.active {
-    background: #eff6ff;
-    color: var(--primary);
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
 }
 .panel-superadmin .sidebar.collapsed .menu-item.has-submenu .sidebar-submenu,
 .panel-superadmin .sidebar.collapsed .menu-item.has-submenu .sidebar-submenu-chevron {
     display: none !important;
+}
+
+/* When collapsed: flyout dropdown for All Requests (rendered in body so not clipped by sidebar overflow) */
+.all-requests-flyout {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    position: fixed;
+    left: 72px;
+    min-width: 160px;
+    padding: 8px 0;
+    margin: 0;
+    background: #1a365d;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    z-index: 1001;
+}
+.all-requests-flyout a {
+    padding: 10px 16px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+.all-requests-flyout a:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+}
+.all-requests-flyout a.active {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+}
+
+/* Mobile: sidebar only (no hamburger). Collapsed = icon bar; expanded = overlay + backdrop. */
+.sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 998;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+.panel-superadmin .sidebar-backdrop {
+    display: none;
+    z-index: 999;
+}
+body:not(.sidebar-collapsed).panel-superadmin .sidebar-backdrop {
+    display: block;
+    opacity: 1;
+}
+@media (min-width: 993px) {
+    .panel-superadmin .sidebar-backdrop { display: none !important; }
+}
+
+@media (max-width: 992px) {
+    body.sidebar-collapsed.panel-superadmin .sidebar {
+        width: 72px !important;
+        min-width: 72px !important;
+        max-width: 72px !important;
+        padding: 12px 8px;
+        transform: none;
+    }
+    body.sidebar-collapsed.panel-superadmin .sidebar .sidebar-label,
+    body.sidebar-collapsed.panel-superadmin .sidebar .menu-top a .sidebar-label,
+    body.sidebar-collapsed.panel-superadmin .sidebar .logout button .sidebar-label,
+    body.sidebar-collapsed.panel-superadmin .sidebar .logout .logout-link-get .sidebar-label,
+    body.sidebar-collapsed.panel-superadmin .sidebar .profile-card .profile-name,
+    body.sidebar-collapsed.panel-superadmin .sidebar .profile-card .profile-email {
+        display: none !important;
+    }
+    body.sidebar-collapsed.panel-superadmin .sidebar .sidebar-header {
+        flex-direction: column-reverse;
+        gap: 6px;
+        justify-content: flex-start;
+        margin-bottom: 10px;
+    }
+    body.sidebar-collapsed.panel-superadmin .sidebar .sidebar-header h2 {
+        justify-content: center;
+        margin-bottom: 0;
+    }
+    body.sidebar-collapsed.panel-superadmin .sidebar .profile-card {
+        justify-content: center;
+        padding: 10px;
+    }
+    body.sidebar-collapsed.panel-superadmin .sidebar .profile-avatar {
+        margin-right: 0;
+    }
+    body.sidebar-collapsed.panel-superadmin .sidebar .menu-top a,
+    body.sidebar-collapsed.panel-superadmin .sidebar .logout button,
+    body.sidebar-collapsed.panel-superadmin .sidebar .logout .logout-link-get {
+        justify-content: center;
+        padding: 12px;
+    }
+    body.sidebar-collapsed.panel-superadmin .main {
+        margin-left: 72px !important;
+        width: calc(100% - 72px) !important;
+    }
+
+    body:not(.sidebar-collapsed).panel-superadmin .sidebar {
+        width: 280px !important;
+        min-width: 280px !important;
+        max-width: 280px !important;
+        padding: 16px 12px;
+        transform: none;
+        box-shadow: 4px 0 24px rgba(0, 0, 0, 0.25);
+    }
+    body:not(.sidebar-collapsed).panel-superadmin .sidebar .sidebar-label,
+    body:not(.sidebar-collapsed).panel-superadmin .sidebar .menu-top a .sidebar-label,
+    body:not(.sidebar-collapsed).panel-superadmin .sidebar .logout button .sidebar-label,
+    body:not(.sidebar-collapsed).panel-superadmin .sidebar .logout .logout-link-get .sidebar-label,
+    body:not(.sidebar-collapsed).panel-superadmin .sidebar .profile-card .profile-name,
+    body:not(.sidebar-collapsed).panel-superadmin .sidebar .profile-card .profile-email {
+        display: block !important;
+    }
+    body:not(.sidebar-collapsed).panel-superadmin .sidebar .sidebar-header {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    body:not(.sidebar-collapsed).panel-superadmin .sidebar .profile-card {
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+    body:not(.sidebar-collapsed).panel-superadmin .sidebar .profile-avatar {
+        margin-right: 12px;
+    }
+    body:not(.sidebar-collapsed).panel-superadmin .sidebar .menu-top a,
+    body:not(.sidebar-collapsed).panel-superadmin .sidebar .logout button,
+    body:not(.sidebar-collapsed).panel-superadmin .sidebar .logout .logout-link-get {
+        justify-content: flex-start;
+    }
+    body:not(.sidebar-collapsed).panel-superadmin .main {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+}
+
+@media (max-width: 768px) {
+    body.sidebar-collapsed.panel-superadmin .sidebar {
+        padding: 10px 6px;
+    }
+    body.sidebar-collapsed.panel-superadmin .sidebar .sidebar-toggle {
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+        min-height: 36px;
+    }
 }
 
 /* Main content polish - super admin (clean like user View Request) */
@@ -178,7 +354,7 @@
     width: 44px;
     height: 44px;
     border-radius: 10px;
-    background: #eff6ff;
+    background: transparent;
     color: var(--primary);
     display: flex;
     align-items: center;
@@ -309,9 +485,9 @@
 }
 
 .card-title-bar .material-icons {
-    background: #eff6ff;
+    background: transparent;
     color: var(--primary);
-    padding: 8px;
+    padding: 2px;
     border-radius: 8px;
     font-size: 20px;
 }
@@ -371,9 +547,9 @@
 }
 
 .badge {
-    padding: 5px 12px;
+    padding: 4px 10px;
     border-radius: 6px;
-    font-size: 12px;
+    font-size: var(--text-sm);
     font-weight: 600;
 }
 
@@ -390,6 +566,11 @@
 .badge-rejected {
     background: #fee2e2;
     color: #b91c1c;
+}
+
+.badge-info {
+    background: #dbeafe;
+    color: #1d4ed8;
 }
 
 .btn-danger {
@@ -420,7 +601,7 @@
     text-decoration: none;
     background: #f3f4f6;
     color: var(--text-dark);
-    font-size: 14px;
+    font-size: var(--text-btn);
 }
 
 .pagination a:hover {
@@ -433,15 +614,6 @@
     cursor: not-allowed;
 }
 
-.footer {
-    background: var(--card-white);
-    padding: 16px 24px;
-    margin-top: 24px;
-    text-align: center;
-    border-top: 1px solid #e5e7eb;
-}
-
-.footer .copyright {
-    font-size: 12px;
-    color: var(--text-muted);
+.panel-superadmin .footer {
+    margin-top: 40px;
 }

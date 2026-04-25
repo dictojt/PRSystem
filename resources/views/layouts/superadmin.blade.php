@@ -21,9 +21,7 @@
         </div>
     @endif
     @yield('content')
-    <footer class="footer">
-        <p class="copyright">© {{ date('Y') }} Product Request System - DICT</p>
-    </footer>
+    @include('partials.footer')
     @stack('scripts')
 </div>
 @else
@@ -43,14 +41,20 @@
     @stack('styles')
 </head>
 
-<body class="panel-superadmin">
+@php
+    $autoCollapseSidebar = request()->routeIs('superadmin.dashboard') || request()->routeIs('superadmin.guest')
+        || request()->routeIs('superadmin.admins') || request()->routeIs('superadmin.approvers')
+        || request()->routeIs('superadmin.requests') || request()->routeIs('superadmin.settings');
+@endphp
+<body class="panel-superadmin {{ $autoCollapseSidebar ? 'sidebar-collapsed' : '' }}" data-auto-collapse-sidebar="{{ $autoCollapseSidebar ? '1' : '0' }}">
+<script>document.body.classList.add('theme-' + (localStorage.getItem('prs-theme') || 'light'));</script>
 
     <div class="container">
-        <div class="sidebar" id="sidebar">
+        <div class="sidebar {{ $autoCollapseSidebar ? 'collapsed' : '' }}" id="sidebar" @if($autoCollapseSidebar) aria-expanded="false" @endif>
             <div class="sidebar-header">
                 <h2><span class="material-icons">shield</span><span class="sidebar-label">PRS Admin</span></h2>
-                <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Collapse sidebar">
-                    <span class="material-icons">chevron_left</span>
+                <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="{{ $autoCollapseSidebar ? 'Expand sidebar' : 'Collapse sidebar' }}">
+                    <span class="material-icons">{{ $autoCollapseSidebar ? 'chevron_right' : 'chevron_left' }}</span>
                 </button>
             </div>
             @php $u = auth()->user(); @endphp
@@ -63,7 +67,7 @@
             </div>
             <div class="menu-top">
                 <a href="{{ auth()->check() ? route('superadmin.dashboard') : route('superadmin.guest') }}"
-                    class="{{ request()->routeIs('superadmin.dashboard') ? 'active' : '' }}" title="Overview">
+                    class="{{ request()->routeIs('superadmin.dashboard') || request()->routeIs('superadmin.guest') ? 'active' : '' }}" title="Overview">
                     <span class="material-icons">dashboard</span><span class="sidebar-label">Overview</span>
                 </a>
                 <a href="{{ route('superadmin.admins') }}"
@@ -76,7 +80,7 @@
                 </a>
                 <div class="menu-item has-submenu" data-submenu="all-requests">
                     <a href="{{ route('superadmin.requests') }}"
-                        class="{{ request()->routeIs('superadmin.requests') ? 'active' : '' }}" title="All Requests">
+                        class="{{ request()->routeIs('superadmin.requests') ? 'active' : '' }}" title="All Requests" aria-haspopup="true" aria-expanded="false">
                         <span class="material-icons">inventory_2</span><span class="sidebar-label">All Requests</span>
                         <span class="material-icons sidebar-submenu-chevron">expand_more</span>
                     </a>
@@ -99,11 +103,12 @@
             </div>
             <div class="logout">
                 @auth
-                    <a href="{{ route('logout') }}" class="logout-link-get"
-                        onclick="return confirm('Are you sure you want to logout?')"
-                        style="text-decoration: none; width: 100%;" title="Logout">
-                        <span class="material-icons">logout</span><span class="sidebar-label">Logout</span>
-                    </a>
+                    <form method="POST" action="{{ route('logout') }}" class="logout-form" style="width: 100%; margin: 0;">
+                        @csrf
+                        <button type="submit" class="logout-link-get" onclick="return confirm('Are you sure you want to logout?')" title="Logout">
+                            <span class="material-icons">logout</span><span class="sidebar-label">Logout</span>
+                        </button>
+                    </form>
                 @else
                     <a href="{{ route('home') }}" class="logout-link" title="Sign in">
                         <span class="material-icons">login</span><span class="sidebar-label">Sign in</span>
@@ -111,6 +116,24 @@
                 @endauth
             </div>
         </div>
+        <script>
+            (function(){
+                var s=document.getElementById('sidebar');
+                var b=document.body;
+                var t=document.getElementById('sidebarToggle');
+                var i=t&&t.querySelector('.material-icons');
+                if(b.dataset.autoCollapseSidebar==='1'){
+                    if(s){s.classList.add('collapsed');}
+                    b.classList.add('sidebar-collapsed');
+                    if(i){i.textContent='chevron_right';}
+                }else{
+                    if(s){s.classList.remove('collapsed');}
+                    b.classList.remove('sidebar-collapsed');
+                    if(i){i.textContent='chevron_left';}
+                }
+            })();
+        </script>
+        <div class="sidebar-backdrop" id="sidebarBackdrop" aria-hidden="true"></div>
         <div class="main">
             @if(session('message'))
                 <div class="alert-success">
@@ -129,9 +152,7 @@
                 </div>
             @endif
             @yield('content')
-            <footer class="footer">
-                <p class="copyright">© {{ date('Y') }} Product Request System - DICT</p>
-            </footer>
+            @include('partials.footer')
         </div>
     </div>
 

@@ -1,4 +1,21 @@
-/* Shared UI components */
+/* Shared UI components - system-wide text sizing */
+input:not([type="hidden"]),
+textarea,
+select {
+    font-size: var(--text-input);
+}
+button,
+.btn,
+.btn-sm,
+.btn-primary,
+.btn-secondary,
+.btn-outline,
+.btn-danger,
+.btn-success,
+.btn-cancel {
+    font-size: var(--text-btn);
+}
+
 .card {
     background: var(--card-white);
     padding: 24px;
@@ -8,25 +25,136 @@
     margin-bottom: 24px;
 }
 
+/* Dark request-detail container (REQUEST ID, ITEM, QTY, DATE, STATUS style) */
+.request-detail-card {
+    background: #1e293b;
+    border-radius: 12px;
+    padding: 16px 20px 20px;
+    margin-bottom: 16px;
+}
+.request-detail-card:last-child { margin-bottom: 0; }
+.request-detail-card .view-request-dl,
+#viewRequestModal .request-detail-card .view-request-dl,
+#view-request-modal-overlay .request-detail-card .view-request-dl {
+    display: block !important;
+    grid-template-columns: none !important;
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+}
+.request-detail-card .view-request-dl dt {
+    display: block;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    padding-top: 10px;
+    margin: 0 0 4px 0;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #94a3b8;
+}
+.request-detail-card .view-request-dl dt:first-child {
+    border-top: none;
+    padding-top: 0;
+}
+.request-detail-card .view-request-dl dd {
+    display: block;
+    margin: 0 0 0 0;
+    padding-bottom: 0;
+    color: #e2e8f0;
+    font-size: 14px;
+    font-weight: 500;
+}
+.request-detail-card .view-request-dl dd .badge-rejected {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 9999px;
+    background: #dc2626;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+}
+.request-detail-card .view-request-dl dd .badge-approved {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 9999px;
+    background: #059669;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+}
+.request-detail-card .view-request-dl dd .badge-pending {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 9999px;
+    background: #d97706;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+}
+/* Override modal-specific dl styles so dark card layout and colors win */
+#viewRequestModal .request-detail-card .view-request-dl dt,
+#view-request-modal-overlay .request-detail-card .view-request-dl dt {
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    padding-top: 10px;
+    margin: 0 0 4px 0 !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.04em !important;
+    color: #94a3b8 !important;
+}
+#viewRequestModal .request-detail-card .view-request-dl dt:first-child,
+#view-request-modal-overlay .request-detail-card .view-request-dl dt:first-child {
+    border-top: none;
+    padding-top: 0;
+}
+#viewRequestModal .request-detail-card .view-request-dl dd,
+#view-request-modal-overlay .request-detail-card .view-request-dl dd {
+    display: block !important;
+    margin: 0 !important;
+    padding-bottom: 0 !important;
+    color: #e2e8f0 !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+}
+.request-detail-card .view-request-dl .view-req-rejection-label,
+.request-detail-card .view-request-dl .sa-view-req-rejection-label {
+    border-top-color: rgba(255, 255, 255, 0.12) !important;
+}
+.request-detail-card .view-request-dl .view-req-rejection-value,
+.request-detail-card .view-request-dl .sa-view-req-rejection-value {
+    color: #e2e8f0 !important;
+}
+
 .form-group {
     margin-bottom: 16px;
 }
 
 .form-group label {
     display: block;
-    font-size: 14px;
+    font-size: var(--text-label);
     font-weight: 500;
     margin-bottom: 6px;
     color: var(--text-dark);
 }
 
 .form-group input,
-.form-group textarea {
+.form-group textarea,
+.form-group select {
     width: 100%;
-    padding: 10px 14px;
+    padding: 8px 12px;
     border: 1px solid #e5e7eb;
     border-radius: 8px;
-    font-size: 14px;
+    font-size: var(--text-input);
+    background: #fff;
+    color: var(--text-dark);
+}
+
+.form-group select {
+    cursor: pointer;
+    appearance: auto;
+    max-width: 100%;
 }
 
 .form-group textarea {
@@ -38,9 +166,9 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 10px 18px;
+    padding: 8px 14px;
     border-radius: 8px;
-    font-size: 14px;
+    font-size: var(--text-btn);
     font-weight: 500;
     text-decoration: none;
     border: none;
@@ -65,7 +193,7 @@
 }
 
 .btn-outline:hover {
-    background: #eff6ff;
+    background: transparent;
     color: var(--primary-hover);
 }
 
@@ -91,11 +219,423 @@
     border: 1px solid #a7f3d0;
 }
 
+/* Theme settings (Appearance) block */
+.settings-appearance {
+    padding: 0 24px 24px;
+}
+.settings-appearance .form-group {
+    margin-bottom: 0;
+}
+.settings-appearance .form-group label {
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+.settings-appearance .form-group select {
+    max-width: 220px;
+}
+.settings-appearance .settings-theme-note {
+    margin-top: 10px;
+    font-size: var(--text-sm);
+    line-height: 1.45;
+    color: var(--text-muted);
+}
+
 .alert-success button {
     background: none;
     border: none;
     cursor: pointer;
     color: #047857;
-    font-size: 18px;
+    font-size: var(--text-base);
     padding: 0 4px;
+}
+
+/* Mobile: cards and forms fit narrow screens. Breakpoints: 768, 576, 480, 360, 320 */
+@media (max-width: 768px) {
+    .card {
+        padding: 18px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        padding: 8px 12px;
+        font-size: var(--text-input);
+    }
+    .btn {
+        padding: 8px 14px;
+        font-size: var(--text-btn);
+        min-height: 44px; /* touch target */
+    }
+}
+
+@media (max-width: 576px) {
+    .card {
+        padding: 16px;
+        margin-bottom: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        padding: 14px;
+        margin-bottom: 16px;
+    }
+    .form-group {
+        margin-bottom: 14px;
+    }
+}
+
+@media (max-width: 400px) {
+    .card {
+        padding: 12px;
+        margin-bottom: 14px;
+    }
+    .btn {
+        padding: 8px 12px;
+        font-size: var(--text-sm);
+    }
+}
+
+@media (max-width: 360px) {
+    .card {
+        padding: 12px;
+        margin-bottom: 14px;
+        border-radius: 8px;
+    }
+    .btn {
+        padding: 8px 12px;
+        font-size: var(--text-sm);
+    }
+}
+
+@media (max-width: 320px) {
+    .card {
+        padding: 10px;
+        margin-bottom: 12px;
+    }
+}
+
+/* ========== Shared responsive modals (user, approver, superadmin) ========== */
+@media (max-width: 900px) {
+    .view-request-modal-wrap,
+    .view-request-modal-overlay,
+    .user-view-request-modal-wrap {
+        padding: 12px !important;
+        align-items: center !important;
+        justify-content: center !important;
+        box-sizing: border-box !important;
+    }
+    .view-request-modal-content,
+    #viewRequestModal .view-request-modal-content,
+    #view-request-modal-overlay .view-request-modal,
+    .user-view-request-modal-content,
+    #userViewRequestModal .user-view-request-modal-content {
+        min-width: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        max-height: calc(100vh - 24px) !important;
+        max-height: calc(100dvh - 24px) !important;
+        margin: 0 !important;
+        border-radius: 12px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        overflow: hidden !important;
+    }
+}
+@media (max-width: 768px) {
+    .view-request-modal-wrap,
+    .view-request-modal-overlay,
+    .user-view-request-modal-wrap {
+        padding: 10px !important;
+    }
+    .view-request-modal-content,
+    #viewRequestModal .view-request-modal-content,
+    #view-request-modal-overlay .view-request-modal,
+    .user-view-request-modal-content,
+    #userViewRequestModal .user-view-request-modal-content {
+        max-height: calc(100vh - 20px) !important;
+        max-height: calc(100dvh - 20px) !important;
+    }
+    .view-request-modal-header,
+    #viewRequestModal .view-request-modal-header,
+    #view-request-modal-overlay .view-request-modal .modal-header,
+    .user-view-request-modal-header {
+        padding: 14px 16px !important;
+        flex-shrink: 0 !important;
+    }
+    .view-request-modal-title,
+    #view-request-modal-overlay .view-request-modal .modal-header h3,
+    .user-view-request-modal-title {
+        font-size: 16px !important;
+    }
+    .view-request-modal-close,
+    .view-request-modal-content .view-request-modal-close,
+    #view-request-modal-overlay .view-request-modal .modal-close,
+    .user-view-request-modal-close {
+        min-width: 44px !important;
+        min-height: 44px !important;
+    }
+    .view-request-modal-body,
+    #viewRequestModal .view-request-modal-body,
+    #view-request-modal-overlay .view-request-modal-body,
+    .user-view-request-modal-body {
+        padding: 16px !important;
+        flex: 1 !important;
+        min-height: 0 !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+    .view-request-dl {
+        grid-template-columns: 1fr !important;
+        gap: 8px 0 !important;
+    }
+    .user-view-request-modal-footer {
+        flex-shrink: 0 !important;
+    }
+    .reject-modal-content,
+    #rejectModal .reject-modal-content {
+        width: calc(100% - 24px) !important;
+        max-width: none !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        max-height: calc(100vh - 24px) !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+        padding: 20px 16px 16px !important;
+    }
+    .reject-modal-actions,
+    #rejectModal .reject-modal-actions {
+        flex-wrap: wrap !important;
+        gap: 10px !important;
+    }
+    .btn-reject-modal-cancel,
+    .btn-reject-modal-confirm,
+    #rejectModal .btn-reject-modal-cancel,
+    #rejectModal .btn-reject-modal-confirm {
+        min-height: 44px !important;
+        flex: 1 1 auto !important;
+    }
+    .approve-modal-content,
+    #approveModal .approve-modal-content {
+        width: calc(100% - 24px) !important;
+        max-width: none !important;
+        margin: 12px !important;
+        max-height: calc(100vh - 24px) !important;
+        overflow: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
+        padding: 20px 16px 16px !important;
+    }
+    .approve-modal-actions,
+    #approveModal .approve-modal-actions {
+        flex-wrap: wrap !important;
+        gap: 10px !important;
+    }
+    #approveModal .approve-modal-actions button,
+    .approve-modal-actions button {
+        min-height: 44px !important;
+        flex: 1 1 auto !important;
+    }
+    .modal-overlay {
+        padding: 12px !important;
+    }
+    .modal-box {
+        width: 100% !important;
+        max-width: calc(100% - 24px) !important;
+        max-height: calc(100vh - 24px) !important;
+        overflow: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    .modal-body {
+        flex: 1 !important;
+        min-height: 0 !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+    .modal-footer button,
+    .modal-footer .btn {
+        min-height: 44px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .view-request-modal-wrap,
+    .view-request-modal-overlay,
+    .user-view-request-modal-wrap {
+        padding: 8px !important;
+    }
+    .view-request-modal-content,
+    #viewRequestModal .view-request-modal-content,
+    #view-request-modal-overlay .view-request-modal,
+    .user-view-request-modal-content,
+    #userViewRequestModal .user-view-request-modal-content {
+        max-width: calc(100% - 16px) !important;
+        max-height: calc(100vh - 16px) !important;
+        max-height: calc(100dvh - 16px) !important;
+    }
+    .reject-modal-content,
+    #rejectModal .reject-modal-content {
+        width: calc(100% - 16px) !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        max-height: calc(100vh - 16px) !important;
+        max-height: calc(100dvh - 16px) !important;
+        padding: 16px 12px 12px !important;
+    }
+    .approve-modal-content,
+    #approveModal .approve-modal-content {
+        max-width: calc(100% - 16px) !important;
+        margin: 8px !important;
+        max-height: calc(100vh - 16px) !important;
+        max-height: calc(100dvh - 16px) !important;
+        padding: 16px 12px 12px !important;
+    }
+    .reject-modal-actions,
+    #rejectModal .reject-modal-actions {
+        flex-direction: column !important;
+    }
+    .btn-reject-modal-cancel,
+    .btn-reject-modal-confirm,
+    #rejectModal .btn-reject-modal-cancel,
+    #rejectModal .btn-reject-modal-confirm {
+        width: 100% !important;
+    }
+    .approve-modal-actions,
+    #approveModal .approve-modal-actions {
+        flex-direction: column !important;
+    }
+    #approveModal .approve-modal-actions button,
+    .approve-modal-actions button {
+        width: 100% !important;
+    }
+    .modal-box {
+        max-width: calc(100% - 16px) !important;
+    }
+}
+
+/* Phone: whole modal fits on screen (see full modal) */
+@media (max-width: 480px) {
+    .view-request-modal-wrap,
+    .view-request-modal-overlay,
+    .user-view-request-modal-wrap {
+        padding: 6px !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    .view-request-modal-content,
+    #viewRequestModal .view-request-modal-content,
+    #view-request-modal-overlay .view-request-modal,
+    .user-view-request-modal-content,
+    #userViewRequestModal .user-view-request-modal-content {
+        max-width: calc(100% - 12px) !important;
+        max-height: calc(100vh - 12px) !important;
+        max-height: calc(100dvh - 12px) !important;
+    }
+    .view-request-modal-header,
+    #viewRequestModal .view-request-modal-header,
+    #view-request-modal-overlay .view-request-modal .modal-header,
+    .user-view-request-modal-header {
+        padding: 12px 14px !important;
+    }
+    .view-request-modal-title,
+    #view-request-modal-overlay .view-request-modal .modal-header h3,
+    .user-view-request-modal-title {
+        font-size: 15px !important;
+    }
+    .view-request-modal-body,
+    #viewRequestModal .view-request-modal-body,
+    #view-request-modal-overlay .view-request-modal-body,
+    .user-view-request-modal-body {
+        padding: 12px 14px !important;
+    }
+    .reject-modal-content,
+    #rejectModal .reject-modal-content {
+        width: calc(100% - 12px) !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        max-height: calc(100vh - 12px) !important;
+        max-height: calc(100dvh - 12px) !important;
+    }
+    .approve-modal-content,
+    #approveModal .approve-modal-content {
+        max-width: calc(100% - 12px) !important;
+        max-height: calc(100vh - 12px) !important;
+        max-height: calc(100dvh - 12px) !important;
+    }
+    .modal-box {
+        max-width: calc(100% - 12px) !important;
+        max-height: calc(100vh - 12px) !important;
+        max-height: calc(100dvh - 12px) !important;
+    }
+    #rejectModal .reject-modal-title { font-size: 18px !important; }
+    #rejectModal .reject-modal-textarea { min-height: 80px !important; height: 80px !important; }
+}
+
+/* ========== Mobile: card-style layout + no horizontal scroll (web + mobile) ========== */
+@media (max-width: 768px) {
+    /* Prevent horizontal scroll: constrain width and overflow on main content containers */
+    .main .card,
+    .main .table-card,
+    .main .table-responsive,
+    .main .header-section {
+        max-width: 100%;
+        min-width: 0;
+    }
+    .main .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        /* Only inner table scrolls; wrapper stays within viewport */
+        max-width: 100%;
+    }
+    /* Touch-friendly list and card rows (reference-style: one card per item) */
+    .main a[href].card-list-item,
+    .main .alert-item-link,
+    .main .data-table tbody tr {
+        min-height: 44px;
+    }
+    .main .btn,
+    .main .btn-sm,
+    .main .btn-primary,
+    .main .btn-outline,
+    .main .btn-secondary {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+/* Horizontal “recent” strips: stack vertically on small screens (no horizontal scroll) */
+@media (max-width: 992px) {
+    .recent-items-horizontal,
+    .horizontal-scroll-cards {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        overflow-x: visible;
+        max-width: 100%;
+    }
+    .recent-items-horizontal > *,
+    .horizontal-scroll-cards > * {
+        min-width: 0;
+        flex: 0 0 auto;
+    }
+}
+
+/* Global footer – no background, subtle top border */
+.footer {
+    background: transparent;
+    padding: 20px 24px;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.footer .copyright {
+    font-size: 12px;
+    color: #94a3b8;
+    margin: 0;
 }

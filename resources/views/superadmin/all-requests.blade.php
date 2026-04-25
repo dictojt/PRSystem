@@ -39,42 +39,53 @@
         .all-requests-page .status-filter-dropdown {
             position: relative;
         }
+        .all-requests-page .status-filter-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
         .all-requests-page .status-filter-trigger {
             display: inline-flex;
             align-items: center;
             justify-content: space-between;
-            gap: 12px;
-            min-width: 150px;
-            padding: 10px 14px;
-            font-size: 14px;
+            gap: 10px;
+            min-width: 140px;
+            padding: 8px 12px;
+            font-size: 13px;
             font-weight: 500;
-            color: #1e293b;
+            color: #0f172a;
             background: #fff;
-            border: 1px solid #e2e8f0;
-            border-radius: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
             cursor: pointer;
             box-shadow: 0 1px 2px rgba(0,0,0,.04);
+        }
+        .all-requests-page .status-filter-trigger:hover {
+            border-color: #94a3b8;
         }
         .all-requests-page .status-filter-value {
             flex: 1;
             text-align: left;
         }
         .all-requests-page .status-filter-chevron {
-            width: 16px;
-            height: 16px;
+            width: 18px;
+            height: 18px;
             flex-shrink: 0;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") no-repeat center;
+            color: #64748b;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") no-repeat center;
         }
         .all-requests-page .status-filter-menu {
             position: absolute;
             top: calc(100% + 6px);
-            right: 0;
-            min-width: 180px;
+            left: 0;
+            min-width: 160px;
             padding: 6px;
             background: #fff;
             border: 1px solid #e2e8f0;
-            border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0,0,0,.1);
+            border-radius: 8px;
+            box-shadow: 0 10px 28px rgba(15, 23, 42, 0.14);
             z-index: 50;
             display: none;
         }
@@ -85,20 +96,21 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            padding: 10px 12px;
-            font-size: 14px;
+            padding: 8px 12px;
+            font-size: 13px;
             font-weight: 500;
             color: #334155;
-            border-radius: 8px;
+            border-radius: 6px;
             cursor: pointer;
             text-decoration: none;
             color: inherit;
+            border: 1px solid #e2e8f0;
         }
         .all-requests-page .status-filter-option:hover {
             background: #f1f5f9;
         }
         .all-requests-page .status-filter-option.selected {
-            background: #eff6ff;
+            background: transparent;
             color: #1d4ed8;
         }
         .all-requests-page .status-filter-option-dot {
@@ -106,19 +118,14 @@
             height: 8px;
             border-radius: 50%;
             flex-shrink: 0;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            box-sizing: border-box;
         }
         .all-requests-page .status-dot-all { background: #94a3b8; }
         .all-requests-page .status-dot-pending { background: #f59e0b; }
         .all-requests-page .status-dot-approved { background: #10b981; }
         .all-requests-page .status-dot-rejected { background: #ef4444; }
         .all-requests-page .status-dot-archived { background: #64748b; }
-        .all-requests-page .status-filter-label {
-            font-size: 12px;
-            font-weight: 600;
-            color: #64748b;
-            text-transform: uppercase;
-            letter-spacing: .05em;
-        }
         .all-requests-page .request-row-highlight {
             background: #dbeafe !important;
             box-shadow: inset 0 0 0 1px #60a5fa;
@@ -141,7 +148,7 @@
         .all-requests-actions form {
             display: flex;
             flex: 1;
-            min-width: 32px;
+            min-width: 24px;
         }
 
         .all-requests-actions form .btn-icon {
@@ -151,14 +158,14 @@
         /* Each direct child (button or form) expands to fill space equally */
         .all-requests-actions > .btn-icon {
             flex: 1;
-            min-width: 32px;
+            min-width: 24px;
         }
 
-        /* Icon-only action buttons with tooltip (title) */
+        /* Icon-only action buttons with tooltip (title) - compact size */
         .all-requests-actions .btn-icon {
-            width: 32px;
-            min-width: 32px;
-            height: 32px;
+            width: 24px;
+            min-width: 24px;
+            height: 24px;
             padding: 0;
             display: inline-flex;
             align-items: center;
@@ -171,7 +178,7 @@
             width: auto;
         }
         .all-requests-actions .btn-icon .material-icons {
-            font-size: 18px;
+            font-size: 14px;
         }
 
         .all-requests-actions .btn-view-request-sa {
@@ -251,7 +258,7 @@
             background: rgba(255, 255, 255, 0.3);
         }
         #view-request-modal-overlay .view-request-modal-body {
-            padding: 24px;
+            padding: 24px 24px 28px 24px;
             overflow-y: auto;
             flex: 1;
             min-height: 0;
@@ -290,7 +297,7 @@
             word-break: break-word;
         }
         #view-request-modal-overlay .view-request-modal-footer {
-            padding: 16px 24px;
+            padding: 20px 24px;
             border-top: 1px solid #e2e8f0;
             display: flex;
             align-items: center;
@@ -373,6 +380,21 @@
         #view-request-modal-overlay .sa-view-req-rejection-value {
             margin-top: 10px;
             padding-top: 10px;
+        }
+
+        /* View request modal: fit on tablet/phone */
+        @media (max-width: 900px) {
+            #view-request-modal-overlay {
+                padding: 12px;
+                box-sizing: border-box;
+            }
+            #view-request-modal-overlay .view-request-modal {
+                min-width: 0 !important;
+                max-width: 100% !important;
+                width: 100% !important;
+                max-height: calc(100vh - 24px) !important;
+                max-height: calc(100dvh - 24px) !important;
+            }
         }
 
         /* Edit modal */
@@ -766,6 +788,317 @@
             opacity: 0.6;
             cursor: not-allowed;
         }
+
+        /* ========== Mobile responsive: All Requests ========== */
+        @media (max-width: 768px) {
+            .all-requests-page .header-section {
+                margin-bottom: 18px;
+            }
+            .all-requests-page .header-section h1 {
+                font-size: 20px;
+            }
+            .all-requests-page .header-section p {
+                font-size: 13px;
+            }
+            .table-card.all-requests-table {
+                padding: 14px;
+                border-radius: 14px;
+                max-width: 100%;
+                min-width: 0;
+                overflow-x: hidden;
+                box-sizing: border-box;
+            }
+            .table-card.all-requests-table .card-title-bar {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+                margin-bottom: 14px;
+            }
+            .all-requests-page .status-filter-wrap {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .all-requests-page .status-filter-trigger {
+                min-width: 0;
+                width: 100%;
+            }
+            .table-card.all-requests-table .data-table {
+                width: 100%;
+                max-width: 100%;
+                min-width: 0;
+                box-sizing: border-box;
+            }
+            .table-card.all-requests-table .data-table thead {
+                display: none;
+            }
+            .table-card.all-requests-table .data-table tbody tr {
+                display: block;
+                margin-bottom: 12px;
+                padding: 14px 14px 20px 14px;
+                border: 1px solid #e2e8f0;
+                border-radius: 12px;
+                background: #fff;
+                box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+                max-width: 100%;
+                box-sizing: border-box;
+            }
+            .table-card.all-requests-table .data-table tbody tr:last-child {
+                margin-bottom: 0;
+            }
+            .table-card.all-requests-table .data-table tbody td {
+                display: block;
+                padding: 6px 0 8px;
+                border: none;
+                border-bottom: 1px solid #f1f5f9;
+                font-size: 13px;
+                text-align: left;
+                max-width: 100%;
+                min-width: 0;
+                box-sizing: border-box;
+                word-break: break-word;
+                overflow-wrap: break-word;
+                overflow: hidden;
+            }
+            .table-card.all-requests-table .data-table tbody td .badge,
+            .table-card.all-requests-table .data-table tbody td[data-label="Status"] .badge {
+                max-width: 100% !important;
+                display: inline-block !important;
+                box-sizing: border-box !important;
+                padding: 2px 6px !important;
+                font-size: 10px !important;
+                border-radius: 4px !important;
+                line-height: 1.2 !important;
+                min-width: 0 !important;
+            }
+            .table-card.all-requests-table .data-table tbody td:last-child {
+                border-bottom: none;
+                padding-bottom: 12px;
+            }
+            .table-card.all-requests-table .data-table tbody td::before {
+                content: attr(data-label);
+                display: block;
+                font-size: 10px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.04em;
+                color: #64748b;
+                margin-bottom: 2px;
+            }
+            .table-card.all-requests-table .data-table td.item-cell-truncate {
+                max-width: none;
+                white-space: normal;
+                overflow: visible;
+                text-overflow: clip;
+            }
+            .table-card.all-requests-table .data-table tbody tr.all-requests-empty-row,
+            .table-card.all-requests-table .data-table tbody tr:has(td[colspan]) {
+                padding: 14px;
+            }
+            .table-card.all-requests-table .data-table tbody tr.all-requests-empty-row td,
+            .table-card.all-requests-table .data-table tbody tr:has(td[colspan]) td {
+                display: block;
+                padding: 0;
+                border: none;
+            }
+            .table-card.all-requests-table .data-table tbody tr.all-requests-empty-row td::before,
+            .table-card.all-requests-table .data-table tbody tr:has(td[colspan]) td::before {
+                display: none;
+            }
+            .all-requests-actions {
+                flex-wrap: wrap;
+                gap: 8px;
+                width: 100%;
+                max-width: 100%;
+                min-width: 0;
+                box-sizing: border-box;
+            }
+            .all-requests-actions .btn-icon {
+                min-width: 24px;
+                height: 24px;
+                flex-shrink: 0;
+            }
+            .all-requests-pagination {
+                padding: 12px 14px;
+                max-width: 100%;
+                min-width: 0;
+                box-sizing: border-box;
+            }
+            .all-requests-pagination nav[role="navigation"] {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+                max-width: 100%;
+                min-width: 0;
+            }
+            .all-requests-pagination nav > div:first-child {
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .all-requests-pagination nav > div:last-child {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .all-requests-pagination nav p {
+                word-break: break-word;
+                overflow-wrap: break-word;
+                min-width: 0;
+            }
+            .all-requests-pagination nav > div:last-child > div:last-child {
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+            .all-requests-pagination nav a,
+            .all-requests-pagination nav span[aria-disabled] span,
+            .all-requests-pagination nav span[aria-current="page"] span {
+                min-width: 40px;
+                min-height: 40px;
+            }
+            #view-request-modal-overlay {
+                padding: 10px;
+                align-items: center;
+                justify-content: center;
+                box-sizing: border-box;
+            }
+            #view-request-modal-overlay .view-request-modal {
+                min-width: 0 !important;
+                max-width: 100% !important;
+                width: 100% !important;
+                max-height: calc(100vh - 20px) !important;
+                max-height: calc(100dvh - 20px) !important;
+                border-radius: 12px;
+            }
+            #view-request-modal-overlay .view-request-modal .modal-header {
+                padding: 14px 16px;
+                flex-shrink: 0;
+            }
+            #view-request-modal-overlay .view-request-modal-body {
+                padding: 16px;
+                flex: 1;
+                min-height: 0;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            #view-request-modal-overlay .view-request-section-title {
+                font-size: 12px;
+            }
+            #view-request-modal-overlay .view-request-dl {
+                grid-template-columns: 1fr;
+                gap: 6px 0;
+                font-size: 14px;
+            }
+            #view-request-modal-overlay .view-request-modal .modal-close {
+                min-width: 44px;
+                min-height: 44px;
+            }
+            #view-request-modal-overlay .view-request-modal-footer {
+                padding: 12px 16px;
+                flex-direction: column;
+                align-items: stretch;
+            }
+            #view-request-modal-overlay .view-request-modal-footer-actions {
+                margin-left: 0;
+                justify-content: flex-end;
+                flex-wrap: wrap;
+            }
+            .edit-request-modal-overlay {
+                padding: 12px;
+                align-items: flex-end;
+            }
+            .edit-request-modal-overlay.is-open {
+                display: flex;
+            }
+            .edit-request-modal {
+                max-width: 100%;
+                max-height: 90vh;
+                overflow-y: auto;
+                border-radius: 12px 12px 0 0;
+            }
+            .edit-request-modal .modal-header,
+            .edit-request-modal .modal-body,
+            .edit-request-modal .modal-footer {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+            .edit-request-modal .modal-footer {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .edit-request-modal .btn {
+                min-height: 44px;
+            }
+            .confirm-modal-overlay {
+                padding: 12px;
+                align-items: flex-end;
+            }
+            .confirm-modal-overlay.is-open {
+                display: flex;
+            }
+            .confirm-modal {
+                max-width: 100%;
+                max-height: 90vh;
+                overflow-y: auto;
+                border-radius: 12px 12px 0 0;
+            }
+            .confirm-modal .modal-header,
+            .confirm-modal .modal-body,
+            .confirm-modal .modal-footer {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+            .confirm-modal .modal-footer {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .confirm-modal .btn {
+                min-height: 44px;
+            }
+        }
+        @media (max-width: 480px) {
+            .all-requests-page .header-section h1 {
+                font-size: 18px;
+            }
+            .table-card.all-requests-table {
+                padding: 12px;
+            }
+            .table-card.all-requests-table .data-table tbody tr {
+                padding: 12px;
+            }
+            .table-card.all-requests-table .data-table tbody td {
+                font-size: 12px;
+            }
+            .table-card.all-requests-table .data-table tbody td[data-label="Actions"] {
+                padding-top: 10px;
+            }
+            .all-requests-actions {
+                flex-direction: row;
+                justify-content: flex-start;
+            }
+            .all-requests-actions .btn-icon {
+                min-width: 24px;
+                height: 24px;
+            }
+            .all-requests-pagination nav a,
+            .all-requests-pagination nav span[aria-disabled] span,
+            .all-requests-pagination nav span[aria-current="page"] span {
+                min-width: 36px;
+                min-height: 36px;
+                padding: 6px 10px;
+                font-size: 13px;
+            }
+        }
+        @media (max-width: 380px) {
+            .all-requests-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .all-requests-actions .btn-icon,
+            .all-requests-actions form .btn-icon {
+                width: 100%;
+                min-width: 0;
+            }
+        }
     </style>
 @endpush
 @section('content')
@@ -783,7 +1116,7 @@
         <div class="card-title-bar" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
             <h2 style="margin: 0; font-size: 14px; font-weight: 600; color: #334155; text-transform: uppercase; letter-spacing: .05em;">Requests</h2>
             <div class="status-filter-wrap">
-                <span class="status-filter-label">Filter by status</span>
+                <span class="status-filter-label">Status</span>
                 <div class="status-filter-dropdown" id="superadmin-status-filter-dropdown">
                     <button type="button" class="status-filter-trigger" id="superadmin-status-filter-trigger" aria-haspopup="listbox" aria-expanded="false" aria-label="Filter by status">
                         @php
@@ -826,8 +1159,8 @@
                     <th>Requestor</th>
                     <th>Item</th>
                     <th>Qty</th>
-                    <th>Status</th>
                     <th>Date</th>
+                    <th>Status</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -842,11 +1175,12 @@
                         data-request-id="{{ e($req->request_id) }}" data-status="{{ e($req->status) }}"
                         data-requestor="{{ e($req->user?->name ?? '—') }}" data-date="{{ $req->created_at?->format('M d, Y') }}"
                         data-decided-at="{{ e($decidedAt) }}" data-decided-by="{{ e($decidedBy) }}" data-rejection-reason="{{ e($req->rejection_reason ?? '') }}" data-approved-id="{{ e($req->approved_id ?? '') }}">
-                        <td>{{ $req->status === 'Approved' && $req->approved_id ? $req->approved_id : $req->request_id }}</td>
-                        <td>{{ $req->user?->name ?? '—' }}</td>
-                        <td class="item-cell-truncate" title="{{ e($req->item_name) }}">{{ $req->item_name }}</td>
-                        <td>{{ $req->quantity ?? 1 }}</td>
-                        <td>
+                        <td data-label="ID">{{ $req->status === 'Approved' && $req->approved_id ? $req->approved_id : $req->request_id }}</td>
+                        <td data-label="Requestor">{{ $req->user?->name ?? '—' }}</td>
+                        <td data-label="Item" class="item-cell-truncate" title="{{ e($req->item_name) }}">{{ $req->item_name }}</td>
+                        <td data-label="Qty">{{ $req->quantity ?? 1 }}</td>
+                        <td data-label="Date">{{ $req->created_at?->format('M d, Y') }}</td>
+                        <td data-label="Status">
                             @if($req->status === 'Pending')
                                 <span class="badge badge-pending">Pending</span>
                             @elseif($req->status === 'Approved')
@@ -855,8 +1189,7 @@
                                 <span class="badge badge-rejected">Rejected</span>
                             @endif
                         </td>
-                        <td>{{ $req->created_at?->format('M d, Y') }}</td>
-                        <td>
+                        <td data-label="Actions">
                             <div class="all-requests-actions">
                                 <button type="button" class="btn-sm btn-icon btn-view-request-sa" title="View details" aria-label="View request details"
                                     data-request-id="{{ $req->status === 'Approved' && $req->approved_id ? e($req->approved_id) : e($req->request_id) }}"
@@ -874,7 +1207,7 @@
                         </td>
                     </tr>
                 @empty
-                    <tr>
+                    <tr class="all-requests-empty-row">
                         <td colspan="7" style="text-align: center; padding: 40px; color: #94a3b8;">
                             @if(($filter ?? 'all') === 'archived')
                                 No archived requests.
@@ -1025,28 +1358,34 @@
             <div class="view-request-modal-body">
                 <section class="view-request-section">
                     <h3 class="view-request-section-title">Request Details</h3>
-                    <dl class="view-request-dl">
-                        <dt>Request ID</dt><dd id="sa-view-req-id">—</dd>
-                        <dt>Requestor</dt><dd id="sa-view-req-requestor">—</dd>
-                        <dt>Request date</dt><dd id="sa-view-req-date">—</dd>
-                    </dl>
+                    <div class="request-detail-card">
+                        <dl class="view-request-dl">
+                            <dt>Request ID</dt><dd id="sa-view-req-id">—</dd>
+                            <dt>Requestor</dt><dd id="sa-view-req-requestor">—</dd>
+                            <dt>Request date</dt><dd id="sa-view-req-date">—</dd>
+                        </dl>
+                    </div>
                 </section>
                 <section class="view-request-section">
                     <h3 class="view-request-section-title">Item Details</h3>
-                    <dl class="view-request-dl">
-                        <dt>Item name</dt><dd id="sa-view-req-item">—</dd>
-                        <dt>Quantity</dt><dd id="sa-view-req-quantity">—</dd>
-                        <dt>Description</dt><dd id="sa-view-req-description">—</dd>
-                    </dl>
+                    <div class="request-detail-card">
+                        <dl class="view-request-dl">
+                            <dt>Item name</dt><dd id="sa-view-req-item">—</dd>
+                            <dt>Quantity</dt><dd id="sa-view-req-quantity">—</dd>
+                            <dt>Description</dt><dd id="sa-view-req-description">—</dd>
+                        </dl>
+                    </div>
                 </section>
                 <section class="view-request-section">
                     <h3 class="view-request-section-title">Status &amp; Decision</h3>
-                    <dl class="view-request-dl">
-                        <dt>Status</dt><dd id="sa-view-req-status">—</dd>
-                        <dt>Decided</dt><dd id="sa-view-req-decided-at">—</dd>
-                        <dt>By</dt><dd id="sa-view-req-decided-by">—</dd>
-                        <dt class="sa-view-req-rejection-label">Rejection reason</dt><dd class="sa-view-req-rejection-value" id="sa-view-req-rejection-reason">—</dd>
-                    </dl>
+                    <div class="request-detail-card">
+                        <dl class="view-request-dl">
+                            <dt>Status</dt><dd id="sa-view-req-status">—</dd>
+                            <dt>Decided</dt><dd id="sa-view-req-decided-at">—</dd>
+                            <dt>By</dt><dd id="sa-view-req-decided-by">—</dd>
+                            <dt class="sa-view-req-rejection-label">Rejection reason</dt><dd class="sa-view-req-rejection-value" id="sa-view-req-rejection-reason">—</dd>
+                        </dl>
+                    </div>
                 </section>
             </div>
             <div class="view-request-modal-footer">
@@ -1242,7 +1581,11 @@
                             document.getElementById('sa-view-req-quantity').textContent = qty;
                             document.getElementById('sa-view-req-description').textContent = desc;
                             document.getElementById('sa-view-req-date').textContent = date;
-                            document.getElementById('sa-view-req-status').textContent = status;
+                            var statusEl = document.getElementById('sa-view-req-status');
+                            if (status === 'Rejected') statusEl.innerHTML = '<span class="badge-rejected">Rejected</span>';
+                            else if (status === 'Approved') statusEl.innerHTML = '<span class="badge-approved">Approved</span>';
+                            else if (status === 'Pending') statusEl.innerHTML = '<span class="badge-pending">Pending</span>';
+                            else statusEl.textContent = status;
                             document.getElementById('sa-view-req-decided-at').textContent = decidedAt;
                             document.getElementById('sa-view-req-decided-by').textContent = decidedBy;
                             document.getElementById('sa-view-req-rejection-reason').textContent = rejectionReason;

@@ -264,7 +264,11 @@
         }
     </style>
 </head>
-<body class="panel-approver">
+@php
+    $autoCollapseSidebar = true; /* Approver dashboard and tabs are content routes */
+@endphp
+<body class="panel-approver {{ $autoCollapseSidebar ? 'sidebar-collapsed' : '' }}" data-auto-collapse-sidebar="{{ $autoCollapseSidebar ? '1' : '0' }}">
+<script>document.body.classList.add('theme-' + (localStorage.getItem('prs-theme') || 'light'));</script>
     <!-- Reject modal -->
  
 <div id="rejectModal" class="reject-modal" role="dialog" aria-modal="true" aria-labelledby="rejectModalTitle" aria-hidden="true">
@@ -294,11 +298,11 @@
 </div>
 
 <div class="container">
-    <div class="sidebar" id="sidebar">
+    <div class="sidebar {{ $autoCollapseSidebar ? 'collapsed' : '' }}" id="sidebar" @if($autoCollapseSidebar) aria-expanded="false" @endif>
         <div class="sidebar-header">
             <h2><span class="material-icons">verified_user</span><span class="sidebar-label">PRS Approver</span></h2>
-            <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="Collapse sidebar">
-                <span class="material-icons">chevron_left</span>
+            <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="{{ $autoCollapseSidebar ? 'Expand sidebar' : 'Collapse sidebar' }}">
+                <span class="material-icons">{{ $autoCollapseSidebar ? 'chevron_right' : 'chevron_left' }}</span>
             </button>
         </div>
         @php $u = auth()->user(); @endphp
@@ -322,12 +326,20 @@
             <a href="{{ $approverDashboard }}?tab=approved" class="{{ ($tab ?? '') === 'approved' ? 'active' : '' }}" title="All request">
                 <span class="material-icons">list_alt</span><span class="sidebar-label">All request</span>
             </a>
+            @auth
+            <a href="{{ route('approver.settings') }}" class="" title="Settings">
+                <span class="material-icons">settings</span><span class="sidebar-label">Settings</span>
+            </a>
+            @endauth
         </div>
         <div class="logout">
             @auth
-            <a href="{{ route('logout') }}" class="logout-link-get" onclick="return confirm('Are you sure you want to logout?')" style="text-decoration: none; width: 100%;" title="Logout">
-                <span class="material-icons">logout</span><span class="sidebar-label">Logout</span>
-            </a>
+            <form method="POST" action="{{ route('logout') }}" class="logout-form" style="width: 100%; margin: 0;">
+                @csrf
+                <button type="submit" class="logout-link-get" onclick="return confirm('Are you sure you want to logout?')" title="Logout">
+                    <span class="material-icons">logout</span><span class="sidebar-label">Logout</span>
+                </button>
+            </form>
             @else
             <a href="{{ route('home') }}" class="logout-link" title="Sign in">
                 <span class="material-icons">login</span><span class="sidebar-label">Sign in</span>
@@ -335,7 +347,24 @@
             @endauth
         </div>
     </div>
-
+    <script>
+        (function(){
+            var s=document.getElementById('sidebar');
+            var b=document.body;
+            var t=document.getElementById('sidebarToggle');
+            var i=t&&t.querySelector('.material-icons');
+            if(b.dataset.autoCollapseSidebar==='1'){
+                if(s){s.classList.add('collapsed');}
+                b.classList.add('sidebar-collapsed');
+                if(i){i.textContent='chevron_right';}
+            }else{
+                if(s){s.classList.remove('collapsed');}
+                b.classList.remove('sidebar-collapsed');
+                if(i){i.textContent='chevron_left';}
+            }
+        })();
+    </script>
+    <div class="sidebar-backdrop" id="sidebarBackdrop" aria-hidden="true"></div>
     <div class="main">
         @include('dashboards.partials.approver-main')
     </div>
