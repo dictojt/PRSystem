@@ -119,6 +119,10 @@
             text-transform: uppercase;
             letter-spacing: .05em;
         }
+        .all-requests-page .request-row-highlight {
+            background: #dbeafe !important;
+            box-shadow: inset 0 0 0 1px #60a5fa;
+        }
 
         /* Actions column: flexible so buttons expand to fill remaining space; smaller right gap */
         .all-requests-actions {
@@ -833,7 +837,7 @@
                         $decidedAt = $req->approved_at ? $req->approved_at->format('M d, Y H:i') : ($req->rejected_at ? $req->rejected_at->format('M d, Y H:i') : '');
                         $decidedBy = $req->status === 'Approved' ? ($req->approvedBy?->name ?? '—') : ($req->status === 'Rejected' ? ($req->rejectedBy?->name ?? '—') : '');
                     @endphp
-                    <tr class="request-row" data-id="{{ $req->id }}" data-item-name="{{ e($req->item_name) }}"
+                    <tr class="request-row" data-id="{{ $req->id }}" data-request-row-id="{{ e($req->request_id) }}" data-item-name="{{ e($req->item_name) }}"
                         data-quantity="{{ $req->quantity ?? 1 }}" data-description="{{ e($req->description ?? '') }}"
                         data-request-id="{{ e($req->request_id) }}" data-status="{{ e($req->status) }}"
                         data-requestor="{{ e($req->user?->name ?? '—') }}" data-date="{{ $req->created_at?->format('M d, Y') }}"
@@ -1084,6 +1088,21 @@
                         }
                     });
                 }
+            })();
+        </script>
+        <script>
+            (function () {
+                var focusRequest = @json((string) request('focus_request', ''));
+                if (!focusRequest) return;
+
+                var targetRow = document.querySelector('tr[data-request-row-id="' + focusRequest + '"]');
+                if (!targetRow) return;
+
+                targetRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                targetRow.classList.add('request-row-highlight');
+                setTimeout(function () {
+                    targetRow.classList.remove('request-row-highlight');
+                }, 2200);
             })();
         </script>
         <script>

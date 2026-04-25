@@ -34,12 +34,41 @@ class AuthController extends Controller
     public function handleGoogleCallback()
     {
         $callbackUrl = route('auth.google.callback');
+        $googleUser = null;
         try {
             // Use same callback URL as the redirect (current request origin) so token exchange matches when using ngrok
             $googleUser = Socialite::driver('google')->redirectUrl($callbackUrl)->user();
         } catch (\Laravel\Socialite\Two\InvalidStateException $e) {
-            Log::warning('Google OAuth InvalidStateException', ['message' => $e->getMessage()]);
-            return redirect()->route('home')->with('error', 'Session expired or invalid. Please try signing in again.');
+            Log::warning('Google OAuth InvalidStateException', [
+                'message' => $e->getMessage(),
+                'host' => request()->getHost(),
+                'is_secure' => request()->secure(),
+                'user_agent' => request()->userAgent(),
+            ]);
+
+            // Browser privacy protections (common on Brave localhost) can drop callback state cookies.
+            // In local/dev only, retry once with stateless mode to keep sign-in working.
+            $canFallbackStateless = app()->environment('local') || in_array(request()->getHost(), ['localhost', '127.0.0.1'], true);
+            if (! $canFallbackStateless) {
+                return redirect()->route('home')->with('error', 'Session expired or invalid. Please try signing in again.');
+            }
+
+            try {
+                $googleUser = Socialite::driver('google')
+                    ->redirectUrl($callbackUrl)
+                    ->stateless()
+                    ->user();
+                Log::info('Google OAuth stateless fallback succeeded', [
+                    'host' => request()->getHost(),
+                ]);
+            } catch (\Exception $fallbackError) {
+                Log::error('Google OAuth stateless fallback failed', [
+                    'message' => $fallbackError->getMessage(),
+                    'trace' => $fallbackError->getTraceAsString(),
+                    'callback_url' => $callbackUrl,
+                ]);
+                return redirect()->route('home')->with('error', 'Session expired or invalid. Please try signing in again.');
+            }
         } catch (\Exception $e) {
             Log::error('Google OAuth error', [
                 'message' => $e->getMessage(),

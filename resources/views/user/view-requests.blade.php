@@ -43,6 +43,10 @@
 .view-requests-page .status-filter-label {
     font-size: 12px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: .05em;
 }
+.view-requests-page .request-row-highlight {
+    background: #dbeafe !important;
+    box-shadow: inset 0 0 0 1px #60a5fa;
+}
 </style>
 @endpush
 
@@ -110,7 +114,7 @@
             </thead>
             <tbody>
                 @foreach($requests as $req)
-                <tr>
+                <tr data-request-row-id="{{ e($req['request_id']) }}">
                     <td><strong>{{ ($req['status'] ?? '') === 'Approved' && !empty($req['approved_id'] ?? null) ? $req['approved_id'] : $req['request_id'] }}</strong></td>
                     <td>{{ $req['item_name'] }}</td>
                     <td class="description-cell">
@@ -217,6 +221,18 @@
             }
         });
     });
+
+    var focusRequest = @json((string) request('focus_request', ''));
+    if (focusRequest) {
+        var targetRow = table.querySelector('tr[data-request-row-id="' + focusRequest + '"]');
+        if (targetRow) {
+            targetRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            targetRow.classList.add('request-row-highlight');
+            setTimeout(function() {
+                targetRow.classList.remove('request-row-highlight');
+            }, 2200);
+        }
+    }
 })();
 </script>
 @endpush

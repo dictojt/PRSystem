@@ -241,6 +241,9 @@ body.panel-approver .data-table tbody tr:hover {
 </div>
 @endif
 
+@if(($tab ?? '') === '')
+    @include('dashboards.partials.approver-overview')
+@else
 @if(($tab ?? '') !== 'approved')
 <div class="stat-cards">
     <div class="stat-card">
@@ -318,7 +321,7 @@ body.panel-approver .data-table tbody tr:hover {
         </thead>
         <tbody>
             @forelse(($listRequests ?? []) as $req)
-            <tr>
+            <tr data-request-row-id="{{ e($req['request_id'] ?? $req['id']) }}">
                 <td>{{ (($req['status'] ?? '') === 'Approved' && !empty($req['approved_id'] ?? null)) ? $req['approved_id'] : ($req['request_id'] ?? $req['id']) }}</td>
                 <td>{{ $req['requestor'] }}</td>
                 <td class="item-cell-truncate" title="{{ e($req['item'] . (isset($req['quantity']) && $req['quantity'] > 1 ? ' (Qty: ' . $req['quantity'] . ')' : '')) }}">{{ $req['item'] }}</td>
@@ -418,6 +421,14 @@ body.panel-approver .data-table tbody tr:hover {
     <div class="reject-reason-popover-body"></div>
 </div>
 @endif
+@endif
+
+<style>
+.request-row-highlight {
+    background: #dbeafe !important;
+    box-shadow: inset 0 0 0 1px #60a5fa;
+}
+</style>
 
 {{-- View request details modal (approver) - styled like Super Admin View Modal --}}
 <style>
@@ -629,6 +640,27 @@ body.panel-approver .data-table tbody tr:hover {
         }
     });
     popover.addEventListener('click', function(e) { e.stopPropagation(); });
+})();
+</script>
+<script>
+(function() {
+    var focusRequest = @json((string) request('focus_request', ''));
+    if (!focusRequest) return;
+
+    var rows = document.querySelectorAll('tr[data-request-row-id]');
+    var targetRow = null;
+    rows.forEach(function(row) {
+        if (row.getAttribute('data-request-row-id') === focusRequest) {
+            targetRow = row;
+        }
+    });
+    if (!targetRow) return;
+
+    targetRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    targetRow.classList.add('request-row-highlight');
+    setTimeout(function() {
+        targetRow.classList.remove('request-row-highlight');
+    }, 2200);
 })();
 </script>
 <script>

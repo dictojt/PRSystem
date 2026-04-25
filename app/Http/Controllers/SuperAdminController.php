@@ -70,7 +70,7 @@ class SuperAdminController extends Controller
     public function admins()
     {
         $admins = User::orderBy('name')
-            ->get(['id', 'name', 'email', 'role', 'is_active', 'created_at']);
+            ->get(['id', 'name', 'email', 'role', 'is_active', 'created_at', 'updated_at']);
 
         return view('superadmin.admins', compact('admins'));
     }
@@ -104,6 +104,7 @@ class SuperAdminController extends Controller
                 ->orderByDesc('archived_at')
                 ->paginate(15)->withQueryString();
         } else {
+            $focusRequestId = (string) $request->query('focus_request', '');
             $query = PrsRequest::with(['user', 'approvedBy', 'rejectedBy'])
                 ->notArchived()
                 ->orderByDesc('created_at');
@@ -111,6 +112,11 @@ class SuperAdminController extends Controller
             if ($filter !== 'all') {
                 $statusMap = ['pending' => 'Pending', 'approved' => 'Approved', 'rejected' => 'Rejected'];
                 $query->where('status', $statusMap[$filter]);
+            }
+
+            // When coming from dashboard notifications, pin the focused request to page 1.
+            if ($focusRequestId !== '') {
+                $query->orderByRaw('CASE WHEN request_id = ? THEN 0 ELSE 1 END', [$focusRequestId]);
             }
 
             $requests = $query->paginate(15)->withQueryString();
